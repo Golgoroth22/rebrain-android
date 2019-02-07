@@ -1,32 +1,38 @@
 package com.falin.valentin.foodapp
 
 fun main() {
-//    val s1 = Star();
-//    s1.toString().also(::println)
-//    val s2 = Star(name = "Dagoba", age = 1396);
-//    s2.toString().also(::println)
-//
-//    val p1 = Planet("Alderaan", true, age = 4678)
-//    p1.toString().also(::println)
-//    val p2 = Planet(name = "Tatooine", size = 3, isAlive = true, sputnikName = "Naboo")
-//    p2.toString().also(::println)
-//
-//    val g1 = Galaxy()
-//    g1 + s1
-//
-//    val g2 = s1 + s2
-//
-//    val u1 = Universe.instance
+    val s1 = Star();
+    s1.toString().also(::println)
+    val s2 = Star(name = "Dagoba", age = 1396);
+    s2.toString().also(::println)
+
+    val p1 = Planet("Alderaan", true, age = 4678)
+    p1.toString().also(::println)
+    val p2 = Planet(name = "Tatooine", size = 3, isAlive = true, sputnikName = "Naboo")
+    p2.toString().also(::println)
+
+    val g1 = Galaxy()
+    g1 + s1
+
+    val g2 = s1 + s2
+    g2.starsList.size.also(::println)
+    val u1 = Universe.instance
 }
 
 
-open class Star(
-    val name: String? = null,
-    var age: Int? = null,
-    val size: Int? = null
-) {
-    constructor() : this(null, null, null) {
+open class Star {
+    var name: String? = null
+    var age: Int? = null
+    var size: Int? = null
+
+    constructor() {
         println("Empty object Star is created.")
+    }
+
+    constructor(name: String? = null, age: Int? = null, size: Int? = null) {
+        this.name = name
+        this.age = age
+        this.size = size
     }
 
     override fun toString(): String {
@@ -34,10 +40,7 @@ open class Star(
     }
 
     operator fun plus(star: Star): Galaxy {
-        val galaxy = Galaxy()
-        galaxy + star
-        galaxy + this
-        return galaxy
+        return Galaxy(star, this)
     }
 }
 
@@ -56,10 +59,16 @@ class Planet(
 
 class Galaxy {
     val starsList: MutableList<Star> = mutableListOf()
-}
 
-operator fun Galaxy.plus(star: Star) {
-    starsList.add(star)
+    constructor()
+
+    constructor(star1: Star, star2: Star) {
+        starsList.addAll(listOf(star1, star2))
+    }
+
+    operator fun plus(star: Star) {
+        starsList.add(star)
+    }
 }
 
 class Universe private constructor() {
