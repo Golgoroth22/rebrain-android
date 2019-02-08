@@ -1,22 +1,25 @@
 package com.falin.valentin.foodapp
 
 fun main() {
-    val s1 = Star();
-    s1.toString().also(::println)
-    val s2 = Star(name = "Dagoba", age = 1396);
-    s2.toString().also(::println)
+//    val s1 = Star();
+//    s1.toString().also(::println)
+//    val s2 = Star(name = "Dagoba", age = 1396);
+//    s2.toString().also(::println)
 
-    val p1 = Planet("Alderaan", true, age = 4678)
+    val p1 = Planet("Alderaan", age = 4678)
+    p1.toString().also(::println)
+    p1.sputnikNameAndAgeInfo.also(::println)
+    p1.inhabitantsNumber = 100
     p1.toString().also(::println)
     val p2 = Planet(name = "Tatooine", size = 3, isAlive = true, sputnikName = "Naboo")
-    p2.toString().also(::println)
+    p2.sputnikNameAndAgeInfo.also(::println)
 
-    val g1 = Galaxy()
-    g1 + s1
-
-    val g2 = s1 + s2
-    g2.starsList.size.also(::println)
-    val u1 = Universe.instance
+//    val g1 = Galaxy()
+//    g1 + s1
+//
+//    val g2 = s1 + s2
+//    g2.starsList.size.also(::println)
+//    val u1 = Universe.instance
 }
 
 
@@ -49,6 +52,13 @@ class Planet(
     age: Int? = null,
     size: Int? = null
 ) : Star(name, age, size) {
+
+    var inhabitantsNumber = 0
+        set(value) {
+            if (value > 0) isAlive = true
+            field = value
+        }
+    val sputnikNameAndAgeInfo: String = "sputnikName='$sputnikName', age=$age"
 
     override fun toString(): String {
         return "Planet(${super.toString()}, sputnikName='$sputnikName', isAlive=$isAlive)"
