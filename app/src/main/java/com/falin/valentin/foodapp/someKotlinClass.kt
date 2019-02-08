@@ -39,9 +39,7 @@ open class Star {
         return "name=$name, age=$age, size=$size"
     }
 
-    operator fun plus(star: Star): Galaxy {
-        return Galaxy(star, this)
-    }
+    operator fun plus(star: Star) = Galaxy(star, this)
 }
 
 class Planet(
@@ -57,12 +55,10 @@ class Planet(
     }
 }
 
-class Galaxy {
+class Galaxy() {
     val starsList: MutableList<Star> = mutableListOf()
 
-    constructor()
-
-    constructor(star1: Star, star2: Star) {
+    constructor(star1: Star, star2: Star) : this() {
         starsList.addAll(listOf(star1, star2))
     }
 
