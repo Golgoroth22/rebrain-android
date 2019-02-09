@@ -67,7 +67,6 @@ class Planet(
         return "Planet(${super.toString()}, sputnikName='$sputnikName', isAlive=$isAlive)"
     }
 }
-}
 
 class Galaxy() {
     val starsList: MutableList<Star> = mutableListOf()
