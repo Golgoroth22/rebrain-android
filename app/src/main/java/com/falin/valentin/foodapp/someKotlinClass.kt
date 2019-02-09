@@ -7,12 +7,12 @@ fun main() {
 //    s2.toString().also(::println)
 
     val p1 = Planet("Alderaan", age = 4678)
-    p1.toString().also(::println)
     p1.sputnikNameAndAgeInfo.also(::println)
+    p1.toString().also(::println)
     p1.inhabitantsNumber = 100
     p1.toString().also(::println)
-    val p2 = Planet(name = "Tatooine", size = 3, isAlive = true, sputnikName = "Naboo")
-    p2.sputnikNameAndAgeInfo.also(::println)
+    p1.inhabitantsNumber = 0
+    p1.toString().also(::println)
 
 //    val g1 = Galaxy()
 //    g1 + s1
@@ -56,13 +56,17 @@ class Planet(
     var inhabitantsNumber = 0
         set(value) {
             if (value > 0) isAlive = true
+            if (value == 0) isAlive = false
             field = value
         }
-    val sputnikNameAndAgeInfo: String = "sputnikName='$sputnikName', age=$age"
+    val sputnikNameAndAgeInfo: String by lazy {
+        "sputnikName='$sputnikName', age=$age"
+    }
 
     override fun toString(): String {
         return "Planet(${super.toString()}, sputnikName='$sputnikName', isAlive=$isAlive)"
     }
+}
 }
 
 class Galaxy() {
