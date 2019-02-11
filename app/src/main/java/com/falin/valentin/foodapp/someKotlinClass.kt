@@ -1,87 +1,85 @@
 package com.falin.valentin.foodapp
 
 fun main() {
-//    val s1 = Star();
-//    s1.toString().also(::println)
-//    val s2 = Star(name = "Dagoba", age = 1396);
-//    s2.toString().also(::println)
+    val a = Animal.createAnimalByNoise(Animal.Mouse().noise)
+    val b = Animal.Mouse(name = "Mickey")
+    a?.makeNoise()
+    a.hashCode().also(::println)
+    a?.equals(b).also(::println)
 
-    val p1 = Planet("Alderaan", age = 4678)
-    p1.sputnikNameAndAgeInfo.also(::println)
-    p1.toString().also(::println)
-    p1.inhabitantsNumber = 100
-    p1.toString().also(::println)
-    p1.inhabitantsNumber = 0
-    p1.toString().also(::println)
-
-//    val g1 = Galaxy()
-//    g1 + s1
-//
-//    val g2 = s1 + s2
-//    g2.starsList.size.also(::println)
-//    val u1 = Universe.instance
+    val c = Animal.Dog()
+    checkAnimal(c)
 }
 
-
-open class Star {
-    var name: String? = null
-    var age: Int? = null
-    var size: Int? = null
-
-    constructor() {
-        println("Empty object Star is created.")
-    }
-
-    constructor(name: String? = null, age: Int? = null, size: Int? = null) {
-        this.name = name
-        this.age = age
-        this.size = size
-    }
-
-    override fun toString(): String {
-        return "name=$name, age=$age, size=$size"
-    }
-
-    operator fun plus(star: Star) = Galaxy(star, this)
-}
-
-class Planet(
-    val sputnikName: String? = null,
-    var isAlive: Boolean? = null,
-    name: String? = null,
-    age: Int? = null,
-    size: Int? = null
-) : Star(name, age, size) {
-
-    var inhabitantsNumber = 0
-        set(value) {
-            if (value > 0) isAlive = true
-            if (value == 0) isAlive = false
-            field = value
-        }
-    val sputnikNameAndAgeInfo: String by lazy {
-        "sputnikName='$sputnikName', age=$age"
-    }
-
-    override fun toString(): String {
-        return "Planet(${super.toString()}, sputnikName='$sputnikName', isAlive=$isAlive)"
-    }
-}
-
-class Galaxy() {
-    val starsList: MutableList<Star> = mutableListOf()
-
-    constructor(star1: Star, star2: Star) : this() {
-        starsList.addAll(listOf(star1, star2))
-    }
-
-    operator fun plus(star: Star) {
-        starsList.add(star)
-    }
-}
-
-class Universe private constructor() {
+sealed class Animal {
     companion object {
-        val instance = Universe()
+        fun createAnimalByNoise(noise: String): Animal? {
+            return when (noise) {
+                Cat().noise -> Cat()
+                Dog().noise -> Dog()
+                Mouse().noise -> Mouse()
+                else -> null
+            }
+        }
+    }
+
+    abstract val noise: String
+    abstract val name: String?
+    abstract var age: Int?
+
+    fun makeNoise() = println(noise)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Animal) return false
+
+        if (noise != other.noise) return false
+        if (name != other.name) return false
+        if (age != other.age) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = noise.hashCode()
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + (age ?: 0)
+        return result
+    }
+
+
+    data class Cat(
+        override val noise: String = "Meow!!!",
+        override val name: String? = null,
+        override var age: Int? = null
+    ) : Animal()
+
+    data class Dog(
+        override val noise: String = "Woof!! Woof!!!",
+        override var age: Int? = null,
+        override val name: String? = null
+    ) : Animal()
+
+    data class Mouse(
+        override val noise: String = "Squeak!!!",
+        override val name: String? = null,
+        override var age: Int? = null
+    ) : Animal()
+}
+
+fun checkAnimal(animal: Animal) {
+    when (animal) {
+        is Animal.Cat -> {
+            print("It is Cat! Cat says - ")
+            animal.makeNoise()
+        }
+        is Animal.Dog -> {
+            print("It is Dog! Dog says - ")
+            animal.makeNoise()
+        }
+        else -> print("Animal is undefined")
     }
 }
+
+
+
