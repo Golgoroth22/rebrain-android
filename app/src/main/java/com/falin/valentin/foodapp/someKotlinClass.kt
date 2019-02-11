@@ -55,8 +55,7 @@ class Planet(
 
     var inhabitantsNumber = 0
         set(value) {
-            if (value > 0) isAlive = true
-            if (value == 0) isAlive = false
+            isAlive = value > 0
             field = value
         }
     val sputnikNameAndAgeInfo: String by lazy {
