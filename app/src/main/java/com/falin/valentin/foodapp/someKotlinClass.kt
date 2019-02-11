@@ -16,7 +16,7 @@ fun main() {
 
     val g2 = s1 + s2
     g2.starsList.size.also(::println)
-    val u1 = Universe.instance
+    val u1 = Universe
 }
 
 
@@ -67,8 +67,4 @@ class Galaxy() {
     }
 }
 
-class Universe private constructor() {
-    companion object {
-        val instance = Universe()
-    }
-}
+object Universe
