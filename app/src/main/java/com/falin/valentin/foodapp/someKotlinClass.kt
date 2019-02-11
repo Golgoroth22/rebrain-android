@@ -1,14 +1,14 @@
 package com.falin.valentin.foodapp
 
 fun main() {
-    val a = Animal.createAnimalByNoise(Animal.Mouse().noise)
-    val b = Animal.Mouse(name = "Mickey")
-    a?.makeNoise()
-    a.hashCode().also(::println)
-    a?.equals(b).also(::println)
-
-    val c = Animal.Dog()
-    checkAnimal(c)
+//    val a = Animal.createAnimalByNoise(Animal.Mouse().noise)
+//    val b = Animal.Mouse(name = "Mickey")
+//    a?.makeNoise()
+//    a.hashCode().also(::println)
+//    a?.equals(b).also(::println)
+//
+//    val c = Animal.Dog()
+//    checkAnimal(c)
 }
 
 sealed class Animal {
