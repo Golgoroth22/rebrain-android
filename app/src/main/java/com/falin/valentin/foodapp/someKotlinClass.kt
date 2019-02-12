@@ -29,25 +29,6 @@ sealed class Animal {
 
     fun makeNoise() = println(noise)
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is Animal) return false
-
-        if (noise != other.noise) return false
-        if (name != other.name) return false
-        if (age != other.age) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = noise.hashCode()
-        result = 31 * result + (name?.hashCode() ?: 0)
-        result = 31 * result + (age ?: 0)
-        return result
-    }
-
-
     data class Cat(
         override val noise: String = "Meow!!!",
         override val name: String? = null,
