@@ -1,9 +1,10 @@
 package com.falin.valentin.foodapp
 
 fun main() {
-//    val a = Animal.createAnimalByNoise(Animal.Mouse().noise)
-//    val b = Animal.Mouse(name = "Mickey")
-//    a?.makeNoise()
+    val a = Animal.createAnimalByNoise(Animal.Dog().noise)
+    val b = Animal.Mouse(name = "Mickey", age = 2)
+    b.makeNoise()
+    a?.makeNoise()
 //    a.hashCode().also(::println)
 //    a?.equals(b).also(::println)
 //
@@ -27,7 +28,7 @@ sealed class Animal {
     abstract val name: String?
     abstract var age: Int?
 
-    fun makeNoise() = println(noise)
+    fun makeNoise() = print(noise).also { println(" Said $name $age y. old") }
 
     data class Cat(
         override val noise: String = "Meow!!!",
