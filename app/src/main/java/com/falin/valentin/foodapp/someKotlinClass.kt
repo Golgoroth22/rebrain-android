@@ -4,7 +4,9 @@ fun main() {
     val a = Animal.createAnimalByNoise(Animal.Dog().noise)
     val b = Animal.Mouse(name = "Mickey", age = 2)
     b.makeNoise()
-    a?.makeNoise()
+    b.listener = { print(" Or not %)") }
+    b.makeNoise()
+    //a?.makeNoise()
 //    a.hashCode().also(::println)
 //    a?.equals(b).also(::println)
 //
@@ -27,8 +29,9 @@ sealed class Animal {
     abstract val noise: String
     abstract val name: String?
     abstract var age: Int?
+    var listener = { a: Animal -> println(" Said ${a.name} ${a.age} y. old") }
 
-    fun makeNoise() = print(noise).also { println(" Said $name $age y. old") }
+    fun makeNoise() = print(noise).also { run(listener) }
 
     data class Cat(
         override val noise: String = "Meow!!!",
