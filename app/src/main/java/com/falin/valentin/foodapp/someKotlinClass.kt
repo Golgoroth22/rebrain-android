@@ -31,7 +31,7 @@ sealed class Animal {
     abstract var age: Int?
     var listener = { a: Animal -> println(" Said ${a.name} ${a.age} y. old") }
 
-    fun makeNoise() = print(noise).also { run(listener) }
+    fun makeNoise() = print(noise).also { listener.invoke(this) }
 
     data class Cat(
         override val noise: String = "Meow!!!",
