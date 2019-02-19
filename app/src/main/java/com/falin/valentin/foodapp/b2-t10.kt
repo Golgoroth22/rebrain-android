@@ -2,14 +2,14 @@ package com.falin.valentin.foodapp
 
 
 fun main() {
-    val animals = listOf(
-        Animal.Cat(name = "Anna"),
-        Animal.Dog(name = "Mike"),
-        Animal.Mouse(name = "Mickey")
-    )
-
-    animals.animalListToString(ShowBy.NOISE, " + ").also(::println)
-    animals.animalListToString({ this.noise }, " + ").also(::println)
+//    val animals = listOf(
+//        Animal.Cat(name = "Anna"),
+//        Animal.Dog(name = "Mike"),
+//        Animal.Mouse(name = "Mickey")
+//    )
+//
+//    animals.animalListToString(ShowBy.NOISE, " + ").also(::println)
+//    animals.animalListToString({ this.noise }, " + ").also(::println)
 }
 
 fun List<Animal>.animalListToString(showBy: ShowBy? = null, separator: String = ""): String {
