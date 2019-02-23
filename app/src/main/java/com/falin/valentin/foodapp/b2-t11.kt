@@ -38,11 +38,8 @@ fun main() {
 
 fun getDogs(map: Map<Planet, List<Animal>>): List<Animal.Dog> {
     val result: MutableList<Animal.Dog> = mutableListOf()
-    map.forEach { i ->
-        if (i.key.name?.length ?: 0 > 5) {
-            i.value.forEach { if (it is Animal.Dog) result.add(it) }
-        }
-    }
+    map.filter { it.key.name?.length ?: 0 > 5 }
+        .forEach { it.value.forEach { if (it is Animal.Dog) result.add(it) } }
     return result
 }
 
