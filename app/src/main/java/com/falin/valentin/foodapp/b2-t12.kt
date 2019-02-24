@@ -1,31 +1,26 @@
 package com.falin.valentin.foodapp
 
 fun main() {
-//    val map = mapOf(
-//        "age" to "25a",
-//        "name" to "Bob",
-//        "gender" to "m"
-//    )
-//
-//    val p = Person.from(map)
-//    print(p.age)
+    val map = mapOf(
+        "age" to "25a",
+        "name" to "Bob",
+        "gender" to "f"
+    )
 
-    House().getAdults.also { it.forEach { println(it.name) } }
+    val p = Person.from(map)
+    println(p.age)
+
+//    House().getAdults.also { it.forEach { println(it.name) } }
+    print(p.gender)
 }
 
-enum class Gender(s: String) {
+enum class Gender(val id: String) {
     MALE("m"),
     FEMALE("f");
 
-    var id: String? = null
-
     companion object {
-        fun getById(id: String?): Gender {
-            return when (id) {
-                "m" -> MALE
-                "f" -> FEMALE
-                else -> throw IllegalStateException()
-            }
+        fun getById(id: String): Gender? {
+            return values().singleOrNull { it.id == id }
         }
     }
 }
@@ -77,10 +72,12 @@ class House {
                     p.age in 14..17 -> when (p.gender) {
                         Gender.MALE -> "Hello boy!"
                         Gender.FEMALE -> "Hello girl!"
+                        null -> "Hello stranger!"
                     }
                     else -> when (p.gender) {
                         Gender.MALE -> "Hello  man!"
                         Gender.FEMALE -> "Hello  woman!"
+                        null -> "Hello stranger!"
                     }
                 }
             )
@@ -91,14 +88,14 @@ class House {
 open class Person(
     val name: String,
     var age: Int,
-    val gender: Gender
+    val gender: Gender?
 ) {
     companion object {
         fun from(personMap: Map<String, String>): Person {
             return Person(
                 personMap["name"].toString(),
                 personMap["age"]?.toIntOrNull() ?: 0,
-                Gender.getById(personMap["gender"])
+                Gender.getById(personMap["gender"].toString())
             )
         }
     }
