@@ -4,7 +4,7 @@ fun main() {
     val map = mapOf(
         "age" to "25a",
         "name" to "Bob",
-        "gender" to "f"
+        "gender" to "fa"
     )
 
     val p = Person.from(map)
@@ -20,7 +20,7 @@ enum class Gender(val id: String) {
 
     companion object {
         fun getById(id: String): Gender? {
-            return values().singleOrNull { it.id == id }
+            return values().firstOrNull { it.id == id }
         }
     }
 }
@@ -86,16 +86,16 @@ class House {
 }
 
 open class Person(
-    val name: String,
+    val name: String?,
     var age: Int,
     val gender: Gender?
 ) {
     companion object {
         fun from(personMap: Map<String, String>): Person {
             return Person(
-                personMap["name"].toString(),
+                personMap["name"],
                 personMap["age"]?.toIntOrNull() ?: 0,
-                Gender.getById(personMap["gender"].toString())
+                Gender.getById(personMap.getValue("gender"))
             )
         }
     }
