@@ -1,7 +1,9 @@
-package com.falin.valentin.foodapp
+package com.falin.valentin.foodapp.screen.splash
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.falin.valentin.foodapp.MainActivityIntent
+import com.falin.valentin.foodapp.R
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -17,7 +19,6 @@ class SplashActivity : AppCompatActivity() {
     private fun getSplashScreenDuration() = 5000L
 
     private fun waitABitAndGoNext() {
-        val splashScreenDuration = getSplashScreenDuration()
         Timer("GoNext", false).schedule(getSplashScreenDuration()) { routeToSomePage() }
     }
 
