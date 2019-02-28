@@ -17,7 +17,6 @@ class SplashActivity : AppCompatActivity() {
     private fun getSplashScreenDuration() = 5000L
 
     private fun waitABitAndGoNext() {
-        val splashScreenDuration = getSplashScreenDuration()
         Timer("GoNext", false).schedule(getSplashScreenDuration()) { routeToSomePage() }
     }
 
