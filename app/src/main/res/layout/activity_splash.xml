@@ -10,7 +10,7 @@
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/logotype"
+            android:src="@drawable/splash_logo"
             android:paddingTop="263dp"
             android:paddingRight="59dp"
             android:paddingLeft="59dp"

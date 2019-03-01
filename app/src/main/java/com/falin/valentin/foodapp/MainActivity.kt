@@ -13,6 +13,6 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun Context.MainActivityIntent(): Intent {
+fun Context.getMainActivityIntent(): Intent {
     return Intent(this, MainActivity::class.java)
 }
