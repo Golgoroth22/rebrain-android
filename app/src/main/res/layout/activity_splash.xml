@@ -12,8 +12,8 @@
             android:layout_height="match_parent"
             android:src="@drawable/splash_logo"
             android:paddingTop="263dp"
-            android:paddingRight="59dp"
-            android:paddingLeft="59dp"
+            android:paddingEnd="59dp"
+            android:paddingStart="59dp"
             android:paddingBottom="338sp"
             android:contentDescription="@string/splash_image"/>
 
