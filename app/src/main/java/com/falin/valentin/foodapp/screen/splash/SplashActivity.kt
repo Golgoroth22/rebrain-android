@@ -8,21 +8,14 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class SplashActivity : AppCompatActivity(), CoroutineScope {
-    lateinit var job: Job
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
+        get() = Dispatchers.Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        job = Job()
         setContentView(R.layout.activity_splash)
 
         waitABitAndGoNext()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        job.cancel()
     }
 
     private fun getSplashScreenDuration() = 5000L
