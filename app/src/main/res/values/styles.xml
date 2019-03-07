@@ -13,4 +13,8 @@
         <item name="colorPrimaryDark">#1A000000</item>
     </style>
 
+    <style name="AppTheme.IntroTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/colorIntroBackground</item>
+        <item name="colorPrimaryDark">#1A000000</item>
+    </style>
 </resources>
