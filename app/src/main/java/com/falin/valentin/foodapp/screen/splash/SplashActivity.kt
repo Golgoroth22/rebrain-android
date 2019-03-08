@@ -32,7 +32,6 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
         if (prefHelper.introInfo) {
             MainActivity.start(this)
         } else {
-            prefHelper.introInfo = true
             IntroActivity.start(this)
         }
         finish()

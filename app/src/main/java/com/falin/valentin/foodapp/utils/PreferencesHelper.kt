@@ -3,6 +3,12 @@ package com.falin.valentin.foodapp.utils
 import android.content.Context
 import android.preference.PreferenceManager
 
+/**
+ * This class help to work with SharedPreferences.
+ *
+ * @property context Context of our application.
+ * @param introInfo Method for storing information in SharedPreferences about viewing an IntroActivity.
+ */
 class PreferencesHelper(context: Context) {
     companion object {
         private const val INTRO_INFO = "data.source.prefs.INTRO_INFO"
