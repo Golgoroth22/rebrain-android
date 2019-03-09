@@ -11,12 +11,13 @@ class IntroActivity : AppCompatActivity() {
     companion object {
         fun start(context: Context) {
             context.startActivity(Intent(context, IntroActivity::class.java))
-            if (!PreferencesHelper(context).introInfo) PreferencesHelper(context).introInfo = true
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
+
+        if (!PreferencesHelper(this).introInfo) PreferencesHelper(this).introInfo = true
     }
 }
