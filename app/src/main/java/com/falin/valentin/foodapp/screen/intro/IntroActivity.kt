@@ -7,6 +7,9 @@ import android.os.Bundle
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 
+/**
+ * Class-activity for work with IntroActivity and showing it.
+ */
 class IntroActivity : AppCompatActivity() {
     companion object {
         fun start(context: Context) {
@@ -17,7 +20,12 @@ class IntroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
+        checkIsIntroActivityViewed()
+    }
 
-        if (!PreferencesHelper(this).introInfo) PreferencesHelper(this).introInfo = true
+    private fun checkIsIntroActivityViewed() {
+        if (!PreferencesHelper(this).introInfo) {
+            PreferencesHelper(this).introInfo = true
+        }
     }
 }

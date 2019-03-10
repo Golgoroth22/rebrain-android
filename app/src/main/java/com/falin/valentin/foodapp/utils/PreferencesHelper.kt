@@ -7,7 +7,7 @@ import android.preference.PreferenceManager
  * This class help to work with SharedPreferences.
  *
  * @property context Context of our application.
- * @param introInfo Method for storing information in SharedPreferences about viewing an IntroActivity.
+ * @param introInfo It is for storing information in SharedPreferences about viewing an IntroActivity.
  */
 class PreferencesHelper(context: Context) {
     companion object {
@@ -16,6 +16,7 @@ class PreferencesHelper(context: Context) {
 
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    var introInfo = preferences.getBoolean(INTRO_INFO, false)
+    var introInfo: Boolean
+        get() = preferences.getBoolean(INTRO_INFO, false)
         set(value) = preferences.edit().putBoolean(INTRO_INFO, value).apply()
 }

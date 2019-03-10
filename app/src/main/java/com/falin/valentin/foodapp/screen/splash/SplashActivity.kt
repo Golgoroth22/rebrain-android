@@ -9,6 +9,9 @@ import com.falin.valentin.foodapp.utils.PreferencesHelper
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * Class-activity for work with SplashActivity and showing it.
+ */
 class SplashActivity : AppCompatActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
