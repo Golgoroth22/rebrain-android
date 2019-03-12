@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,6 +8,22 @@
 
     <style name="AppTheme.SplashLauncherTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="colorPrimaryDark">#1A000000</item>
     </style>
 
+    <style name="AppTheme.IntroTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/colorIntroBackground</item>
+        <item name="colorPrimaryDark">#1A000000</item>
+    </style>
+
+    <style name="IntroDescriptionTextStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="IntroTitleTextStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

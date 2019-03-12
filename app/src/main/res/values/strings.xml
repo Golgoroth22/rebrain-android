@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">FoodApp</string>
     <string name="splash_image">Splash Image</string>
+    <string name="intro_description">В этом приложении можно собрать продуктовую корзину по самым низким ценам</string>
+    <string name="intro_title">Cервис для покупки еды</string>
+    <string name="intro_logo_text">Intro Logo</string>
+    <string name="intro_status">intro_status</string>
 </resources>
