@@ -25,12 +25,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation deps.kotlin.stdlib
-    implementation deps.coroutines.core
-    implementation deps.coroutines.android
-    implementation deps.appcompat_v7.appcompat_v7
-    implementation deps.constraint.layout
-    testImplementation deps.junit
-    androidTestImplementation deps.support.test_runner
-    androidTestImplementation deps.support.test_espresso_core
-    implementation deps.timber.timber
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    implementation "com.android.support:appcompat-v7:$appcompat_v7"
+    implementation "com.android.support.constraint:constraint-layout:$constraint"
+    testImplementation "junit:junit:$junit"
+    androidTestImplementation "com.android.support.test:runner:$test_runner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$test_espresso_core"
+    implementation "com.jakewharton.timber:timber:$timber"
 }

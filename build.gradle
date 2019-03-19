@@ -3,6 +3,16 @@
 buildscript {
     apply from: 'config.gradle'
     addRepos(repositories)
+    ext {
+        appcompat_v7 = versions.appcompat_v7
+        coroutines = versions.coroutines
+        constraint = versions.constraint
+        junit = versions.junit
+        kotlin = versions.kotlin
+        timber = versions.timber
+        test_runner = versions.test_runner
+        test_espresso_core = versions.test_espresso_core
+    }
     dependencies {
         classpath deps.android_gradle_plugin
         classpath deps.kotlin.plugin
