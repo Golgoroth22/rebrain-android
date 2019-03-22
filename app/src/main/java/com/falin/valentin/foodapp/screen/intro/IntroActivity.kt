@@ -20,6 +20,7 @@ class IntroActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.e("Intro onCreate")
         setContentView(R.layout.activity_intro)
         checkIsIntroActivityViewed()
     }
