@@ -18,36 +18,41 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
         get() = Dispatchers.Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Timber.e("Splash onCreate")
         super.onCreate(savedInstanceState)
+        Timber.e("Splash onCreate")
         setContentView(R.layout.activity_splash)
 
         waitABitAndGoNext()
     }
 
     override fun onStart() {
-        Timber.e("Splash onStart")
         super.onStart()
+        Timber.e("Splash onStart")
     }
 
     override fun onResume() {
-        Timber.e("Splash onResume")
         super.onResume()
+        Timber.e("Splash onResume")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Timber.e("Splash onRestart")
     }
 
     override fun onPause() {
-        Timber.e("Splash onPause")
         super.onPause()
+        Timber.e("Splash onPause")
     }
 
     override fun onStop() {
-        Timber.e("Splash onStop")
         super.onStop()
+        Timber.e("Splash onStop")
     }
 
     override fun onDestroy() {
-        Timber.e("Splash onDestroy")
         super.onDestroy()
+        Timber.e("Splash onDestroy")
     }
 
     private fun getSplashScreenDuration() = 500L

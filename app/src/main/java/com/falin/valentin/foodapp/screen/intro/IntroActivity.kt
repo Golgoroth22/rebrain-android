@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.utils.PreferencesHelper
+import timber.log.Timber
 
 /**
  * Class-activity for work with IntroActivity and showing it.
@@ -21,6 +22,36 @@ class IntroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
         checkIsIntroActivityViewed()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Timber.e("Intro onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.e("Intro onResume")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Timber.e("Intro onRestart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.e("Intro onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.e("Intro onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.e("Intro onDestroy")
     }
 
     private fun checkIsIntroActivityViewed() {
