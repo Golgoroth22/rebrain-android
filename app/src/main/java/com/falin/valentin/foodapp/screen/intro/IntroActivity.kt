@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
+import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.utils.PreferencesHelper
+import kotlinx.android.synthetic.main.activity_intro.*
 
 /**
  * Class-activity for work with IntroActivity and showing it.
@@ -21,6 +23,10 @@ class IntroActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
         checkIsIntroActivityViewed()
+        intro_root_layout.setOnClickListener {
+            MainActivity.start(applicationContext)
+            finishAffinity()
+        }
     }
 
     private fun checkIsIntroActivityViewed() {

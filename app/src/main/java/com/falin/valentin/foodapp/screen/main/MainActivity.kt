@@ -1,9 +1,10 @@
-package com.falin.valentin.foodapp
+package com.falin.valentin.foodapp.screen.main
 
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.falin.valentin.foodapp.R
 
 class MainActivity : AppCompatActivity() {
     companion object {
