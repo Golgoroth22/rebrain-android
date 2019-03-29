@@ -12,10 +12,12 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".screen.intro.IntroActivity"
+            android:taskAffinity="@string/start_tusk"
             android:theme="@style/AppTheme.IntroTheme" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".screen.main.MainActivity" />
         <activity
             android:name=".screen.splash.SplashActivity"
+            android:taskAffinity="@string/start_tusk"
             android:theme="@style/AppTheme.SplashLauncherTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,7 +1,7 @@
 package com.falin.valentin.foodapp.screen.splash
 
 import android.os.Bundle
-import com.falin.valentin.foodapp.MainActivity
+import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.intro.IntroActivity
