@@ -2,6 +2,7 @@
     <!--Main app-->
     <string name="app_name">FoodApp</string>
     <string name="start_tusk">start.tusk</string>
+    
     <!--Activity`s-->
     <!--Splash layout-->
     <string name="splash_image">Splash Image</string>
