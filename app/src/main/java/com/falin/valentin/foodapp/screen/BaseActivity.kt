@@ -6,6 +6,7 @@ import timber.log.Timber
 
 /**
  * Parent class-activity with Timber logging in lifecycle methods.
+ *
  */
 open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
