@@ -11,7 +11,7 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseFragment
 import kotlinx.android.synthetic.main.fragment_carousel.view.*
 
-private const val ARG_PARAM = "param"
+private const val IMG_ID = "image_id"
 
 /**
  * [Fragment] subclass to work with CarouselFragment and showing it.
@@ -21,7 +21,7 @@ class CarouselFragment : BaseFragment() {
     companion object {
         fun newInstance(imageId: Int): CarouselFragment {
             val bundle = Bundle()
-            bundle.putInt(ARG_PARAM, imageId)
+            bundle.putInt(IMG_ID, imageId)
             val fragment = CarouselFragment()
             fragment.arguments = bundle
             return fragment
@@ -33,7 +33,7 @@ class CarouselFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_carousel, container, false)
-        arguments?.getInt(ARG_PARAM)?.let { rootView.carousel_image_view.setImageResource(it) }
+        arguments?.getInt(IMG_ID)?.let { rootView.carousel_image_view.setImageResource(it) }
         return rootView
     }
 

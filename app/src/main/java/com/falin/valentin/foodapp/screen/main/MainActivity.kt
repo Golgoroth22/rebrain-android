@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselPageAdapter
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -17,15 +16,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var pageAdapter: CarouselStatePageAdapter
-//    private lateinit var pageAdapter : CarouselPageAdapter
     private lateinit var viewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        pageAdapter = CarouselStatePageAdapter(supportFragmentManager)
-        viewPager = findViewById(R.id.main_view_pager)
 
         val picList = listOf(
             R.drawable.food_1,
@@ -39,8 +34,8 @@ class MainActivity : AppCompatActivity() {
             R.drawable.food_9,
             R.drawable.food_10
         )
-        pageAdapter.addPicturesList(picList)
-
+        pageAdapter = CarouselStatePageAdapter(supportFragmentManager, picList)
+        viewPager = findViewById(R.id.main_view_pager)
         viewPager.adapter = pageAdapter
     }
 }

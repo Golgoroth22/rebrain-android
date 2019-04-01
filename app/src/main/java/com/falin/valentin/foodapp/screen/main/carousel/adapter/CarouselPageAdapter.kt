@@ -9,8 +9,7 @@ import com.falin.valentin.foodapp.screen.main.carousel.CarouselFragment
  * [FragmentPagerAdapter] subclass to work with CarouselPageAdapter.
  *
  */
-class CarouselPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-    private val picturesList: ArrayList<Int> = ArrayList()
+class CarouselPageAdapter(fm: FragmentManager, private val picturesList: List<Int>) : FragmentPagerAdapter(fm) {
 
     override fun getItem(p0: Int): Fragment {
         return CarouselFragment.newInstance(picturesList[p0])
@@ -18,9 +17,5 @@ class CarouselPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getCount(): Int {
         return picturesList.size
-    }
-
-    fun addPicturesList(list: List<Int>) {
-        picturesList.addAll(list)
     }
 }
