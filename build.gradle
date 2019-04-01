@@ -5,6 +5,7 @@ buildscript {
     addRepos(repositories)
     ext {
         appcompat_v7 = versions.appcompat_v7
+        androidx_ktx = versions.androidx_ktx
         coroutines = versions.coroutines
         constraint = versions.constraint
         junit = versions.junit
