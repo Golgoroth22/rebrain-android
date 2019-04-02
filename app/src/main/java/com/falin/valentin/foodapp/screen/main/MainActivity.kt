@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.viewpager.widget.ViewPager
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var pageAdapter: CarouselStatePageAdapter
-    private lateinit var viewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity() {
             R.drawable.food_10
         )
         pageAdapter = CarouselStatePageAdapter(supportFragmentManager, picList)
-        viewPager = findViewById(R.id.main_view_pager)
-        viewPager.adapter = pageAdapter
+        main_view_pager.adapter = pageAdapter
     }
 }

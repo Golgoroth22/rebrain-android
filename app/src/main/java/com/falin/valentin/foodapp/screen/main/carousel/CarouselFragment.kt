@@ -1,6 +1,5 @@
 package com.falin.valentin.foodapp.screen.main.carousel
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -35,5 +34,4 @@ class CarouselFragment : BaseFragment() {
         arguments?.getInt(IMG_ID)?.let { rootView.carousel_image_view.setImageResource(it) }
         return rootView
     }
-
 }

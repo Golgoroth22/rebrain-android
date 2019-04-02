@@ -10,7 +10,7 @@ buildscript {
         constraint = versions.constraint
         junit = versions.junit
         kotlin = versions.kotlin
-        support_v4 = versions.support_v4
+        androidx = versions.androidx
         timber = versions.timber
         test_runner = versions.test_runner
         test_espresso_core = versions.test_espresso_core

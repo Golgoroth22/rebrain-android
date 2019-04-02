@@ -12,8 +12,8 @@ import com.falin.valentin.foodapp.screen.main.carousel.CarouselFragment
 class CarouselStatePageAdapter(fm: FragmentManager, private val picturesList: List<Int>) :
     FragmentStatePagerAdapter(fm) {
 
-    override fun getItem(p0: Int): Fragment {
-        return CarouselFragment.newInstance(picturesList[p0])
+    override fun getItem(pictureId: Int): Fragment {
+        return CarouselFragment.newInstance(picturesList[pictureId])
     }
 
     override fun getCount(): Int {
