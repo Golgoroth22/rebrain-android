@@ -1,14 +1,18 @@
 <resources>
-    <!--Main app-->
+    <!-- Main app -->
     <string name="app_name">FoodApp</string>
     <string name="start_tusk">start.tusk</string>
 
-    <!--Activity`s-->
-    <!--Splash layout-->
+    <!-- Activity`s -->
+    <!-- Splash layout -->
     <string name="splash_image">Splash Image</string>
-    <!--Intro layout-->
+    <!-- Intro layout -->
     <string name="intro_description">В этом приложении можно собрать продуктовую корзину по самым низким ценам</string>
     <string name="intro_title">Cервис для покупки еды</string>
     <string name="intro_logo_text">Intro Logo</string>
     <string name="intro_status">intro_status</string>
+
+    <!-- Fragment`s -->
+    <!-- Carousel layout -->
+    <string name="carousel_image">Carousel Image</string>
 </resources>

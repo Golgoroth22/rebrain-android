@@ -24,7 +24,7 @@ class IntroActivity : BaseActivity() {
         setContentView(R.layout.activity_intro)
         checkIsIntroActivityViewed()
         intro_root_layout.setOnClickListener {
-            MainActivity.start(applicationContext)
+            MainActivity.start(this)
             finishAffinity()
         }
     }
