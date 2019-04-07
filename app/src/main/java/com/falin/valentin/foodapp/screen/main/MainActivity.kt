@@ -2,38 +2,30 @@ package com.falin.valentin.foodapp.screen.main
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
+import com.falin.valentin.foodapp.screen.BaseActivity
+import com.falin.valentin.foodapp.screen.main.carousel.adapter.MainPageAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+/**
+ * [BaseActivity] subclass to work with MainActivity our application and showing it.
+ *
+ */
+class MainActivity : BaseActivity() {
     companion object {
         fun start(context: Context) {
             context.startActivity(Intent(context, MainActivity::class.java))
         }
     }
 
-    private lateinit var pageAdapter: CarouselStatePageAdapter
+    private lateinit var pageAdapter: MainPageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val picList = listOf(
-            R.drawable.food_1,
-            R.drawable.food_2,
-            R.drawable.food_3,
-            R.drawable.food_4,
-            R.drawable.food_5,
-            R.drawable.food_6,
-            R.drawable.food_7,
-            R.drawable.food_8,
-            R.drawable.food_9,
-            R.drawable.food_10
-        )
-        pageAdapter = CarouselStatePageAdapter(supportFragmentManager, picList)
+        pageAdapter = MainPageAdapter(supportFragmentManager)
         main_view_pager.adapter = pageAdapter
     }
 }
