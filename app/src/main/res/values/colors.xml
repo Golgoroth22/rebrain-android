@@ -7,4 +7,5 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorIntroBackground">#5bd056</color>
+    <color name="colorCustomButtonText">#39b54a</color>
 </resources>

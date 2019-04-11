@@ -7,10 +7,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Text.Regular"/>
+    <style name="Text.Regular" />
 
     <style name="Text.Regular.16">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Text.Regular.12">
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Text.Bold.22">
@@ -23,5 +27,9 @@
 
     <style name="Text.Bold.22.White">
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Text.Regular.12.Green">
+        <item name="android:textColor">@color/colorCustomButtonText</item>
     </style>
 </resources>
