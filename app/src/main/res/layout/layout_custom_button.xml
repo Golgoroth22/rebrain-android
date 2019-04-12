@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:textAlignment="center"
-            android:textAppearance="@style/Text.Regular.12.Green"
+            android:textAppearance="@style/Text.Regular.12.Grey"
             tools:text="Caption of the Image" />
 
     </LinearLayout>

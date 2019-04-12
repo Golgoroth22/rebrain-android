@@ -32,4 +32,8 @@
     <style name="Text.Regular.12.Green">
         <item name="android:textColor">@color/colorCustomButtonText</item>
     </style>
+
+    <style name="Text.Regular.12.Grey">
+        <item name="android:textColor">@color/colorAppAccent</item>
+    </style>
 </resources>

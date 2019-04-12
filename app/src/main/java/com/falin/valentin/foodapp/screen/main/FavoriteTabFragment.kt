@@ -23,8 +23,6 @@ class FavoriteTabFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_favorite_tab, container, false)
-        rootView.custom_button.custom_button_text.text = getString(R.string.custom_button_text_favorite)
-        rootView.custom_button.custom_button_image.setImageResource(R.drawable.favorites_on)
         return rootView
     }
 }
