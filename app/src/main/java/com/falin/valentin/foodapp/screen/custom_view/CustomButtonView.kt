@@ -15,7 +15,7 @@ class CustomButtonView @JvmOverloads constructor(context: Context, attrs: Attrib
     init {
         inflate(context, R.layout.layout_custom_button, this)
 
-        custom_button_linear.orientation = LinearLayout.VERTICAL
+        custom_button_linear.orientation = VERTICAL
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.CustomButtonView)
         custom_button_image.setImageDrawable(attributes.getDrawable(R.styleable.CustomButtonView_image))
