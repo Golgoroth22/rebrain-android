@@ -14,14 +14,4 @@
         android:gravity="center"
         android:text="Fragment Favotite Tab" />
 
-    <com.falin.valentin.foodapp.screen.custom_view.CustomButtonView
-        android:id="@+id/custom_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
