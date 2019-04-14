@@ -9,12 +9,13 @@ import com.falin.valentin.foodapp.R
  * [LinearLayout] subclass to work with custom view [CustomBottomBarView] and showing it.
  *
  */
-class CustomBottomBarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+class CustomBottomBarView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) :
     LinearLayout(context, attrs) {
+
     init {
         inflate(context, R.layout.layout_custom_bottom_bar, this)
-
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.CustomBottomBarView)
-        attributes.recycle()
     }
 }

@@ -10,8 +10,12 @@ import kotlinx.android.synthetic.main.layout_custom_button.view.*
  * [LinearLayout] subclass to work with custom view [CustomButtonView] and showing it.
  *
  */
-class CustomButtonView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+class CustomButtonView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) :
     LinearLayout(context, attrs) {
+
     init {
         inflate(context, R.layout.layout_custom_button, this)
 
