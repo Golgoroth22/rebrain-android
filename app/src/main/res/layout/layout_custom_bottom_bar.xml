@@ -13,6 +13,7 @@
         android:layout_weight="1"
         android:gravity="center"
         app:image="@drawable/main_off"
+        app:labelPosition="first"
         app:text="@string/custom_button_text_main" />
 
     <com.falin.valentin.foodapp.screen.custom_view.CustomButtonView
@@ -22,6 +23,7 @@
         android:layout_weight="1"
         android:gravity="center"
         app:image="@drawable/favorites_off"
+        app:labelPosition="second"
         app:text="@string/custom_button_text_favorite" />
 
 </LinearLayout>

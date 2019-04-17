@@ -4,10 +4,14 @@
     <declare-styleable name="CustomButtonView">
         <attr name="image" format="reference" />
         <attr name="text" format="string" />
+        <attr name="labelPosition" format="enum">
+            <enum name="first" value="1" />
+            <enum name="second" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="CustomBottomBarView">
-        <attr name="button_main" format="reference" />
-        <attr name="button_favorite" format="reference" />
+        <attr name="button_main" value="1" />
+        <attr name="button_favorite" value="2" />
     </declare-styleable>
 </resources>
