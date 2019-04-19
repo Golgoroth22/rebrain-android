@@ -3,9 +3,9 @@ package com.falin.valentin.foodapp.screen.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
+import com.falin.valentin.foodapp.screen.custom_view.MainTabType
 import com.falin.valentin.foodapp.screen.custom_view.onClickCustomListener
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.MainPageAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,14 +31,20 @@ class MainActivity : BaseActivity() {
         main_activity_view_pager.adapter = pageAdapter
 
         main_activity_custom_bottom_bar.setOnCustomClickListener(object : onClickCustomListener {
-            override fun onClick(view: View?) {
-                when (view?.id) {
-                    R.id.custom_bottom_bar_main_button -> main_activity_view_pager.currentItem =
-                        main_activity_view_pager.currentItem - 1
-                    R.id.custom_bottom_bar_favorite_button -> main_activity_view_pager.currentItem =
-                        main_activity_view_pager.currentItem + 1
+            override fun onClick(tabType: MainTabType) {
+                when (tabType) {
+                    MainTabType.MAIN -> selectMainTabFragment()
+                    MainTabType.FAVORITE -> selectFavoriteTabFragment()
                 }
             }
         })
+    }
+
+    private fun selectFavoriteTabFragment() {
+        main_activity_view_pager.currentItem = 1
+    }
+
+    private fun selectMainTabFragment() {
+        main_activity_view_pager.currentItem = 0
     }
 }
