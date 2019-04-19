@@ -30,7 +30,7 @@
     </style>
 
     <style name="Text.Regular.12.Green">
-        <item name="android:textColor">@color/colorCustomButtonText</item>
+        <item name="android:textColor">@color/colorCustomCheckButtonText</item>
     </style>
 
     <style name="Text.Regular.12.Grey">

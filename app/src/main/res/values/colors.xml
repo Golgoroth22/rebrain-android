@@ -7,5 +7,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorIntroBackground">#5bd056</color>
-    <color name="colorCustomButtonText">#39b54a</color>
+    <color name="colorCustomCheckButtonText">#39b54a</color>
+    <color name="colorCustomUncheckedButtonText">#b4b2b2</color>
+    <color name="colorLineOpacity6">#0F000000</color>
 </resources>

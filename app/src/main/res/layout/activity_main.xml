@@ -11,11 +11,21 @@
         android:id="@+id/main_activity_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/main_activity_custom_bottom_bar"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/main_activity_line"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/colorLineOpacity6"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_custom_bottom_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_view_pager" />
 
     <com.falin.valentin.foodapp.screen.custom_view.CustomBottomBarView
         android:id="@+id/main_activity_custom_bottom_bar"
@@ -25,6 +35,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_activity_view_pager" />
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_line" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
