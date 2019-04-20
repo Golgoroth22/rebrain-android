@@ -15,4 +15,9 @@
     <!-- Fragment`s -->
     <!-- Carousel layout -->
     <string name="carousel_image">Carousel Image</string>
+
+    <!-- Custom Button -->
+    <string name="custom_button_image">Custom Button Image</string>
+    <string name="custom_button_text_main">Главный</string>
+    <string name="custom_button_text_favorite">Избранное</string>
 </resources>

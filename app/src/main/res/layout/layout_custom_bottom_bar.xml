@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/custom_bottom_bar_linear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.falin.valentin.foodapp.screen.custom_view.CustomButtonView
+        android:id="@+id/custom_bottom_bar_main_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        app:isChecked="true"
+        app:off_image="@drawable/main_on"
+        app:on_image="@drawable/main_off"
+        app:text="@string/custom_button_text_main" />
+
+    <com.falin.valentin.foodapp.screen.custom_view.CustomButtonView
+        android:id="@+id/custom_bottom_bar_favorite_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        app:isChecked="false"
+        app:off_image="@drawable/favorites_on"
+        app:on_image="@drawable/favorites_off"
+        app:text="@string/custom_button_text_favorite" />
+
+</LinearLayout>

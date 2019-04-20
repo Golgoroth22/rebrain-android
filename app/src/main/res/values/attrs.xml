@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CustomButtonView">
+        <attr name="on_image" format="reference" />
+        <attr name="off_image" format="reference" />
+        <attr name="text" format="string" />
+        <attr name="isChecked" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomBottomBarView">
+        <attr name="button_main" value="1" />
+        <attr name="button_favorite" value="2" />
+    </declare-styleable>
+</resources>
