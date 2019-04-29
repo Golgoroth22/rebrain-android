@@ -3,7 +3,6 @@ package com.falin.valentin.foodapp.screen.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.FragmentTransaction
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.BaseFragment
@@ -27,31 +26,31 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         val mainTabFragment = MainTabFragment.newInstance()
         val favoriteTabFragment = FavoriteTabFragment.newInstance()
-        val transaction = supportFragmentManager.beginTransaction()
-            .add(R.id.main_activity_frame_layout, favoriteTabFragment)
-            .detach(favoriteTabFragment)
-            .add(R.id.main_activity_frame_layout, mainTabFragment)
-            .commit()
+        attachNewFragmentAndDetachOldFragment(favoriteTabFragment, mainTabFragment)
         main_activity_custom_bottom_bar.setOnCustomClickListener(object : onClickCustomListener {
             override fun onClick(tabType: MainTabType) {
                 when (tabType) {
                     MainTabType.MAIN -> {
-                        attachNewFragment(favoriteTabFragment, mainTabFragment)
+                        attachNewFragmentAndDetachOldFragment(favoriteTabFragment, mainTabFragment)
                     }
                     MainTabType.FAVORITE -> {
-                        attachNewFragment(mainTabFragment, favoriteTabFragment)
+                        attachNewFragmentAndDetachOldFragment(mainTabFragment, favoriteTabFragment)
                     }
                 }
             }
         })
     }
 
-    private fun attachNewFragment(oldFragment: BaseFragment, newFragment: BaseFragment) {
-        if (!oldFragment.isDetached) {
-            val transaction = supportFragmentManager.beginTransaction()
-                .detach(oldFragment)
-                .attach(newFragment)
-                .commit()
+    private fun attachNewFragmentAndDetachOldFragment(oldFragment: BaseFragment, newFragment: BaseFragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        if (supportFragmentManager.findFragmentById(oldFragment.id) != null) {
+            transaction.detach(oldFragment)
         }
+        if (supportFragmentManager.findFragmentById(newFragment.id) == null) {
+            transaction.add(R.id.main_activity_frame_layout, newFragment)
+        } else {
+            transaction.attach(newFragment)
+        }
+        transaction.commit()
     }
 }
