@@ -8,8 +8,5 @@
         <attr name="isChecked" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="CustomBottomBarView">
-        <attr name="button_main" value="1" />
-        <attr name="button_favorite" value="2" />
-    </declare-styleable>
+    <declare-styleable name="CustomBottomBarView" />
 </resources>
