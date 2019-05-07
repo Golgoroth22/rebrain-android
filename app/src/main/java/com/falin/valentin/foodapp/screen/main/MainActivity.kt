@@ -9,6 +9,7 @@ import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.custom_view.MainTabType
 import com.falin.valentin.foodapp.screen.custom_view.onClickCustomListener
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 
 /**
  * [BaseActivity] subclass to work with MainActivity our application and showing it.
@@ -39,6 +40,7 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+        setSupportActionBar(mainTabFragment.initToolbar(custom_toolbar))
     }
 
     private fun attachNewFragmentAndDetachOldFragment(oldFragment: BaseFragment, newFragment: BaseFragment) {
