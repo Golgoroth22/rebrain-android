@@ -49,8 +49,4 @@ class MainTabFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         main_fragment_tab_pager.adapter = pageAdapter
     }
-
-    fun initToolbar(toolbar: Toolbar): Toolbar? {
-        return toolbar.also { toolbar.title = "New title" }
-    }
 }

@@ -40,7 +40,8 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
-        setSupportActionBar(mainTabFragment.initToolbar(custom_toolbar))
+        custom_toolbar.title = getString(R.string.app_name)
+        setSupportActionBar(custom_toolbar)
     }
 
     private fun attachNewFragmentAndDetachOldFragment(oldFragment: BaseFragment, newFragment: BaseFragment) {
