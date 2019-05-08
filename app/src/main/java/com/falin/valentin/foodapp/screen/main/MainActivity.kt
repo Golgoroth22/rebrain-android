@@ -40,6 +40,10 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+        initToolbar()
+    }
+
+    fun initToolbar() {
         custom_toolbar.title = getString(R.string.app_name)
         setSupportActionBar(custom_toolbar)
     }
