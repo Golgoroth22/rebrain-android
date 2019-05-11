@@ -7,6 +7,8 @@
     android:fitsSystemWindows="true"
     tools:context=".screen.main.MainActivity">
 
+    <include layout="@layout/layout_toolbar" />
+
     <FrameLayout
         android:id="@+id/main_activity_frame_layout"
         android:layout_width="match_parent"
