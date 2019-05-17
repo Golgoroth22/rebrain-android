@@ -3,6 +3,10 @@ package com.falin.valentin.foodapp
 import android.app.Application
 import timber.log.Timber
 
+/**
+ *  [Application] subclass to work with our app.
+ *
+ */
 class TimberApp : Application() {
     override fun onCreate() {
         super.onCreate()
