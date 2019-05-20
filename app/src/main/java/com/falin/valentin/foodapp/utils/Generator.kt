@@ -4,23 +4,21 @@ import com.falin.valentin.foodapp.domain.Product
 
 
 /**
- *  Class generator of [Product] objects.
+ *  Class generator of [Any] objects.
  *
  */
 class Generator {
-    private val list: List<Product> by lazy {
+    private val list: List<*> by lazy {
         initProductList()
     }
 
-    private fun initProductList(): List<Product> {
-        val list: MutableList<Product> = mutableListOf()
-        for (i in 1..20) {
-            list.add(Product(i, "Product №$i"))
+    private fun initProductList(): List<Any> {
+        return (1..20).map {
+            Product(1, "Product №$it")
         }
-        return list
     }
 
-    fun getProducts(): List<Product> {
+    fun getProducts(): List<Any?> {
         return list.shuffled()
     }
 }
