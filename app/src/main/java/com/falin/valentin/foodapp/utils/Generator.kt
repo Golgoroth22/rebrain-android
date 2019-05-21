@@ -4,7 +4,7 @@ import com.falin.valentin.foodapp.domain.Product
 
 
 /**
- *  Class generator of [Any] objects.
+ *  Generator class.
  *
  */
 class Generator {
