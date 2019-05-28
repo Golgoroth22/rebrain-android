@@ -29,6 +29,10 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="Text.Bold.22.Black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="Text.Regular.12.Green">
         <item name="android:textColor">@color/colorCustomCheckButtonText</item>
     </style>
