@@ -14,7 +14,7 @@ class Generator {
 
     private fun initProductList(): List<Any> {
         return (1..20).map {
-            Product(1, "Product №$it")
+            Product(1, "Product №$it", it * it * 15)
         }
     }
 
