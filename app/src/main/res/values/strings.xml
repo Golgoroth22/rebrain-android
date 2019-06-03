@@ -16,6 +16,9 @@
     <!-- Carousel layout -->
     <string name="carousel_image">Carousel Image</string>
 
+    <!-- Card Main Element layout -->
+    <string name="food_image_hint">Food Image</string>
+
     <!-- Custom Button -->
     <string name="custom_button_image">Custom Button Image</string>
     <string name="custom_button_text_main">Главный</string>

@@ -5,12 +5,13 @@ buildscript {
     addRepos(repositories)
     ext {
         appcompat_v7 = versions.appcompat_v7
+        androidx = versions.androidx
         androidx_ktx = versions.androidx_ktx
         coroutines = versions.coroutines
         constraint = versions.constraint
+        glide = versions.glide
         junit = versions.junit
         kotlin = versions.kotlin
-        androidx = versions.androidx
         timber = versions.timber
         test_runner = versions.test_runner
         test_espresso_core = versions.test_espresso_core

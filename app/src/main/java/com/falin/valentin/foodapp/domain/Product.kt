@@ -6,10 +6,12 @@ package com.falin.valentin.foodapp.domain
  * @param id Is a ID of our object.
  * @param name Is a name of our object.
  * @param price Is a price of our object.
+ * @param imageUrl Is a image of our object.
  *
  */
 data class Product(
     val id: Int,
     val name: String,
-    val price: Int
+    val price: Int,
+    val imageUrl: String
 )
