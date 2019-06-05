@@ -13,7 +13,7 @@ import com.falin.valentin.foodapp.domain.Product
 
 /**
  * Simple [RecyclerView.Adapter] subclass.
- * Have inner class [MainTabElementViewHolder]. It is a subclass of [RecyclerView.ViewHolder]
+ * Have inner class [MainTabElementViewHolder]. Subclass of [RecyclerView.ViewHolder]
  * for display recycler elements.
  *
  */
@@ -45,6 +45,7 @@ class MainTabElementAdapter : RecyclerView.Adapter<MainTabElementAdapter.MainTab
         private val mainElementText: TextView = itemView.findViewById(R.id.card_main_element_text)
         private val mainElementPrice: TextView = itemView.findViewById(R.id.card_main_element_price)
         private val mainElementImage: ImageView = itemView.findViewById(R.id.card_main_element_image)
+
         fun bind(product: Product) {
             mainElementText.text = product.name
             mainElementPrice.text = "${product.price}"
