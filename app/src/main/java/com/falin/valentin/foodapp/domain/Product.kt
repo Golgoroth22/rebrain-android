@@ -3,13 +3,15 @@ package com.falin.valentin.foodapp.domain
 /**
  * This is a data class.
  *
- * @param id Is a ID of our object.
- * @param name Is a name of our object.
- * @param price Is a price of our object.
+ * @param id  ID of our object.
+ * @param name  Name of our object.
+ * @param price  Price of our object.
+ * @param imageUrl  Image of our object.
  *
  */
 data class Product(
     val id: Int,
     val name: String,
-    val price: Int
+    val price: Int,
+    val imageUrl: String
 )
