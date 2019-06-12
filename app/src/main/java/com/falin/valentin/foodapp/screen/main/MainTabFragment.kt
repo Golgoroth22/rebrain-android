@@ -51,7 +51,15 @@ class MainTabFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_main_tab, container, false)
         initRv(rootView)
+        initListeners(rootView)
         return rootView
+    }
+
+    private fun initListeners(rootView: View) {
+        rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
+            mainTabElementAdapter.setProductList(Generator().getProducts() as List<Product>)
+            rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
+        }
     }
 
     private fun initRv(rootView: View) {
