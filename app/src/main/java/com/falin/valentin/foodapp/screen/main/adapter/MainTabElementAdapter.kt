@@ -1,6 +1,5 @@
 package com.falin.valentin.foodapp.screen.main.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,15 +17,20 @@ import com.falin.valentin.foodapp.domain.Product
  *
  */
 class MainTabElementAdapter : RecyclerView.Adapter<MainTabElementAdapter.MainTabElementViewHolder>() {
-
+    var displayMode = false
     var productList = emptyList<Product>()
         private set
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainTabElementViewHolder {
+        val id: Int = if (displayMode) {
+            R.layout.card_main_linear_element
+        } else {
+            R.layout.card_main_grid_element
+        }
         return MainTabElementViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_main_element, parent, false)
+                .inflate(id, parent, false)
         )
     }
 

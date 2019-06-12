@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
@@ -27,6 +28,7 @@ class MainTabFragment : BaseFragment() {
         }
     }
 
+    private lateinit var rv: RecyclerView
     private lateinit var pageAdapter: CarouselStatePageAdapter
     private lateinit var mainTabElementAdapter: MainTabElementAdapter
     private lateinit var lm: RecyclerView.LayoutManager
@@ -63,17 +65,29 @@ class MainTabFragment : BaseFragment() {
     }
 
     private fun initRv(rootView: View) {
-        lm = LinearLayoutManager(context)
+        rv = rootView.fragment_main_tab_recycler
         mainTabElementAdapter = MainTabElementAdapter()
-        rootView.fragment_main_tab_recycler.apply {
-            layoutManager = lm
-            adapter = mainTabElementAdapter
-        }
+        setRecyclerViewDisplay()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         main_fragment_tab_pager.adapter = pageAdapter
         mainTabElementAdapter.setProductList(Generator().getProducts() as List<Product>)
+    }
+
+    fun setRecyclerViewDisplay(): Boolean {
+        if (mainTabElementAdapter.displayMode) {
+            lm = GridLayoutManager(context, 2)
+        } else {
+            lm = LinearLayoutManager(context)
+        }
+        mainTabElementAdapter.displayMode = !mainTabElementAdapter.displayMode
+        rv.apply {
+            layoutManager = lm
+            adapter = mainTabElementAdapter
+        }
+        mainTabElementAdapter.notifyDataSetChanged()
+        return mainTabElementAdapter.displayMode
     }
 }
