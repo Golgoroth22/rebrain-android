@@ -67,7 +67,7 @@ class MainTabFragment : BaseFragment() {
     private fun initRv(rootView: View) {
         rv = rootView.fragment_main_tab_recycler
         mainTabElementAdapter = MainTabElementAdapter()
-        setRecyclerViewDisplay()
+        setRecyclerViewDisplayMode()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,18 +76,23 @@ class MainTabFragment : BaseFragment() {
         mainTabElementAdapter.setProductList(Generator().getProducts() as List<Product>)
     }
 
-    fun setRecyclerViewDisplay(): Boolean {
-        if (mainTabElementAdapter.displayMode) {
-            lm = GridLayoutManager(context, 2)
-        } else {
-            lm = LinearLayoutManager(context)
+    fun setRecyclerViewDisplayMode() {
+        when (mainTabElementAdapter.displayMode) {
+            MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> {
+                lm = LinearLayoutManager(context)
+                mainTabElementAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR
+            }
+            MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR -> {
+                lm = GridLayoutManager(context, 2)
+                mainTabElementAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.GRID
+            }
         }
-        mainTabElementAdapter.displayMode = !mainTabElementAdapter.displayMode
         rv.apply {
             layoutManager = lm
             adapter = mainTabElementAdapter
         }
         mainTabElementAdapter.notifyDataSetChanged()
-        return mainTabElementAdapter.displayMode
     }
+
+    fun getLayoutManagerDisplayMode() = mainTabElementAdapter.displayMode
 }

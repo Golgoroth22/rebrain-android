@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
 import android.view.MenuItem
+import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 
 
 /**
@@ -70,11 +71,10 @@ class MainActivity : BaseActivity() {
     }
 
     private fun updateViews(item: MenuItem?) {
-        val displayMode = mainTabFragment.setRecyclerViewDisplay()
-        if (displayMode) {
-            item?.setIcon(R.drawable.ic_menu_grid)
-        } else {
-            item?.setIcon(R.drawable.ic_menu_linear)
+        mainTabFragment.setRecyclerViewDisplayMode()
+        when (mainTabFragment.getLayoutManagerDisplayMode()) {
+            MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> item?.setIcon(R.drawable.ic_menu_linear)
+            MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR -> item?.setIcon(R.drawable.ic_menu_grid)
         }
     }
 
