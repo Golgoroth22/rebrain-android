@@ -63,15 +63,15 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.menu_button -> {
-                updateViews(item)
+                updateMenuItem(item)
                 return true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun updateViews(item: MenuItem?) {
-        mainTabFragment.setRecyclerViewDisplayMode()
+    private fun updateMenuItem(item: MenuItem?) {
+        mainTabFragment.updateRecyclerViewDisplayMode()
         when (mainTabFragment.getLayoutManagerDisplayMode()) {
             MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> item?.setIcon(R.drawable.ic_menu_linear)
             MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR -> item?.setIcon(R.drawable.ic_menu_grid)
