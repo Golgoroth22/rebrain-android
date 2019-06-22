@@ -71,7 +71,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun updateMenuItem(item: MenuItem?) {
-        mainTabFragment.updateRecyclerViewDisplayMode()
+        mainTabFragment.switchRecyclerViewDisplayMode()
         when (mainTabFragment.getLayoutManagerDisplayMode()) {
             MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> item?.setIcon(R.drawable.ic_menu_linear)
             MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR -> item?.setIcon(R.drawable.ic_menu_grid)
