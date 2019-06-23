@@ -1,6 +1,5 @@
 package com.falin.valentin.foodapp.screen.main.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,15 +17,19 @@ import com.falin.valentin.foodapp.domain.Product
  *
  */
 class MainTabElementAdapter : RecyclerView.Adapter<MainTabElementAdapter.MainTabElementViewHolder>() {
-
+    var displayMode = LayoutManagerDisplayMode.GRID
     var productList = emptyList<Product>()
         private set
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainTabElementViewHolder {
+        val id = when (displayMode) {
+            LayoutManagerDisplayMode.LINEAR -> R.layout.card_main_linear_element
+            LayoutManagerDisplayMode.GRID -> R.layout.card_main_grid_element
+        }
         return MainTabElementViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_main_element, parent, false)
+                .inflate(id, parent, false)
         )
     }
 
@@ -51,5 +54,13 @@ class MainTabElementAdapter : RecyclerView.Adapter<MainTabElementAdapter.MainTab
             mainElementPrice.text = "${product.price}"
             Glide.with(mainElementImage.context).load(product.imageUrl).into(mainElementImage);
         }
+    }
+
+    /**
+     * Enum class for work with enum values for [MainTabElementAdapter].
+     *
+     */
+    enum class LayoutManagerDisplayMode {
+        LINEAR, GRID
     }
 }

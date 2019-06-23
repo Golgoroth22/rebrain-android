@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
@@ -27,6 +28,7 @@ class MainTabFragment : BaseFragment() {
         }
     }
 
+    private lateinit var rv: RecyclerView
     private lateinit var pageAdapter: CarouselStatePageAdapter
     private lateinit var mainTabElementAdapter: MainTabElementAdapter
     private lateinit var lm: RecyclerView.LayoutManager
@@ -63,12 +65,9 @@ class MainTabFragment : BaseFragment() {
     }
 
     private fun initRv(rootView: View) {
-        lm = LinearLayoutManager(context)
+        rv = rootView.fragment_main_tab_recycler
         mainTabElementAdapter = MainTabElementAdapter()
-        rootView.fragment_main_tab_recycler.apply {
-            layoutManager = lm
-            adapter = mainTabElementAdapter
-        }
+        switchRecyclerViewDisplayMode()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,4 +75,24 @@ class MainTabFragment : BaseFragment() {
         main_fragment_tab_pager.adapter = pageAdapter
         mainTabElementAdapter.setProductList(Generator().getProducts() as List<Product>)
     }
+
+    fun switchRecyclerViewDisplayMode() {
+        when (mainTabElementAdapter.displayMode) {
+            MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> {
+                lm = LinearLayoutManager(context)
+                mainTabElementAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR
+            }
+            MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR -> {
+                lm = GridLayoutManager(context, 2)
+                mainTabElementAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.GRID
+            }
+        }
+        rv.apply {
+            layoutManager = lm
+            adapter = mainTabElementAdapter
+        }
+        mainTabElementAdapter.notifyDataSetChanged()
+    }
+
+    fun getLayoutManagerDisplayMode() = mainTabElementAdapter.displayMode
 }
