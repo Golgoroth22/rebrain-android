@@ -14,7 +14,6 @@ import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.falin.valentin.foodapp.utils.Generator
-import kotlinx.android.synthetic.main.fragment_main_tab.*
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
 
 /**
@@ -30,7 +29,7 @@ class MainTabFragment : BaseFragment() {
 
     private lateinit var rv: RecyclerView
     private lateinit var pageAdapter: CarouselStatePageAdapter
-    private lateinit var mainTabElementAdapter: MainTabElementAdapter
+    private lateinit var mainTabAdapter: MainTabElementAdapter
     private lateinit var lm: RecyclerView.LayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,40 +58,39 @@ class MainTabFragment : BaseFragment() {
 
     private fun initListeners(rootView: View) {
         rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
-            mainTabElementAdapter.setProductList(Generator().getProducts() as List<Product>)
+            mainTabAdapter.setProductList(Generator().getProducts() as List<Product>, pageAdapter)
             rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
         }
     }
 
     private fun initRv(rootView: View) {
         rv = rootView.fragment_main_tab_recycler
-        mainTabElementAdapter = MainTabElementAdapter()
+        mainTabAdapter = MainTabElementAdapter()
         switchRecyclerViewDisplayMode()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        main_fragment_tab_pager.adapter = pageAdapter
-        mainTabElementAdapter.setProductList(Generator().getProducts() as List<Product>)
+        mainTabAdapter.setProductList(Generator().getProducts() as List<Product>, pageAdapter)
     }
 
     fun switchRecyclerViewDisplayMode() {
-        when (mainTabElementAdapter.displayMode) {
+        when (mainTabAdapter.displayMode) {
             MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> {
                 lm = LinearLayoutManager(context)
-                mainTabElementAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR
+                mainTabAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR
             }
             MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR -> {
                 lm = GridLayoutManager(context, 2)
-                mainTabElementAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.GRID
+                mainTabAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.GRID
             }
         }
         rv.apply {
             layoutManager = lm
-            adapter = mainTabElementAdapter
+            adapter = mainTabAdapter
         }
-        mainTabElementAdapter.notifyDataSetChanged()
+        mainTabAdapter.notifyDataSetChanged()
     }
 
-    fun getLayoutManagerDisplayMode() = mainTabElementAdapter.displayMode
+    fun getLayoutManagerDisplayMode() = mainTabAdapter.displayMode
 }
