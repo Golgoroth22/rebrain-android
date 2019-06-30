@@ -82,6 +82,14 @@ class MainTabFragment : BaseFragment() {
             }
             MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR -> {
                 lm = GridLayoutManager(context, 2)
+                (lm as GridLayoutManager).spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (position) {
+                            MainTabElementAdapter.CAROUSEL_ID -> 2
+                            else -> 1
+                        }
+                    }
+                }
                 mainTabAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.GRID
             }
         }

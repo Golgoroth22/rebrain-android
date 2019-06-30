@@ -13,8 +13,6 @@ import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.google.android.material.tabs.TabLayout
 
-private const val CAROUSEL_ID = 0
-private const val PRODUCT_ID = 1
 
 /**
  * Simple [RecyclerView.Adapter] subclass.
@@ -23,6 +21,10 @@ private const val PRODUCT_ID = 1
  *
  */
 class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    companion object {
+        const val CAROUSEL_ID = 0
+        const val PRODUCT_ID = 1
+    }
     var displayMode = LayoutManagerDisplayMode.GRID
     var productList = mutableListOf<Any>()
         private set
