@@ -21,17 +21,14 @@ import com.google.android.material.tabs.TabLayout
  *
  */
 class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    companion object {
-        const val CAROUSEL_ID = 0
-        const val PRODUCT_ID = 1
-    }
+    private val CAROUSEL_ID = 0
     var displayMode = LayoutManagerDisplayMode.GRID
     var productList = mutableListOf<Any>()
         private set
     lateinit var carouselPageAdapter: CarouselStatePageAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == CAROUSEL_ID) {
+        if (viewType == MainTabAdapterItem.CAROUSEL.ordinal) {
             return MainTabCarouselViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.carousel_element, parent, false)
@@ -49,8 +46,8 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
-            0 -> CAROUSEL_ID
-            else -> PRODUCT_ID
+            CAROUSEL_ID -> MainTabAdapterItem.CAROUSEL.ordinal
+            else -> MainTabAdapterItem.PRODUCT.ordinal
         }
     }
 
@@ -58,7 +55,7 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            CAROUSEL_ID -> {
+            MainTabAdapterItem.CAROUSEL.ordinal -> {
                 (holder as MainTabCarouselViewHolder).viewPager.adapter = carouselPageAdapter
                 holder.tabLayout.setupWithViewPager(holder.viewPager, true)
             }
@@ -71,7 +68,7 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         pageAdapter: CarouselStatePageAdapter
     ) {
         productList.clear()
-        productList.add(list[0])
+        productList.add(list[CAROUSEL_ID])
         productList.addAll(list)
         carouselPageAdapter = pageAdapter
         notifyDataSetChanged()
@@ -95,10 +92,18 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     /**
-     * Enum class for work with enum values for [MainTabElementAdapter].
+     * Enum class for work with enum values for [MainTabElementAdapter]. Used to display the adapter view mode.
      *
      */
     enum class LayoutManagerDisplayMode {
         LINEAR, GRID
+    }
+
+    /**
+     * Enum class for work with enum values for [MainTabElementAdapter]. Used to select the type of adapter element.
+     *
+     */
+    enum class MainTabAdapterItem {
+        CAROUSEL, PRODUCT
     }
 }

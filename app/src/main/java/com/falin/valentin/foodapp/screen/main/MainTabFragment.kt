@@ -85,7 +85,7 @@ class MainTabFragment : BaseFragment() {
                 (lm as GridLayoutManager).spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
                         return when (position) {
-                            MainTabElementAdapter.CAROUSEL_ID -> 2
+                            MainTabElementAdapter.MainTabAdapterItem.CAROUSEL.ordinal -> 2
                             else -> 1
                         }
                     }
