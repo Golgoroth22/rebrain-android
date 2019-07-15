@@ -58,7 +58,7 @@ class MainTabFragment : BaseFragment() {
 
     private fun initListeners(rootView: View) {
         rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
-            mainTabAdapter.setProductList(Generator().getProducts() as List<Product>, pageAdapter)
+            mainTabAdapter.setProductList(Generator().getProducts() as List<Any>, pageAdapter)
             rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
         }
     }
@@ -71,7 +71,7 @@ class MainTabFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainTabAdapter.setProductList(Generator().getProducts() as List<Product>, pageAdapter)
+        mainTabAdapter.setProductList(Generator().getProducts() as List<Any>, pageAdapter)
     }
 
     fun switchRecyclerViewDisplayMode() {

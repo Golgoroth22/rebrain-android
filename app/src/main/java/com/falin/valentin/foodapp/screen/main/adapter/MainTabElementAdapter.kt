@@ -23,7 +23,7 @@ import com.google.android.material.tabs.TabLayout
 class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val CAROUSEL_ID = 0
     var displayMode = LayoutManagerDisplayMode.GRID
-    var productList = mutableListOf<Any>()
+    var adapterList = mutableListOf<Any>()
         private set
     lateinit var carouselPageAdapter: CarouselStatePageAdapter
 
@@ -51,7 +51,7 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun getItemCount() = productList.size
+    override fun getItemCount() = adapterList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
@@ -59,17 +59,17 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 (holder as MainTabCarouselViewHolder).viewPager.adapter = carouselPageAdapter
                 holder.tabLayout.setupWithViewPager(holder.viewPager, true)
             }
-            else -> (holder as MainTabProductViewHolder).bind(productList[position] as Product)
+            else -> (holder as MainTabProductViewHolder).bind(adapterList[position] as Product)
         }
     }
 
     fun setProductList(
-        list: List<Product>,
+        list: List<Any>,
         pageAdapter: CarouselStatePageAdapter
     ) {
-        productList.clear()
-        productList.add(list[CAROUSEL_ID])
-        productList.addAll(list)
+        adapterList.clear()
+        adapterList.add(list[CAROUSEL_ID])
+        adapterList.addAll(list)
         carouselPageAdapter = pageAdapter
         notifyDataSetChanged()
     }

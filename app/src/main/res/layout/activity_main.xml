@@ -23,7 +23,7 @@
         android:id="@+id/main_activity_line"
         android:layout_width="wrap_content"
         android:layout_height="2dp"
-        android:background="@color/colorLineOpacity6"
+        android:background="@color/colorLine6"
         app:layout_constraintBottom_toTopOf="@+id/main_activity_custom_bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
