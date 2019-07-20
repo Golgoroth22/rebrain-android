@@ -29,19 +29,13 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == MainTabAdapterItem.CAROUSEL.ordinal) {
-            return MainTabCarouselViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.carousel_element, parent, false)
-            )
+            return MainTabCarouselViewHolder(parent, R.layout.carousel_element)
         }
         val id = when (displayMode) {
             LayoutManagerDisplayMode.LINEAR -> R.layout.card_main_linear_element
             LayoutManagerDisplayMode.GRID -> R.layout.card_main_grid_element
         }
-        return MainTabProductViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(id, parent, false)
-        )
+        return MainTabProductViewHolder(parent, id)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -75,6 +69,15 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class MainTabProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        constructor(parent: ViewGroup, layoutId: Int) : this(
+            LayoutInflater.from(parent.context).inflate(
+                layoutId,
+                parent,
+                false
+            )
+        )
+
         private val mainElementText: TextView = itemView.findViewById(R.id.card_main_element_text)
         private val mainElementPrice: TextView = itemView.findViewById(R.id.card_main_element_price)
         private val mainElementImage: ImageView = itemView.findViewById(R.id.card_main_element_image)
@@ -87,6 +90,12 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class MainTabCarouselViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        constructor(parent: ViewGroup, layoutId: Int) : this(
+            LayoutInflater.from(parent.context)
+                .inflate(layoutId, parent, false)
+        )
+
         val viewPager: ViewPager = itemView.findViewById(R.id.carousel_element_tab_pager)
         val tabLayout: TabLayout = itemView.findViewById(R.id.carousel_element_tab_layout)
     }
