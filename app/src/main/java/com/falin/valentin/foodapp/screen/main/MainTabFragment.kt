@@ -34,7 +34,7 @@ class MainTabFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val picList =  listOf(
+        val picList = listOf(
             R.drawable.food_1,
             R.drawable.food_2,
             R.drawable.food_3,
