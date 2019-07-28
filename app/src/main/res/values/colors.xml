@@ -8,6 +8,8 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorIntroBackground">#5bd056</color>
     <color name="colorCustomCheckButtonText">#39b54a</color>
+    <color name="colorViewPagerBackground">#0eb14b</color>
     <color name="colorCustomUncheckedButtonText">#b4b2b2</color>
-    <color name="colorLineOpacity6">#0F000000</color>
+    <color name="colorLine6">#0F000000</color>
+    <color name="colorViewPagerDot30">#4D000000</color>
 </resources>
