@@ -38,7 +38,4 @@ dependencies {
     implementation "androidx.core:core-ktx:$androidx_ktx"
     implementation "com.github.bumptech.glide:glide:$glide"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide"
-    implementation "org.jetbrains.anko:anko:$anko"
-    implementation "org.jetbrains.anko:anko-commons:$anko"
-    implementation "org.jetbrains.anko:anko-design:$anko"
 }
