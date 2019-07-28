@@ -7,7 +7,6 @@ buildscript {
         appcompat_v7 = versions.appcompat_v7
         androidx = versions.androidx
         androidx_ktx = versions.androidx_ktx
-        anko = versions.anko
         coroutines = versions.coroutines
         constraint = versions.constraint
         glide = versions.glide

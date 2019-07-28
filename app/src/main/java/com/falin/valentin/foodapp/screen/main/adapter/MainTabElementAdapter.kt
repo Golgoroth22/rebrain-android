@@ -1,10 +1,8 @@
 package com.falin.valentin.foodapp.screen.main.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +12,6 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.google.android.material.tabs.TabLayout
-import org.jetbrains.anko.toast
 
 
 /**
@@ -25,7 +22,6 @@ import org.jetbrains.anko.toast
  */
 class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val CAROUSEL_ID = 0
-    private val basketButtonListener = { context: Context, id: String -> context.toast(id) }
     var displayMode = LayoutManagerDisplayMode.GRID
     var adapterList = mutableListOf<Any>()
         private set
@@ -85,15 +81,11 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val mainElementText: TextView = itemView.findViewById(R.id.card_main_element_text)
         private val mainElementPrice: TextView = itemView.findViewById(R.id.card_main_element_price)
         private val mainElementImage: ImageView = itemView.findViewById(R.id.card_main_element_image)
-        private val mainElementBasketButton: ImageButton = itemView.findViewById(R.id.card_main_element_basket_button)
 
         fun bind(product: Product) {
             mainElementText.text = product.name
             mainElementPrice.text = "${product.price}"
             Glide.with(mainElementImage.context).load(product.imageUrl).into(mainElementImage)
-            mainElementBasketButton.setOnClickListener {
-                basketButtonListener(it.context, product.name)
-            }
         }
     }
 
