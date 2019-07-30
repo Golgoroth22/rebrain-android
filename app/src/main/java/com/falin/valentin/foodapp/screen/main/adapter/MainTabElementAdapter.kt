@@ -25,7 +25,6 @@ import org.jetbrains.anko.toast
  */
 class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val CAROUSEL_ID = 0
-    private val basketButtonListener = { context: Context, id: String -> context.toast(id) }
     var displayMode = LayoutManagerDisplayMode.GRID
     var adapterList = mutableListOf<Any>()
         private set
@@ -81,6 +80,8 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 false
             )
         )
+
+        private val basketButtonListener = { context: Context, id: String -> context.toast(id) }
 
         private val mainElementText: TextView = itemView.findViewById(R.id.card_main_element_text)
         private val mainElementPrice: TextView = itemView.findViewById(R.id.card_main_element_price)
