@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
@@ -34,7 +33,7 @@ class MainTabFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val picList =  listOf(
+        val picList = listOf(
             R.drawable.food_1,
             R.drawable.food_2,
             R.drawable.food_3,
@@ -65,7 +64,7 @@ class MainTabFragment : BaseFragment() {
 
     private fun initRv(rootView: View) {
         rv = rootView.fragment_main_tab_recycler
-        mainTabAdapter = MainTabElementAdapter()
+        mainTabAdapter = MainTabElementAdapter(context!!)
         switchRecyclerViewDisplayMode()
     }
 
