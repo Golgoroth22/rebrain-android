@@ -99,7 +99,7 @@ class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             mainElementPrice.text = "${product.price}"
             Glide.with(mainElementImage.context).load(product.imageUrl).into(mainElementImage)
             mainElementBasketButton.setOnClickListener {
-                basketButtonListener?.let { it1 -> it1(product.name) }
+                basketButtonListener?.invoke(product.name)
             }
         }
     }
