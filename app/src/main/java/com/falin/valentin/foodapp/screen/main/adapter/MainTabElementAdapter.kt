@@ -1,10 +1,13 @@
 package com.falin.valentin.foodapp.screen.main.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
@@ -12,6 +15,7 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.google.android.material.tabs.TabLayout
+import org.jetbrains.anko.toast
 
 
 /**
@@ -20,11 +24,17 @@ import com.google.android.material.tabs.TabLayout
  * for display recycler elements.
  *
  */
-class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val CAROUSEL_ID = 0
+class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    constructor(context: Context) : this() {
+        basketButtonListener = { id: String -> context.toast(id) }
+    }
+
+    private var basketButtonListener: ((String) -> Toast)? = null
     var displayMode = LayoutManagerDisplayMode.GRID
     var adapterList = mutableListOf<Any>()
         private set
+
     lateinit var carouselPageAdapter: CarouselStatePageAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -78,14 +88,19 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             )
         )
 
+
         private val mainElementText: TextView = itemView.findViewById(R.id.card_main_element_text)
         private val mainElementPrice: TextView = itemView.findViewById(R.id.card_main_element_price)
         private val mainElementImage: ImageView = itemView.findViewById(R.id.card_main_element_image)
+        private val mainElementBasketButton: ImageButton = itemView.findViewById(R.id.card_main_element_basket_button)
 
         fun bind(product: Product) {
             mainElementText.text = product.name
             mainElementPrice.text = "${product.price}"
             Glide.with(mainElementImage.context).load(product.imageUrl).into(mainElementImage)
+            mainElementBasketButton.setOnClickListener {
+                basketButtonListener?.invoke(product.name)
+            }
         }
     }
 
@@ -98,6 +113,10 @@ class MainTabElementAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         val viewPager: ViewPager = itemView.findViewById(R.id.carousel_element_tab_pager)
         val tabLayout: TabLayout = itemView.findViewById(R.id.carousel_element_tab_layout)
+    }
+
+    companion object {
+        private const val CAROUSEL_ID = 0
     }
 
     /**
