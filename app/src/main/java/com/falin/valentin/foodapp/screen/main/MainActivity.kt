@@ -72,7 +72,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        ExitDialogFragment().show(supportFragmentManager, "EXIT")
+        ExitDialogFragment().show(supportFragmentManager, getString(R.string.exit_dialig_tag))
     }
 
     private fun updateMenuItem(item: MenuItem?) {

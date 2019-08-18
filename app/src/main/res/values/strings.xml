@@ -32,4 +32,5 @@
     <string name="exit_dialog_message_text">Вы хотите выйти из приложения?</string>
     <string name="exit_dialog_negative_button_text">ОТМЕНА</string>
     <string name="exit_dialog_positive_button_text">ДА</string>
+    <string name="exit_dialig_tag">EXIT</string>
 </resources>

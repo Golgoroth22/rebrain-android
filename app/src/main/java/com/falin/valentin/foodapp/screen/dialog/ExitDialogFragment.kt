@@ -7,6 +7,10 @@ import androidx.fragment.app.DialogFragment
 import com.falin.valentin.foodapp.R
 import kotlinx.android.synthetic.main.dialog_layout.view.*
 
+/**
+ * [DialogFragment] subclass showing dialog for exit from app.
+ *
+ */
 class ExitDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity!!)
