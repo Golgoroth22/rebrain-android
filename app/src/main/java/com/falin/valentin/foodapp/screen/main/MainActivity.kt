@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
 import android.view.MenuItem
+import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 
 
@@ -68,6 +69,10 @@ class MainActivity : BaseActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onBackPressed() {
+        ExitDialogFragment().show(supportFragmentManager, "EXIT")
     }
 
     private fun updateMenuItem(item: MenuItem?) {
