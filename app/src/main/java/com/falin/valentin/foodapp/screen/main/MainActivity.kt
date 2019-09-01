@@ -28,12 +28,13 @@ class MainActivity : BaseActivity() {
     }
 
     lateinit var mainTabFragment: MainTabFragment
+    lateinit var favoriteTabFragment: FavoriteTabFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainTabFragment = MainTabFragment.newInstance()
-        val favoriteTabFragment = FavoriteTabFragment.newInstance()
+        favoriteTabFragment = FavoriteTabFragment.newInstance()
         attachNewFragmentAndDetachOldFragment(favoriteTabFragment, mainTabFragment)
         main_activity_custom_bottom_bar.setOnCustomClickListener(object : onClickCustomListener {
             override fun onClick(tabType: MainTabType) {

@@ -59,11 +59,8 @@ class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            MainTabAdapterItem.CAROUSEL.ordinal -> {
-                (holder as MainTabCarouselViewHolder).viewPager.adapter = carouselPageAdapter
-                holder.tabLayout.setupWithViewPager(holder.viewPager, true)
-            }
-            else -> (holder as MainTabProductViewHolder).bind(adapterList[position] as Product)
+            MainTabAdapterItem.CAROUSEL.ordinal -> (holder as MainTabCarouselViewHolder).bind()
+            MainTabAdapterItem.PRODUCT.ordinal -> (holder as MainTabProductViewHolder).bind(adapterList[position] as Product)
         }
     }
 
@@ -111,8 +108,13 @@ class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 .inflate(layoutId, parent, false)
         )
 
-        val viewPager: ViewPager = itemView.findViewById(R.id.carousel_element_tab_pager)
-        val tabLayout: TabLayout = itemView.findViewById(R.id.carousel_element_tab_layout)
+        private val viewPager: ViewPager = itemView.findViewById(R.id.carousel_element_tab_pager)
+        private val tabLayout: TabLayout = itemView.findViewById(R.id.carousel_element_tab_layout)
+
+        fun bind() {
+            viewPager.adapter = carouselPageAdapter
+            tabLayout.setupWithViewPager(viewPager, true)
+        }
     }
 
     companion object {
