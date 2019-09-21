@@ -30,10 +30,11 @@ class MainTabFragment : BaseFragment() {
     private lateinit var mainTabPageAdapter: CarouselStatePageAdapter
     private lateinit var mainTabRecyclerAdapter: MainTabElementAdapter
     private lateinit var lm: RecyclerView.LayoutManager
+    private lateinit var picList: List<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val picList = listOf(
+        picList = listOf(
             R.drawable.food_1,
             R.drawable.food_2,
             R.drawable.food_3,
@@ -57,7 +58,10 @@ class MainTabFragment : BaseFragment() {
 
     private fun initListeners(rootView: View) {
         rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
-            mainTabRecyclerAdapter.setProductList(Generator().getProducts() as List<Any>, mainTabPageAdapter)
+            mainTabRecyclerAdapter.setProductList(
+                Generator().getProducts() as List<Any>,
+                picList
+            )
             rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
         }
     }
@@ -70,26 +74,32 @@ class MainTabFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainTabRecyclerAdapter.setProductList(Generator().getProducts() as List<Any>, mainTabPageAdapter)
+        mainTabRecyclerAdapter.setProductList(
+            Generator().getProducts() as List<Any>,
+            picList
+        )
     }
 
     fun switchRecyclerViewDisplayMode() {
         when (mainTabRecyclerAdapter.displayMode) {
             MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> {
                 lm = LinearLayoutManager(context)
-                mainTabRecyclerAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR
+                mainTabRecyclerAdapter.displayMode =
+                    MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR
             }
             MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR -> {
                 lm = GridLayoutManager(context, 2)
-                (lm as GridLayoutManager).spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int {
-                        return when (position) {
-                            MainTabElementAdapter.MainTabAdapterItem.CAROUSEL.ordinal -> 2
-                            else -> 1
+                (lm as GridLayoutManager).spanSizeLookup =
+                    object : GridLayoutManager.SpanSizeLookup() {
+                        override fun getSpanSize(position: Int): Int {
+                            return when (position) {
+                                MainTabElementAdapter.MainTabAdapterItem.CAROUSEL.ordinal -> 2
+                                else -> 1
+                            }
                         }
                     }
-                }
-                mainTabRecyclerAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.GRID
+                mainTabRecyclerAdapter.displayMode =
+                    MainTabElementAdapter.LayoutManagerDisplayMode.GRID
             }
         }
         rv.apply {
