@@ -12,27 +12,32 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.LifecycleOwner
 import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
+import com.falin.valentin.foodapp.utils.Logger
+import kotlin.math.log
 
 
 /**
  * [BaseActivity] subclass to work with MainActivity our application and showing it.
  *
  */
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), LifecycleOwner {
     companion object {
         fun start(context: Context) {
             context.startActivity(Intent(context, MainActivity::class.java))
         }
     }
 
+    private val logger = Logger(lifecycle, Logger.Owner.MAIN_ACTIVITY)
     lateinit var mainTabFragment: MainTabFragment
     lateinit var favoriteTabFragment: FavoriteTabFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        logger.onCreate()
         mainTabFragment = MainTabFragment.newInstance()
         favoriteTabFragment = FavoriteTabFragment.newInstance()
         attachNewFragmentAndDetachOldFragment(favoriteTabFragment, mainTabFragment)
@@ -51,9 +56,29 @@ class MainActivity : BaseActivity() {
         initToolbar()
     }
 
-    private fun initToolbar() {
-        custom_toolbar.title = getString(R.string.app_name)
-        setSupportActionBar(custom_toolbar)
+    override fun onStart() {
+        super.onStart()
+        logger.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        logger.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        logger.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        logger.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        logger.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -76,6 +101,11 @@ class MainActivity : BaseActivity() {
         ExitDialogFragment().show(supportFragmentManager, getString(R.string.exit_dialig_tag))
     }
 
+    private fun initToolbar() {
+        custom_toolbar.title = getString(R.string.app_name)
+        setSupportActionBar(custom_toolbar)
+    }
+
     private fun updateMenuItem(item: MenuItem?) {
         mainTabFragment.switchRecyclerViewDisplayMode()
         when (mainTabFragment.getLayoutManagerDisplayMode()) {
@@ -84,7 +114,10 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun attachNewFragmentAndDetachOldFragment(oldFragment: BaseFragment, newFragment: BaseFragment) {
+    private fun attachNewFragmentAndDetachOldFragment(
+        oldFragment: BaseFragment,
+        newFragment: BaseFragment
+    ) {
         val transaction = supportFragmentManager.beginTransaction()
         if (supportFragmentManager.findFragmentById(oldFragment.id) != null) {
             transaction.detach(oldFragment)
