@@ -27,13 +27,14 @@ class MainTabFragment : BaseFragment() {
     }
 
     private lateinit var rv: RecyclerView
-    private lateinit var pageAdapter: CarouselStatePageAdapter
-    private lateinit var mainTabAdapter: MainTabElementAdapter
+    private lateinit var mainTabPageAdapter: CarouselStatePageAdapter
+    private lateinit var mainTabRecyclerAdapter: MainTabElementAdapter
     private lateinit var lm: RecyclerView.LayoutManager
+    private lateinit var picList: List<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val picList = listOf(
+        picList = listOf(
             R.drawable.food_1,
             R.drawable.food_2,
             R.drawable.food_3,
@@ -45,7 +46,7 @@ class MainTabFragment : BaseFragment() {
             R.drawable.food_9,
             R.drawable.food_10
         )
-        pageAdapter = CarouselStatePageAdapter(childFragmentManager, picList)
+        mainTabPageAdapter = CarouselStatePageAdapter(childFragmentManager, picList)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,47 +58,56 @@ class MainTabFragment : BaseFragment() {
 
     private fun initListeners(rootView: View) {
         rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
-            mainTabAdapter.setProductList(Generator().getProducts() as List<Any>, pageAdapter)
+            mainTabRecyclerAdapter.setProductList(
+                Generator().getProducts() as List<Any>,
+                picList
+            )
             rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
         }
     }
 
     private fun initRv(rootView: View) {
         rv = rootView.fragment_main_tab_recycler
-        mainTabAdapter = MainTabElementAdapter(context!!)
+        mainTabRecyclerAdapter = MainTabElementAdapter(context!!)
         switchRecyclerViewDisplayMode()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainTabAdapter.setProductList(Generator().getProducts() as List<Any>, pageAdapter)
+        mainTabRecyclerAdapter.setProductList(
+            Generator().getProducts() as List<Any>,
+            picList
+        )
     }
 
     fun switchRecyclerViewDisplayMode() {
-        when (mainTabAdapter.displayMode) {
+        when (mainTabRecyclerAdapter.displayMode) {
             MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> {
                 lm = LinearLayoutManager(context)
-                mainTabAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR
+                mainTabRecyclerAdapter.displayMode =
+                    MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR
             }
             MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR -> {
                 lm = GridLayoutManager(context, 2)
-                (lm as GridLayoutManager).spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int {
-                        return when (position) {
-                            MainTabElementAdapter.MainTabAdapterItem.CAROUSEL.ordinal -> 2
-                            else -> 1
+                (lm as GridLayoutManager).spanSizeLookup =
+                    object : GridLayoutManager.SpanSizeLookup() {
+                        override fun getSpanSize(position: Int): Int {
+                            return when (position) {
+                                MainTabElementAdapter.MainTabAdapterItem.CAROUSEL.ordinal -> 2
+                                else -> 1
+                            }
                         }
                     }
-                }
-                mainTabAdapter.displayMode = MainTabElementAdapter.LayoutManagerDisplayMode.GRID
+                mainTabRecyclerAdapter.displayMode =
+                    MainTabElementAdapter.LayoutManagerDisplayMode.GRID
             }
         }
         rv.apply {
             layoutManager = lm
-            adapter = mainTabAdapter
+            adapter = mainTabRecyclerAdapter
         }
-        mainTabAdapter.notifyDataSetChanged()
+        mainTabRecyclerAdapter.notifyDataSetChanged()
     }
 
-    fun getLayoutManagerDisplayMode() = mainTabAdapter.displayMode
+    fun getLayoutManagerDisplayMode() = mainTabRecyclerAdapter.displayMode
 }

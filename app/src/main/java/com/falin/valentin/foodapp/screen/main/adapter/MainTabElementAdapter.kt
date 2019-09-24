@@ -8,6 +8,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
@@ -35,7 +37,8 @@ class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     var adapterList = mutableListOf<Any>()
         private set
 
-    lateinit var carouselPageAdapter: CarouselStatePageAdapter
+    var carouselPicturesList = emptyList<Int>()
+        private set
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == MainTabAdapterItem.CAROUSEL.ordinal) {
@@ -59,22 +62,18 @@ class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            MainTabAdapterItem.CAROUSEL.ordinal -> {
-                (holder as MainTabCarouselViewHolder).viewPager.adapter = carouselPageAdapter
-                holder.tabLayout.setupWithViewPager(holder.viewPager, true)
-            }
-            else -> (holder as MainTabProductViewHolder).bind(adapterList[position] as Product)
+            MainTabAdapterItem.CAROUSEL.ordinal -> (holder as MainTabCarouselViewHolder).bind()
+            MainTabAdapterItem.PRODUCT.ordinal -> (holder as MainTabProductViewHolder).bind(
+                adapterList[position] as Product
+            )
         }
     }
 
-    fun setProductList(
-        list: List<Any>,
-        pageAdapter: CarouselStatePageAdapter
-    ) {
+    fun setProductList(list: List<Any>, picturesList: List<Int>) {
         adapterList.clear()
         adapterList.add(list[CAROUSEL_ID])
         adapterList.addAll(list)
-        carouselPageAdapter = pageAdapter
+        carouselPicturesList = picturesList
         notifyDataSetChanged()
     }
 
@@ -91,8 +90,10 @@ class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
         private val mainElementText: TextView = itemView.findViewById(R.id.card_main_element_text)
         private val mainElementPrice: TextView = itemView.findViewById(R.id.card_main_element_price)
-        private val mainElementImage: ImageView = itemView.findViewById(R.id.card_main_element_image)
-        private val mainElementBasketButton: ImageButton = itemView.findViewById(R.id.card_main_element_basket_button)
+        private val mainElementImage: ImageView =
+            itemView.findViewById(R.id.card_main_element_image)
+        private val mainElementBasketButton: ImageButton =
+            itemView.findViewById(R.id.card_main_element_basket_button)
 
         fun bind(product: Product) {
             mainElementText.text = product.name
@@ -111,8 +112,15 @@ class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 .inflate(layoutId, parent, false)
         )
 
-        val viewPager: ViewPager = itemView.findViewById(R.id.carousel_element_tab_pager)
-        val tabLayout: TabLayout = itemView.findViewById(R.id.carousel_element_tab_layout)
+        private val viewPager: ViewPager = itemView.findViewById(R.id.carousel_element_tab_pager)
+        private val tabLayout: TabLayout = itemView.findViewById(R.id.carousel_element_tab_layout)
+        private val fm: FragmentManager =
+            (itemView.context as FragmentActivity).supportFragmentManager
+
+        fun bind() {
+            viewPager.adapter = CarouselStatePageAdapter(fm, carouselPicturesList)
+            tabLayout.setupWithViewPager(viewPager, true)
+        }
     }
 
     companion object {

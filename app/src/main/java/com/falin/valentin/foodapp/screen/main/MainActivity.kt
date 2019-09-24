@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
 import android.view.MenuItem
+import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 
 
@@ -27,12 +28,13 @@ class MainActivity : BaseActivity() {
     }
 
     lateinit var mainTabFragment: MainTabFragment
+    lateinit var favoriteTabFragment: FavoriteTabFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainTabFragment = MainTabFragment.newInstance()
-        val favoriteTabFragment = FavoriteTabFragment.newInstance()
+        favoriteTabFragment = FavoriteTabFragment.newInstance()
         attachNewFragmentAndDetachOldFragment(favoriteTabFragment, mainTabFragment)
         main_activity_custom_bottom_bar.setOnCustomClickListener(object : onClickCustomListener {
             override fun onClick(tabType: MainTabType) {
@@ -68,6 +70,10 @@ class MainActivity : BaseActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onBackPressed() {
+        ExitDialogFragment().show(supportFragmentManager, getString(R.string.exit_dialig_tag))
     }
 
     private fun updateMenuItem(item: MenuItem?) {
