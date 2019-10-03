@@ -5,6 +5,7 @@ import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.intro.IntroActivity
+import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -15,6 +16,8 @@ import kotlin.coroutines.CoroutineContext
 class SplashActivity : BaseActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
+
+    private val logger = Logger(lifecycle, Logger.Owner.SPLASH_ACTIVITY)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

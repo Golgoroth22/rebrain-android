@@ -13,6 +13,7 @@ import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.falin.valentin.foodapp.utils.Generator
+import com.falin.valentin.foodapp.utils.Logger
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
 
 /**
@@ -31,6 +32,8 @@ class MainTabFragment : BaseFragment() {
     private lateinit var mainTabRecyclerAdapter: MainTabElementAdapter
     private lateinit var lm: RecyclerView.LayoutManager
     private lateinit var picList: List<Int>
+
+    private val logger = Logger(lifecycle, Logger.Owner.MAIN_TAB_FRAGMENT)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

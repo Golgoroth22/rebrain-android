@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.main.MainActivity
+import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import kotlinx.android.synthetic.main.activity_intro.*
 
@@ -18,6 +19,8 @@ class IntroActivity : BaseActivity() {
             context.startActivity(Intent(context, IntroActivity::class.java))
         }
     }
+
+    private val logger = Logger(lifecycle, Logger.Owner.INTRO_ACTIVITY)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
