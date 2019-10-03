@@ -23,7 +23,7 @@ import kotlin.math.log
  * [BaseActivity] subclass to work with MainActivity our application and showing it.
  *
  */
-class MainActivity : BaseActivity(), LifecycleOwner {
+class MainActivity : BaseActivity() {
     companion object {
         fun start(context: Context) {
             context.startActivity(Intent(context, MainActivity::class.java))
@@ -37,7 +37,6 @@ class MainActivity : BaseActivity(), LifecycleOwner {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        logger.onCreate()
         mainTabFragment = MainTabFragment.newInstance()
         favoriteTabFragment = FavoriteTabFragment.newInstance()
         attachNewFragmentAndDetachOldFragment(favoriteTabFragment, mainTabFragment)
@@ -54,31 +53,6 @@ class MainActivity : BaseActivity(), LifecycleOwner {
             }
         })
         initToolbar()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        logger.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        logger.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        logger.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        logger.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        logger.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
