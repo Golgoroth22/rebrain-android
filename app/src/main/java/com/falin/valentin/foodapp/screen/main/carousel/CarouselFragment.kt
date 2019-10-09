@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseFragment
+import com.falin.valentin.foodapp.utils.Logger
 import kotlinx.android.synthetic.main.fragment_carousel.view.*
 
 private const val IMG_ID = "image_id"
@@ -18,13 +19,8 @@ private const val IMG_ID = "image_id"
  *
  */
 class CarouselFragment : BaseFragment() {
-    companion object {
-        fun newInstance(imageId: Int): CarouselFragment {
-            val fragment = CarouselFragment()
-            fragment.arguments = bundleOf(IMG_ID to imageId)
-            return fragment
-        }
-    }
+    override val owner: Logger.Owner
+        get() = Logger.Owner.CAROUSEL_FRAGMENT
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,5 +29,13 @@ class CarouselFragment : BaseFragment() {
         val rootView = inflater.inflate(R.layout.fragment_carousel, container, false)
         arguments?.getInt(IMG_ID)?.let { rootView.carousel_image_view.setImageResource(it) }
         return rootView
+    }
+
+    companion object {
+        fun newInstance(imageId: Int): CarouselFragment {
+            val fragment = CarouselFragment()
+            fragment.arguments = bundleOf(IMG_ID to imageId)
+            return fragment
+        }
     }
 }
