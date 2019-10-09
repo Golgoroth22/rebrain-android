@@ -14,10 +14,10 @@ import kotlin.coroutines.CoroutineContext
  * Class-activity for work with SplashActivity and showing it.
  */
 class SplashActivity : BaseActivity(), CoroutineScope {
+    override val owner: Logger.Owner
+        get() = Logger.Owner.SPLASH_ACTIVITY
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
-
-    private val logger = Logger(lifecycle, Logger.Owner.SPLASH_ACTIVITY)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

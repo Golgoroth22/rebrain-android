@@ -14,13 +14,8 @@ import kotlinx.android.synthetic.main.activity_intro.*
  * Class-activity for work with IntroActivity and showing it.
  */
 class IntroActivity : BaseActivity() {
-    companion object {
-        fun start(context: Context) {
-            context.startActivity(Intent(context, IntroActivity::class.java))
-        }
-    }
-
-    private val logger = Logger(lifecycle, Logger.Owner.INTRO_ACTIVITY)
+    override val owner: Logger.Owner
+        get() = Logger.Owner.INTRO_ACTIVITY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +30,12 @@ class IntroActivity : BaseActivity() {
     private fun checkIsIntroActivityViewed() {
         if (!PreferencesHelper(this).introInfo) {
             PreferencesHelper(this).introInfo = true
+        }
+    }
+
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(Intent(context, IntroActivity::class.java))
         }
     }
 }

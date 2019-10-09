@@ -14,15 +14,20 @@ import com.falin.valentin.foodapp.utils.Logger
  *
  */
 class FavoriteTabFragment : BaseFragment() {
+    override val owner: Logger.Owner
+        get() = Logger.Owner.FAVORITE_TAB_FRAGMENT
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_favorite_tab, container, false)
+    }
+
     companion object {
         fun newInstance(): FavoriteTabFragment {
             return FavoriteTabFragment()
         }
-    }
-
-    private val logger = Logger(lifecycle, Logger.Owner.FAVORITE_TAB_FRAGMENT)
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_favorite_tab, container, false)
     }
 }

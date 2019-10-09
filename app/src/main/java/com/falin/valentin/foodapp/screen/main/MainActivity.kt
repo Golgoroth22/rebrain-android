@@ -24,13 +24,9 @@ import kotlin.math.log
  *
  */
 class MainActivity : BaseActivity() {
-    companion object {
-        fun start(context: Context) {
-            context.startActivity(Intent(context, MainActivity::class.java))
-        }
-    }
+    override val owner: Logger.Owner
+        get() = Logger.Owner.MAIN_ACTIVITY
 
-    private val logger = Logger(lifecycle, Logger.Owner.MAIN_ACTIVITY)
     lateinit var mainTabFragment: MainTabFragment
     lateinit var favoriteTabFragment: FavoriteTabFragment
 
@@ -102,5 +98,11 @@ class MainActivity : BaseActivity() {
             transaction.attach(newFragment)
         }
         transaction.commit()
+    }
+
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(Intent(context, MainActivity::class.java))
+        }
     }
 }

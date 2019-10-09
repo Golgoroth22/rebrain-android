@@ -21,19 +21,14 @@ import kotlinx.android.synthetic.main.fragment_main_tab.view.*
  *
  */
 class MainTabFragment : BaseFragment() {
-    companion object {
-        fun newInstance(): MainTabFragment {
-            return MainTabFragment()
-        }
-    }
+    override val owner: Logger.Owner
+        get() = Logger.Owner.MAIN_TAB_FRAGMENT
 
     private lateinit var rv: RecyclerView
     private lateinit var mainTabPageAdapter: CarouselStatePageAdapter
     private lateinit var mainTabRecyclerAdapter: MainTabElementAdapter
     private lateinit var lm: RecyclerView.LayoutManager
     private lateinit var picList: List<Int>
-
-    private val logger = Logger(lifecycle, Logger.Owner.MAIN_TAB_FRAGMENT)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +47,11 @@ class MainTabFragment : BaseFragment() {
         mainTabPageAdapter = CarouselStatePageAdapter(childFragmentManager, picList)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_main_tab, container, false)
         initRv(rootView)
         initListeners(rootView)
@@ -113,4 +112,10 @@ class MainTabFragment : BaseFragment() {
     }
 
     fun getLayoutManagerDisplayMode() = mainTabRecyclerAdapter.displayMode
+
+    companion object {
+        fun newInstance(): MainTabFragment {
+            return MainTabFragment()
+        }
+    }
 }
