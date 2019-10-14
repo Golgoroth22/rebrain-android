@@ -5,6 +5,7 @@ import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.intro.IntroActivity
+import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -13,6 +14,8 @@ import kotlin.coroutines.CoroutineContext
  * Class-activity for work with SplashActivity and showing it.
  */
 class SplashActivity : BaseActivity(), CoroutineScope {
+    override val owner: Logger.Owner
+        get() = Logger.Owner.SPLASH_ACTIVITY
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
 

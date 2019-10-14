@@ -13,6 +13,7 @@ import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.falin.valentin.foodapp.utils.Generator
+import com.falin.valentin.foodapp.utils.Logger
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
 
 /**
@@ -20,11 +21,8 @@ import kotlinx.android.synthetic.main.fragment_main_tab.view.*
  *
  */
 class MainTabFragment : BaseFragment() {
-    companion object {
-        fun newInstance(): MainTabFragment {
-            return MainTabFragment()
-        }
-    }
+    override val owner: Logger.Owner
+        get() = Logger.Owner.MAIN_TAB_FRAGMENT
 
     private lateinit var rv: RecyclerView
     private lateinit var mainTabPageAdapter: CarouselStatePageAdapter
@@ -49,7 +47,11 @@ class MainTabFragment : BaseFragment() {
         mainTabPageAdapter = CarouselStatePageAdapter(childFragmentManager, picList)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_main_tab, container, false)
         initRv(rootView)
         initListeners(rootView)
@@ -110,4 +112,10 @@ class MainTabFragment : BaseFragment() {
     }
 
     fun getLayoutManagerDisplayMode() = mainTabRecyclerAdapter.displayMode
+
+    companion object {
+        fun newInstance(): MainTabFragment {
+            return MainTabFragment()
+        }
+    }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.main.MainActivity
+import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import kotlinx.android.synthetic.main.activity_intro.*
 
@@ -13,11 +14,8 @@ import kotlinx.android.synthetic.main.activity_intro.*
  * Class-activity for work with IntroActivity and showing it.
  */
 class IntroActivity : BaseActivity() {
-    companion object {
-        fun start(context: Context) {
-            context.startActivity(Intent(context, IntroActivity::class.java))
-        }
-    }
+    override val owner: Logger.Owner
+        get() = Logger.Owner.INTRO_ACTIVITY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +30,12 @@ class IntroActivity : BaseActivity() {
     private fun checkIsIntroActivityViewed() {
         if (!PreferencesHelper(this).introInfo) {
             PreferencesHelper(this).introInfo = true
+        }
+    }
+
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(Intent(context, IntroActivity::class.java))
         }
     }
 }

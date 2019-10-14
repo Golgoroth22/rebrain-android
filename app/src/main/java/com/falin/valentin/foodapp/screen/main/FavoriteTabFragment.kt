@@ -7,19 +7,27 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseFragment
+import com.falin.valentin.foodapp.utils.Logger
 
 /**
  * [Fragment] subclass to work with FavoriteTabFragment and showing it.
  *
  */
 class FavoriteTabFragment : BaseFragment() {
+    override val owner: Logger.Owner
+        get() = Logger.Owner.FAVORITE_TAB_FRAGMENT
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_favorite_tab, container, false)
+    }
+
     companion object {
         fun newInstance(): FavoriteTabFragment {
             return FavoriteTabFragment()
         }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_favorite_tab, container, false)
     }
 }
