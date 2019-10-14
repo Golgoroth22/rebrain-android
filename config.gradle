@@ -3,7 +3,6 @@ def versions = [:]
 versions.android_gradle_plugin = '3.5.1'
 versions.androidx = '1.0.0'
 versions.anko = '0.10.8'
-versions.appcompat_v7 = '1.1.0'
 versions.androidx_ktx = '1.1.0'
 versions.coroutines = "1.1.1"
 versions.constraint = '1.1.3'
