@@ -32,7 +32,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidx_ktx"
     implementation "androidx.constraintlayout:constraintlayout:$constraint"
     implementation "androidx.legacy:legacy-support-v4:$androidx"
-    implementation "com.jakewharton.timber:timber:$timber"
     implementation "com.google.android.material:material:$androidx"
     implementation "androidx.core:core-ktx:$androidx_ktx"
 
@@ -41,12 +40,13 @@ dependencies {
 
     /* Anko */
     implementation "org.jetbrains.anko:anko:$anko"
-    implementation "org.jetbrains.anko:anko-commons:$anko"
-    implementation "org.jetbrains.anko:anko-design:$anko"
 
     /* Lifecycle */
     implementation "android.arch.lifecycle:extensions:$lifecycle"
     kapt "android.arch.lifecycle:compiler:$lifecycle"
+
+    /* Timber */
+    implementation "com.jakewharton.timber:timber:$timber"
 
     /* Tests */
     testImplementation "junit:junit:$junit"
