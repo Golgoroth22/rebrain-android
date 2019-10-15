@@ -9,7 +9,7 @@ import com.falin.valentin.foodapp.utils.Generator
  *
  */
 class ProductListViewModel : ViewModel() {
-    var picturesList: List<Int> = listOf(
+    val picturesList: List<Int> = listOf(
         R.drawable.food_1,
         R.drawable.food_2,
         R.drawable.food_3,
@@ -21,7 +21,6 @@ class ProductListViewModel : ViewModel() {
         R.drawable.food_9,
         R.drawable.food_10
     )
-        private set
 
     fun getProducts(): List<Any> {
         return Generator().getProducts() as List<Any>
