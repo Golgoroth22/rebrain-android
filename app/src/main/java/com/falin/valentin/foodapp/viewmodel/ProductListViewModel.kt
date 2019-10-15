@@ -22,6 +22,10 @@ class ProductListViewModel : ViewModel() {
         R.drawable.food_10
     )
 
+    /**
+     * This method can be called for get [List] of [Any] products.
+     *
+     */
     fun getProducts(): List<Any> {
         return Generator().getProducts() as List<Any>
     }

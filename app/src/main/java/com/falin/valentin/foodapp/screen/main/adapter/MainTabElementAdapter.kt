@@ -34,8 +34,7 @@ class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     private var basketButtonListener: ((String) -> Toast)? = null
     var displayMode = LayoutManagerDisplayMode.GRID
-    var adapterList = mutableListOf<Any>()
-        private set
+    private var adapterList = mutableListOf<Any>()
 
     var carouselPicturesList = emptyList<Int>()
         private set
@@ -69,6 +68,10 @@ class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         }
     }
 
+    /**
+     * This method can be called for set [adapterList].
+     *
+     */
     fun setProductList(list: List<Any>, picturesList: List<Int>) {
         adapterList.clear()
         adapterList.add(list[CAROUSEL_ID])

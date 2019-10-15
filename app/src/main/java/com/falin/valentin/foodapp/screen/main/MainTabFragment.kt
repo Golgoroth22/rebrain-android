@@ -71,6 +71,10 @@ class MainTabFragment : BaseFragment() {
         )
     }
 
+    /**
+     * This method can be called for switch [mainTabRecyclerAdapter] display mode.
+     *
+     */
     fun switchRecyclerViewDisplayMode() {
         when (mainTabRecyclerAdapter.displayMode) {
             MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> {
@@ -100,6 +104,10 @@ class MainTabFragment : BaseFragment() {
         mainTabRecyclerAdapter.notifyDataSetChanged()
     }
 
+    /**
+     * This method can be called for get current [mainTabRecyclerAdapter] display mode view.
+     *
+     */
     fun getLayoutManagerDisplayMode() = mainTabRecyclerAdapter.displayMode
 
     companion object {

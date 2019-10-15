@@ -18,6 +18,10 @@ class Generator {
         }
     }
 
+    /**
+     * This method can be called for get [List] of [Any] products.
+     *
+     */
     fun getProducts(): List<Any?> {
         return list.shuffled()
     }
