@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.repository.ProductsRepository
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
@@ -49,7 +50,7 @@ class MainTabFragment : BaseFragment() {
         rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
             mainTabRecyclerAdapter.setProductList(
                 productListViewModel.getProducts(),
-                productListViewModel.picturesList
+                productListViewModel.getPictures()
             )
             rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
         }
@@ -63,11 +64,12 @@ class MainTabFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        productListViewModel = ViewModelProviders.of(this, ProductListViewModelFactory())
-            .get(ProductListViewModel::class.java)
+        productListViewModel = ViewModelProviders.of(
+            this, ProductListViewModelFactory(ProductsRepository())
+        ).get(ProductListViewModel::class.java)
         mainTabRecyclerAdapter.setProductList(
             productListViewModel.getProducts(),
-            productListViewModel.picturesList
+            productListViewModel.getPictures()
         )
     }
 
