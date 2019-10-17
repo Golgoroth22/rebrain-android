@@ -18,7 +18,7 @@ class ProductListViewModel(
      *
      */
     fun getPictures(): List<Int> {
-        return repository.picturesList
+        return repository.getPictures()
     }
 
     /**

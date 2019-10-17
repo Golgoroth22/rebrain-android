@@ -65,7 +65,7 @@ class MainTabFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         productListViewModel = ViewModelProviders.of(
-            this, ProductListViewModelFactory(ProductsRepository())
+            this, ProductListViewModelFactory(ProductsRepository(Generator()))
         ).get(ProductListViewModel::class.java)
         mainTabRecyclerAdapter.setProductList(
             productListViewModel.getProducts(),
