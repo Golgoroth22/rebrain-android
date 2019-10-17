@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,38 +16,23 @@ import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.falin.valentin.foodapp.utils.Generator
 import com.falin.valentin.foodapp.utils.Logger
+import com.falin.valentin.foodapp.viewmodel.ProductListViewModel
+import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
 
 /**
- * [Fragment] subclass to work with MainTabFragment and showing it.
+ * [Fragment] subclass for work with MainTabFragment and showing it.
  *
  */
 class MainTabFragment : BaseFragment() {
     override val owner: Logger.Owner
         get() = Logger.Owner.MAIN_TAB_FRAGMENT
 
+    private lateinit var productListViewModel: ProductListViewModel
+
     private lateinit var rv: RecyclerView
-    private lateinit var mainTabPageAdapter: CarouselStatePageAdapter
     private lateinit var mainTabRecyclerAdapter: MainTabElementAdapter
     private lateinit var lm: RecyclerView.LayoutManager
-    private lateinit var picList: List<Int>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        picList = listOf(
-            R.drawable.food_1,
-            R.drawable.food_2,
-            R.drawable.food_3,
-            R.drawable.food_4,
-            R.drawable.food_5,
-            R.drawable.food_6,
-            R.drawable.food_7,
-            R.drawable.food_8,
-            R.drawable.food_9,
-            R.drawable.food_10
-        )
-        mainTabPageAdapter = CarouselStatePageAdapter(childFragmentManager, picList)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,8 +48,8 @@ class MainTabFragment : BaseFragment() {
     private fun initListeners(rootView: View) {
         rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
             mainTabRecyclerAdapter.setProductList(
-                Generator().getProducts() as List<Any>,
-                picList
+                productListViewModel.getProducts(),
+                productListViewModel.picturesList
             )
             rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
         }
@@ -76,12 +63,18 @@ class MainTabFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        productListViewModel = ViewModelProviders.of(this, ProductListViewModelFactory())
+            .get(ProductListViewModel::class.java)
         mainTabRecyclerAdapter.setProductList(
-            Generator().getProducts() as List<Any>,
-            picList
+            productListViewModel.getProducts(),
+            productListViewModel.picturesList
         )
     }
 
+    /**
+     * This method can be called for switch [mainTabRecyclerAdapter] display mode.
+     *
+     */
     fun switchRecyclerViewDisplayMode() {
         when (mainTabRecyclerAdapter.displayMode) {
             MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> {
@@ -111,6 +104,10 @@ class MainTabFragment : BaseFragment() {
         mainTabRecyclerAdapter.notifyDataSetChanged()
     }
 
+    /**
+     * This method can be called for get current [mainTabRecyclerAdapter] display mode view.
+     *
+     */
     fun getLayoutManagerDisplayMode() = mainTabRecyclerAdapter.displayMode
 
     companion object {
