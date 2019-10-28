@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.repository.ProductsRepository
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
@@ -48,10 +50,6 @@ class MainTabFragment : BaseFragment() {
 
     private fun initListeners(rootView: View) {
         rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
-            mainTabRecyclerAdapter.setProductList(
-                productListViewModel.getProducts(),
-                productListViewModel.getPictures()
-            )
             rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
         }
     }
@@ -67,10 +65,13 @@ class MainTabFragment : BaseFragment() {
         productListViewModel = ViewModelProviders.of(
             this, ProductListViewModelFactory(ProductsRepository(Generator()))
         ).get(ProductListViewModel::class.java)
-        mainTabRecyclerAdapter.setProductList(
-            productListViewModel.getProducts(),
-            productListViewModel.getPictures()
-        )
+        productListViewModel.products.observe(this,
+            Observer<List<Product>> {
+                mainTabRecyclerAdapter.setProductList(
+                    it,
+                    productListViewModel.getPictures()
+                )
+            })
     }
 
     /**
