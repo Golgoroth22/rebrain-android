@@ -26,14 +26,13 @@ import org.jetbrains.anko.toast
  * for display recycler elements.
  *
  */
-class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainTabElementAdapter(var displayMode: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    constructor(context: Context) : this() {
+    constructor(context: Context, dMode: Int) : this(dMode) {
         basketButtonListener = { id: String -> context.toast(id) }
     }
 
     private var basketButtonListener: ((String) -> Toast)? = null
-    var displayMode = LayoutManagerDisplayMode.GRID
     private var adapterList = mutableListOf<Any>()
 
     var carouselPicturesList = emptyList<Int>()
@@ -44,8 +43,9 @@ class MainTabElementAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             return MainTabCarouselViewHolder(parent, R.layout.carousel_element)
         }
         val id = when (displayMode) {
-            LayoutManagerDisplayMode.LINEAR -> R.layout.card_main_linear_element
-            LayoutManagerDisplayMode.GRID -> R.layout.card_main_grid_element
+            LayoutManagerDisplayMode.LINEAR.ordinal -> R.layout.card_main_linear_element
+            LayoutManagerDisplayMode.GRID.ordinal -> R.layout.card_main_grid_element
+            else -> R.layout.card_main_grid_element
         }
         return MainTabProductViewHolder(parent, id)
     }

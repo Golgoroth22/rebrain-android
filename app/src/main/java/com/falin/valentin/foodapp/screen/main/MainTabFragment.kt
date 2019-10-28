@@ -6,19 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.interactor.ProductModeStorage
+import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
 import com.falin.valentin.foodapp.repository.ProductsRepository
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
-import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.falin.valentin.foodapp.utils.Generator
 import com.falin.valentin.foodapp.utils.Logger
+import com.falin.valentin.foodapp.utils.PreferencesHelper
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModel
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
@@ -43,7 +44,6 @@ class MainTabFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_main_tab, container, false)
-        initRv(rootView)
         initListeners(rootView)
         return rootView
     }
@@ -56,15 +56,24 @@ class MainTabFragment : BaseFragment() {
 
     private fun initRv(rootView: View) {
         rv = rootView.fragment_main_tab_recycler
-        mainTabRecyclerAdapter = MainTabElementAdapter(context!!)
-        switchRecyclerViewDisplayMode()
+        mainTabRecyclerAdapter =
+            MainTabElementAdapter(context!!, productListViewModel.getProductsDisplayMode())
+        selectLayoutManager()
+        rv.apply {
+            layoutManager = lm
+            adapter = mainTabRecyclerAdapter
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         productListViewModel = ViewModelProviders.of(
-            this, ProductListViewModelFactory(ProductsRepository(Generator()))
+            this, ProductListViewModelFactory(
+                ProductsRepository(Generator()),
+                ProductsDisplayModeRepository(ProductModeStorage(PreferencesHelper(context!!)))
+            )
         ).get(ProductListViewModel::class.java)
+        initRv(view)
         productListViewModel.products.observe(this,
             Observer<List<Product>> {
                 mainTabRecyclerAdapter.setProductList(
@@ -79,13 +88,23 @@ class MainTabFragment : BaseFragment() {
      *
      */
     fun switchRecyclerViewDisplayMode() {
+        selectLayoutManager()
+        productListViewModel.switchDisplayMode()
+        rv.apply {
+            layoutManager = lm
+            adapter = mainTabRecyclerAdapter
+        }
+        mainTabRecyclerAdapter.notifyDataSetChanged()
+    }
+
+    private fun selectLayoutManager() {
         when (mainTabRecyclerAdapter.displayMode) {
-            MainTabElementAdapter.LayoutManagerDisplayMode.GRID -> {
+            MainTabElementAdapter.LayoutManagerDisplayMode.GRID.ordinal -> {
                 lm = LinearLayoutManager(context)
                 mainTabRecyclerAdapter.displayMode =
-                    MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR
+                    MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR.ordinal
             }
-            MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR -> {
+            MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR.ordinal -> {
                 lm = GridLayoutManager(context, 2)
                 (lm as GridLayoutManager).spanSizeLookup =
                     object : GridLayoutManager.SpanSizeLookup() {
@@ -97,14 +116,9 @@ class MainTabFragment : BaseFragment() {
                         }
                     }
                 mainTabRecyclerAdapter.displayMode =
-                    MainTabElementAdapter.LayoutManagerDisplayMode.GRID
+                    MainTabElementAdapter.LayoutManagerDisplayMode.GRID.ordinal
             }
         }
-        rv.apply {
-            layoutManager = lm
-            adapter = mainTabRecyclerAdapter
-        }
-        mainTabRecyclerAdapter.notifyDataSetChanged()
     }
 
     /**
