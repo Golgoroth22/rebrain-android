@@ -25,10 +25,10 @@ class ProductListViewModel(
         return productsRepository.getPictures()
     }
 
-    fun getProductsDisplayMode() = productsDisplayDisplayModeRepository.displayMode.getDisplayMode()
+    fun getProductsDisplayMode() = productsDisplayDisplayModeRepository.getDisplayMode()
 
     fun switchDisplayMode() {
-        productsDisplayDisplayModeRepository.displayMode.switchDisplayMode()
+        productsDisplayDisplayModeRepository.switchDisplayMode()
     }
 
     init {

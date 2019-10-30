@@ -1,12 +1,18 @@
 package com.falin.valentin.foodapp.screen.splash
 
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
+import com.falin.valentin.foodapp.repository.IntroInfoRepository
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.intro.IntroActivity
+import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.PreferencesHelper
+import com.falin.valentin.foodapp.viewmodel.IntroViewModel
+import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -19,10 +25,15 @@ class SplashActivity : BaseActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
 
+    private lateinit var introViewModel: IntroViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
+        introViewModel = ViewModelProviders.of(
+            this,
+            IntroViewModelFactory(IntroInfoRepository(IntroDisplayStorage(PreferencesHelper(this))))
+        ).get(IntroViewModel::class.java)
         waitABitAndGoNext()
     }
 
@@ -34,8 +45,7 @@ class SplashActivity : BaseActivity(), CoroutineScope {
     }
 
     private fun loadIntroOrMainActivity() {
-        val prefHelper = PreferencesHelper(this)
-        if (prefHelper.introInfo) {
+        if (introViewModel.isIntroShowed()) {
             MainActivity.start(this)
         } else {
             IntroActivity.start(this)
