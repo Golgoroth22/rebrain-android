@@ -1,12 +1,12 @@
 package com.falin.valentin.foodapp.repository
 
-import com.falin.valentin.foodapp.interactor.ProductModeStorage
+import com.falin.valentin.foodapp.interactor.ProductModeStorageImpl
 
 /**
  * Repository-layer class for work product mode displaying.
  *
  */
-class ProductsDisplayModeRepository(private val displayMode: ProductModeStorage) {
+class ProductsDisplayModeRepository(private val displayMode: ProductModeStorageImpl) {
     /**
      * This method can be called for get current products display mode.
      *
