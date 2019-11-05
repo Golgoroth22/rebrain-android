@@ -2,6 +2,7 @@ package com.falin.valentin.foodapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
 import com.falin.valentin.foodapp.repository.ProductsRepository
 
 /**
@@ -9,9 +10,12 @@ import com.falin.valentin.foodapp.repository.ProductsRepository
  *
  */
 @Suppress("UNCHECKED_CAST")
-class ProductListViewModelFactory(private val repository: ProductsRepository) :
+class ProductListViewModelFactory(
+    private val productsRepository: ProductsRepository,
+    private val productsDisplayDisplayModeRepository: ProductsDisplayModeRepository
+) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ProductListViewModel(repository) as T
+        return ProductListViewModel(productsRepository, productsDisplayDisplayModeRepository) as T
     }
 }
