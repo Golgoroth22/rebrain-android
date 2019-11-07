@@ -8,18 +8,18 @@ import com.falin.valentin.foodapp.utils.PreferencesHelper
  */
 class IntroDisplayStorage(
     private val preferences: PreferencesHelper
-) : IntroDisplayStorageImpl {
+) : Storage<Boolean> {
     /**
      * This method can be called for get current intro status.
      *
      */
-    override fun isIntroShowed() = preferences.introInfo
+    override fun getData() = preferences.introInfo
 
     /**
      * This method can be called for set intro activity status on Showed.
      *
      */
-    override fun setIntroShowed() {
+    override fun setData() {
         preferences.introInfo = true
     }
 }
