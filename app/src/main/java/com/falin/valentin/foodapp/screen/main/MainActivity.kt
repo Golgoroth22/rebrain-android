@@ -13,9 +13,12 @@ import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
+import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
+import com.falin.valentin.foodapp.viewmodel.MainActivityViewModelFactory
 import kotlin.math.log
 
 
@@ -27,23 +30,33 @@ class MainActivity : BaseActivity() {
     override val owner: Logger.Owner
         get() = Logger.Owner.MAIN_ACTIVITY
 
-    lateinit var mainTabFragment: MainTabFragment
-    lateinit var favoriteTabFragment: FavoriteTabFragment
+    lateinit var activityViewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainTabFragment = MainTabFragment.newInstance()
-        favoriteTabFragment = FavoriteTabFragment.newInstance()
-        attachNewFragmentAndDetachOldFragment(favoriteTabFragment, mainTabFragment)
+        activityViewModel = ViewModelProviders.of(
+            this,
+            MainActivityViewModelFactory()
+        ).get(MainActivityViewModel::class.java)
+        attachNewFragmentAndDetachOldFragment(
+            activityViewModel.favoriteTabFragment,
+            activityViewModel.mainTabFragment
+        )
         main_activity_custom_bottom_bar.setOnCustomClickListener(object : onClickCustomListener {
             override fun onClick(tabType: MainTabType) {
                 when (tabType) {
                     MainTabType.MAIN -> {
-                        attachNewFragmentAndDetachOldFragment(favoriteTabFragment, mainTabFragment)
+                        attachNewFragmentAndDetachOldFragment(
+                            activityViewModel.favoriteTabFragment,
+                            activityViewModel.mainTabFragment
+                        )
                     }
                     MainTabType.FAVORITE -> {
-                        attachNewFragmentAndDetachOldFragment(mainTabFragment, favoriteTabFragment)
+                        attachNewFragmentAndDetachOldFragment(
+                            activityViewModel.mainTabFragment,
+                            activityViewModel.favoriteTabFragment
+                        )
                     }
                 }
             }
@@ -60,7 +73,7 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.menu_button -> {
-                updateMenuItem(item)
+                activityViewModel.updateMenuItem(item)
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -74,14 +87,6 @@ class MainActivity : BaseActivity() {
     private fun initToolbar() {
         custom_toolbar.title = getString(R.string.app_name)
         setSupportActionBar(custom_toolbar)
-    }
-
-    private fun updateMenuItem(item: MenuItem?) {
-        mainTabFragment.switchRecyclerViewDisplayMode()
-        when (mainTabFragment.getLayoutManagerDisplayMode()) {
-            MainTabElementAdapter.LayoutManagerDisplayMode.GRID.ordinal -> item?.setIcon(R.drawable.ic_menu_linear)
-            MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR.ordinal -> item?.setIcon(R.drawable.ic_menu_grid)
-        }
     }
 
     private fun attachNewFragmentAndDetachOldFragment(

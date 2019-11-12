@@ -8,7 +8,6 @@ import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.repository.IntroInfoRepository
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.intro.IntroActivity
-import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import com.falin.valentin.foodapp.viewmodel.IntroViewModel

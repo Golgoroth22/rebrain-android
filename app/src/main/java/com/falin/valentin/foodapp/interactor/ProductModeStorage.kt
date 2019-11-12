@@ -9,18 +9,18 @@ import com.falin.valentin.foodapp.utils.PreferencesHelper
  */
 class ProductModeStorage(
     private val preferences: PreferencesHelper
-) {
+) : Storage<Int> {
     /**
      * This method can be called for get current products display mode.
      *
      */
-    fun getDisplayMode() = preferences.productDisplayMode
+    override fun getData() = preferences.productDisplayMode
 
     /**
      * This method can be called for switch and save current products display mode.
      *
      */
-    fun switchDisplayMode() {
+    override fun setData() {
         when (preferences.productDisplayMode) {
             MainTabElementAdapter.LayoutManagerDisplayMode.LINEAR.ordinal -> preferences.productDisplayMode =
                 MainTabElementAdapter.LayoutManagerDisplayMode.GRID.ordinal
