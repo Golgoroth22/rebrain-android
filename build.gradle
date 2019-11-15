@@ -10,6 +10,7 @@ buildscript {
         anko = versions.anko
         coroutines = versions.coroutines
         constraint = versions.constraint
+        dagger2 = versions.dagger2
         glide = versions.glide
         junit = versions.junit
         kotlin = versions.kotlin
