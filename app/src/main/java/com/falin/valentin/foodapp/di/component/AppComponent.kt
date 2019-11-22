@@ -46,5 +46,5 @@ interface AppComponent {
      *
      * @return [Context]
      */
-    fun contextStorage(): Context
+    fun context(): Context
 }
