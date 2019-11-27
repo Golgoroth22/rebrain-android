@@ -2,12 +2,13 @@ package com.falin.valentin.foodapp.interactor
 
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.PreferencesHelper
+import javax.inject.Inject
 
 /**
  * Interactor-layer class for work with product display mode.
  *
  */
-class ProductModeStorage(
+class ProductModeStorage @Inject constructor(
     private val preferences: PreferencesHelper
 ) : Storage<Int> {
     /**

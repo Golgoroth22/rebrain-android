@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.di.component.DaggerAppComponent
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.repository.IntroInfoRepository
 import com.falin.valentin.foodapp.screen.BaseActivity
@@ -29,7 +30,11 @@ class IntroActivity : BaseActivity() {
         setContentView(R.layout.activity_intro)
         introViewModel = ViewModelProviders.of(
             this,
-            IntroViewModelFactory(IntroInfoRepository(IntroDisplayStorage(PreferencesHelper(this))))
+            IntroViewModelFactory(
+                IntroInfoRepository(
+                    DaggerAppComponent.builder().build().introDisplayStorage()
+                )
+            )
         ).get(IntroViewModel::class.java)
         checkIsIntroActivityViewed()
         intro_root_layout.setOnClickListener {

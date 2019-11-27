@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.di.component.DaggerAppComponent
+import com.falin.valentin.foodapp.di.module.AppModule
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.interactor.ProductModeStorage
 import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
@@ -70,7 +72,13 @@ class MainTabFragment : BaseFragment() {
         productListViewModel = ViewModelProviders.of(
             this, ProductListViewModelFactory(
                 ProductsRepository(Generator()),
-                ProductsDisplayModeRepository(ProductModeStorage(PreferencesHelper(context!!)))
+                ProductsDisplayModeRepository(
+                    DaggerAppComponent.builder().appModule(
+                        AppModule(
+                            context!!
+                        )
+                    ).build().productModeStorage()
+                )
             )
         ).get(ProductListViewModel::class.java)
         initRv(view)

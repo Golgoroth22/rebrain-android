@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.di.component.DaggerAppComponent
+import com.falin.valentin.foodapp.di.module.AppModule
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.repository.IntroInfoRepository
 import com.falin.valentin.foodapp.screen.BaseActivity
@@ -31,7 +33,12 @@ class SplashActivity : BaseActivity(), CoroutineScope {
         setContentView(R.layout.activity_splash)
         introViewModel = ViewModelProviders.of(
             this,
-            IntroViewModelFactory(IntroInfoRepository(IntroDisplayStorage(PreferencesHelper(this))))
+            IntroViewModelFactory(
+                IntroInfoRepository(
+                    DaggerAppComponent.builder().appModule(AppModule(this))
+                        .build().introDisplayStorage()
+                )
+            )
         ).get(IntroViewModel::class.java)
         waitABitAndGoNext()
     }

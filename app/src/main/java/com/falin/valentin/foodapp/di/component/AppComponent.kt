@@ -1,10 +1,7 @@
 package com.falin.valentin.foodapp.di.component
 
 import android.content.Context
-import com.falin.valentin.foodapp.di.module.AppModule
-import com.falin.valentin.foodapp.di.module.IntroDisplayStorageModule
-import com.falin.valentin.foodapp.di.module.ProductModeStorageModule
-import com.falin.valentin.foodapp.di.module.SharedPreferencesModule
+import com.falin.valentin.foodapp.di.module.*
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.interactor.ProductModeStorage
 import com.falin.valentin.foodapp.utils.PreferencesHelper

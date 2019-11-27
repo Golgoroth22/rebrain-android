@@ -6,6 +6,7 @@ import com.falin.valentin.foodapp.interactor.Storage
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 /**
  * Dagger2 module for providing [ProductModeStorage].
@@ -20,6 +21,7 @@ class ProductModeStorageModule {
      * @return [ProductModeStorage]
      */
     @Provides
+    @Singleton
     fun provideStorage(context: Context): Storage<Int> {
         return ProductModeStorage(PreferencesHelper(context))
     }
