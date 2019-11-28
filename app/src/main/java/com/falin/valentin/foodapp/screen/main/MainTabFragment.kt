@@ -14,16 +14,10 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.di.component.DaggerAppComponent
 import com.falin.valentin.foodapp.di.module.AppModule
 import com.falin.valentin.foodapp.domain.Product
-import com.falin.valentin.foodapp.interactor.ProductModeStorage
-import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
-import com.falin.valentin.foodapp.repository.ProductsRepository
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
-import com.falin.valentin.foodapp.utils.Generator
 import com.falin.valentin.foodapp.utils.Logger
-import com.falin.valentin.foodapp.utils.PreferencesHelper
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModel
-import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
 
 /**
@@ -70,16 +64,8 @@ class MainTabFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         productListViewModel = ViewModelProviders.of(
-            this, ProductListViewModelFactory(
-                ProductsRepository(Generator()),
-                ProductsDisplayModeRepository(
-                    DaggerAppComponent.builder().appModule(
-                        AppModule(
-                            context!!
-                        )
-                    ).build().productModeStorage()
-                )
-            )
+            this,
+            DaggerAppComponent.builder().appModule(AppModule(context!!)).build().productListViewModelFactory()
         ).get(ProductListViewModel::class.java)
         initRv(view)
         productListViewModel.products.observe(this,

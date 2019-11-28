@@ -5,6 +5,8 @@ import com.falin.valentin.foodapp.di.module.*
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.interactor.ProductModeStorage
 import com.falin.valentin.foodapp.utils.PreferencesHelper
+import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import dagger.Component
 import javax.inject.Singleton
 
@@ -14,7 +16,7 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(
-    modules = [IntroDisplayStorageModule::class, ProductModeStorageModule::class, SharedPreferencesModule::class, AppModule::class]
+    modules = [IntroDisplayStorageModule::class, ProductModeStorageModule::class, SharedPreferencesModule::class, AppModule::class, IntroViewModelFactoryModule::class, ProductListViewModelFactoryModule::class]
 )
 interface AppComponent {
     /**
@@ -44,4 +46,8 @@ interface AppComponent {
      * @return [Context]
      */
     fun context(): Context
+
+    fun introViewModelFactory(): IntroViewModelFactory
+
+    fun productListViewModelFactory(): ProductListViewModelFactory
 }
