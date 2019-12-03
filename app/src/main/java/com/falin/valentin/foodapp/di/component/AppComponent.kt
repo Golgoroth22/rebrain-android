@@ -47,7 +47,17 @@ interface AppComponent {
      */
     fun context(): Context
 
+    /**
+     * This method can be called for get [IntroViewModelFactory].
+     *
+     * @return [IntroViewModelFactory]
+     */
     fun introViewModelFactory(): IntroViewModelFactory
 
+    /**
+     * This method can be called for get [ProductListViewModelFactory].
+     *
+     * @return [ProductListViewModelFactory]
+     */
     fun productListViewModelFactory(): ProductListViewModelFactory
 }

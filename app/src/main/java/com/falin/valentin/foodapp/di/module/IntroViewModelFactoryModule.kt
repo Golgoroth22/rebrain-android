@@ -12,8 +12,9 @@ import javax.inject.Singleton
 class IntroViewModelFactoryModule {
 
     /**
-     * TODO
+     * This method can be called for get [IntroViewModelFactory].
      *
+     * @return [IntroViewModelFactory]
      */
     @Provides
     @Singleton

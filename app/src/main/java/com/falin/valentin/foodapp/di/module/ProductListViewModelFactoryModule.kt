@@ -14,8 +14,9 @@ import javax.inject.Singleton
 class ProductListViewModelFactoryModule {
 
     /**
-     * TODO
+     * This method can be called for get [ProductListViewModelFactory].
      *
+     * @return [ProductListViewModelFactory]
      */
     @Provides
     @Singleton
