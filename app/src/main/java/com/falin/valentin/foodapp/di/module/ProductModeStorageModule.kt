@@ -7,9 +7,18 @@ import com.falin.valentin.foodapp.utils.PreferencesHelper
 import dagger.Module
 import dagger.Provides
 
+/**
+ * Dagger2 module for providing [ProductModeStorage].
+ *
+ */
 @Module
-class ProductModeStorageModule() {
+class ProductModeStorageModule {
 
+    /**
+     * This method can be called for get [ProductModeStorage].
+     *
+     * @return [ProductModeStorage]
+     */
     @Provides
     fun provideStorage(context: Context): Storage<Int> {
         return ProductModeStorage(PreferencesHelper(context))
