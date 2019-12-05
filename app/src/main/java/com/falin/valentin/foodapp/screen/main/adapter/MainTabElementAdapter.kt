@@ -142,6 +142,7 @@ class MainTabElementAdapter(var displayMode: Int) :
                 }
             })
             tabLayout.setupWithViewPager(viewPager, true)
+            tabLayout.tabRippleColor = null
         }
     }
 
