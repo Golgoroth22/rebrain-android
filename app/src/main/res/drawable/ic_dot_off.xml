@@ -2,10 +2,10 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape
-            android:innerRadius="0dp"
-            android:shape="ring"
-            android:thickness="6dp"
-            android:useLevel="false">
+                android:innerRadius="0dp"
+                android:shape="ring"
+                android:thickness="7.3dp"
+                android:useLevel="false">
             <solid android:color="@color/colorViewPagerDot30" />
         </shape>
     </item>
