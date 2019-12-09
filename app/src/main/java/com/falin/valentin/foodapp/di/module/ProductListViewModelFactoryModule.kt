@@ -1,7 +1,6 @@
 package com.falin.valentin.foodapp.di.module
 
-import android.content.Context
-import com.falin.valentin.foodapp.di.component.DaggerAppComponent
+import com.falin.valentin.foodapp.interactor.ProductModeStorage
 import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
 import com.falin.valentin.foodapp.repository.ProductsRepository
 import com.falin.valentin.foodapp.utils.Generator
@@ -20,13 +19,9 @@ class ProductListViewModelFactoryModule {
      */
     @Provides
     @Singleton
-    fun provideFactory(context: Context): ProductListViewModelFactory {
+    fun provideFactory(storage: ProductModeStorage): ProductListViewModelFactory {
         return ProductListViewModelFactory(
-            ProductsRepository(Generator()),
-            ProductsDisplayModeRepository(
-                DaggerAppComponent.builder().appModule(AppModule(context)).build()
-                    .productModeStorage()
-            )
+            ProductsRepository(Generator()), ProductsDisplayModeRepository(storage)
         )
     }
 }

@@ -1,7 +1,6 @@
 package com.falin.valentin.foodapp.di.module
 
-import android.content.Context
-import com.falin.valentin.foodapp.di.component.DaggerAppComponent
+import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.repository.IntroInfoRepository
 import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
 import dagger.Module
@@ -18,13 +17,7 @@ class IntroViewModelFactoryModule {
      */
     @Provides
     @Singleton
-    fun provideFactory(context: Context): IntroViewModelFactory {
-        return IntroViewModelFactory(
-            IntroInfoRepository(
-                DaggerAppComponent.builder().appModule(
-                    AppModule(context)
-                ).build().introDisplayStorage()
-            )
-        )
+    fun provideFactory(storage: IntroDisplayStorage): IntroViewModelFactory {
+        return IntroViewModelFactory(IntroInfoRepository(storage))
     }
 }

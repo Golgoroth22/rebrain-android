@@ -22,7 +22,7 @@ class ProductModeStorageModule {
      */
     @Provides
     @Singleton
-    fun provideStorage(context: Context): Storage<Int> {
-        return ProductModeStorage(PreferencesHelper(context))
+    fun provideStorage(preferencesHelper: PreferencesHelper): Storage<Int> {
+        return ProductModeStorage(preferencesHelper)
     }
 }

@@ -22,7 +22,7 @@ class IntroDisplayStorageModule {
      */
     @Provides
     @Singleton
-    fun provideStorage(context: Context): Storage<Boolean> {
-        return IntroDisplayStorage(PreferencesHelper(context))
+    fun provideStorage(preferencesHelper: PreferencesHelper): Storage<Boolean> {
+        return IntroDisplayStorage(preferencesHelper)
     }
 }
