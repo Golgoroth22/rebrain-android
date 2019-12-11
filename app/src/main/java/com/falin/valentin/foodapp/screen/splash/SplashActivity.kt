@@ -12,6 +12,7 @@ import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.intro.IntroActivity
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.PreferencesHelper
+import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.IntroViewModel
 import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
 import kotlinx.coroutines.*
@@ -27,15 +28,15 @@ class SplashActivity : BaseActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
 
+    @Inject
+    lateinit var viewModelFactory: IntroViewModelFactory
     private lateinit var introViewModel: IntroViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DaggerAppComponent.builder().appModule(AppModule(this)).build().inject(this)
         setContentView(R.layout.activity_splash)
-        introViewModel = ViewModelProviders.of(
-            this,
-            DaggerAppComponent.builder().appModule(AppModule(this)).build().introViewModelFactory()
-        ).get(IntroViewModel::class.java)
+        introViewModel = injectViewModel(viewModelFactory)
         waitABitAndGoNext()
     }
 

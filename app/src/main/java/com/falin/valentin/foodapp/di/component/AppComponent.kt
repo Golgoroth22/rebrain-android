@@ -4,6 +4,9 @@ import android.content.Context
 import com.falin.valentin.foodapp.di.module.*
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.interactor.ProductModeStorage
+import com.falin.valentin.foodapp.screen.intro.IntroActivity
+import com.falin.valentin.foodapp.screen.main.MainTabFragment
+import com.falin.valentin.foodapp.screen.splash.SplashActivity
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
@@ -60,4 +63,22 @@ interface AppComponent {
      * @return [ProductListViewModelFactory]
      */
     fun productListViewModelFactory(): ProductListViewModelFactory
+
+    /**
+     * This method can be called for inject in [IntroActivity]
+     *
+     */
+    fun inject(introActivity: IntroActivity)
+
+    /**
+     * This method can be called for inject in [SplashActivity]
+     *
+     */
+    fun inject(splashActivity: SplashActivity)
+
+    /**
+     * This method can be called for inject in [MainTabFragment]
+     *
+     */
+    fun inject(mainTabFragment: MainTabFragment)
 }

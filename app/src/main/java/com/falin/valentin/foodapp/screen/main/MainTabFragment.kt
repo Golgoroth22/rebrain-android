@@ -17,8 +17,12 @@ import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
+import com.falin.valentin.foodapp.utils.injectViewModel
+import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModel
+import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
+import javax.inject.Inject
 
 /**
  * [Fragment] subclass for work with MainTabFragment and showing it.
@@ -28,11 +32,18 @@ class MainTabFragment : BaseFragment() {
     override val owner: Logger.Owner
         get() = Logger.Owner.MAIN_TAB_FRAGMENT
 
+    @Inject
+    lateinit var viewModelFactory: ProductListViewModelFactory
     private lateinit var productListViewModel: ProductListViewModel
 
     private lateinit var rv: RecyclerView
     private lateinit var mainTabRecyclerAdapter: MainTabElementAdapter
     private lateinit var lm: RecyclerView.LayoutManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerAppComponent.builder().appModule(AppModule(context!!)).build().inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,10 +74,7 @@ class MainTabFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        productListViewModel = ViewModelProviders.of(
-            this,
-            DaggerAppComponent.builder().appModule(AppModule(context!!)).build().productListViewModelFactory()
-        ).get(ProductListViewModel::class.java)
+        productListViewModel = injectViewModel(viewModelFactory)
         initRv(view)
         productListViewModel.products.observe(this,
             Observer<List<Product>> {

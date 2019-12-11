@@ -1,9 +1,6 @@
 package com.falin.valentin.foodapp
 
 import android.app.Application
-import com.falin.valentin.foodapp.di.component.AppComponent
-import com.falin.valentin.foodapp.di.component.DaggerAppComponent
-import com.falin.valentin.foodapp.di.module.AppModule
 import timber.log.Timber
 
 /**
