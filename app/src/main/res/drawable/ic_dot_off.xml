@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape
-                android:innerRadius="0dp"
-                android:shape="ring"
-                android:thickness="7.3dp"
-                android:useLevel="false">
+        <shape android:innerRadius="0dp" android:shape="ring" android:useLevel="false">
             <solid android:color="@color/colorViewPagerDot30" />
+            <size android:width="7.3dp" android:height="7.3dp" />
         </shape>
     </item>
-</layer-list>
+</selector>
