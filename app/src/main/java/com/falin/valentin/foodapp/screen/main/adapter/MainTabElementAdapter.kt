@@ -26,7 +26,8 @@ import org.jetbrains.anko.toast
  * for display recycler elements.
  *
  */
-class MainTabElementAdapter(var displayMode: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainTabElementAdapter(var displayMode: Int) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     constructor(context: Context, dMode: Int) : this(dMode) {
         basketButtonListener = { id: String -> context.toast(id) }
@@ -36,6 +37,9 @@ class MainTabElementAdapter(var displayMode: Int) : RecyclerView.Adapter<Recycle
     private var adapterList = mutableListOf<Any>()
 
     var carouselPicturesList = emptyList<Int>()
+        private set
+
+    var currentCarouselId: Int = 0
         private set
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -122,7 +126,23 @@ class MainTabElementAdapter(var displayMode: Int) : RecyclerView.Adapter<Recycle
 
         fun bind() {
             viewPager.adapter = CarouselStatePageAdapter(fm, carouselPicturesList)
+            viewPager.currentItem = currentCarouselId
+            viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) {}
+
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    currentCarouselId = position
+                }
+            })
             tabLayout.setupWithViewPager(viewPager, true)
+            tabLayout.tabRippleColor = null
         }
     }
 

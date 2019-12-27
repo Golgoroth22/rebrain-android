@@ -1,12 +1,13 @@
 package com.falin.valentin.foodapp.interactor
 
 import com.falin.valentin.foodapp.utils.PreferencesHelper
+import javax.inject.Inject
 
 /**
  * Interactor-layer class for work with intro.
  *
  */
-class IntroDisplayStorage(
+class IntroDisplayStorage @Inject constructor(
     private val preferences: PreferencesHelper
 ) : Storage<Boolean> {
     /**

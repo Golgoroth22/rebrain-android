@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape
-            android:innerRadius="0dp"
-            android:shape="ring"
-            android:thickness="10dp"
-            android:useLevel="false">
+        <shape android:innerRadius="0dp" android:shape="ring" android:useLevel="false">
+            <size android:width="10.5dp" android:height="10.5dp" />
             <solid android:color="@android:color/white" />
         </shape>
     </item>
-</layer-list>
+</selector>

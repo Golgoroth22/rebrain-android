@@ -4,15 +4,19 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.di.component.DaggerAppComponent
+import com.falin.valentin.foodapp.di.module.AppModule
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.repository.IntroInfoRepository
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.intro.IntroActivity
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.PreferencesHelper
+import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.IntroViewModel
 import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
 import kotlinx.coroutines.*
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -24,15 +28,15 @@ class SplashActivity : BaseActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
 
+    @Inject
+    lateinit var viewModelFactory: IntroViewModelFactory
     private lateinit var introViewModel: IntroViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DaggerAppComponent.builder().appModule(AppModule(this)).build().inject(this)
         setContentView(R.layout.activity_splash)
-        introViewModel = ViewModelProviders.of(
-            this,
-            IntroViewModelFactory(IntroInfoRepository(IntroDisplayStorage(PreferencesHelper(this))))
-        ).get(IntroViewModel::class.java)
+        introViewModel = injectViewModel(viewModelFactory)
         waitABitAndGoNext()
     }
 

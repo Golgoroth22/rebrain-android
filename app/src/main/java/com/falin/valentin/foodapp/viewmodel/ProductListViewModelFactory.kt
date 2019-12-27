@@ -4,13 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
 import com.falin.valentin.foodapp.repository.ProductsRepository
+import javax.inject.Inject
 
 /**
  * [ViewModelProvider.Factory] subclass for creation of [ProductListViewModel] class.
  *
  */
 @Suppress("UNCHECKED_CAST")
-class ProductListViewModelFactory(
+class ProductListViewModelFactory @Inject constructor(
     private val productsRepository: ProductsRepository,
     private val productsDisplayDisplayModeRepository: ProductsDisplayModeRepository
 ) :
