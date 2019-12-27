@@ -1,9 +1,9 @@
 package com.falin.valentin.foodapp.di.module
 
 import android.content.Context
+import com.falin.valentin.foodapp.di.scope.PerApplication
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 /**
  * Dagger2 module for providing [Context].
@@ -19,6 +19,6 @@ class AppModule(
      * @return [Context]
      */
     @Provides
-    @Singleton
+    @PerApplication
     fun provideContext() = context
 }

@@ -1,11 +1,11 @@
 package com.falin.valentin.foodapp.di.module
 
+import com.falin.valentin.foodapp.di.scope.PerApplication
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.repository.IntroInfoRepository
 import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class IntroViewModelFactoryModule {
@@ -16,7 +16,7 @@ class IntroViewModelFactoryModule {
      * @return [IntroViewModelFactory]
      */
     @Provides
-    @Singleton
+    @PerApplication
     fun provideFactory(storage: IntroDisplayStorage): IntroViewModelFactory {
         return IntroViewModelFactory(IntroInfoRepository(storage))
     }
