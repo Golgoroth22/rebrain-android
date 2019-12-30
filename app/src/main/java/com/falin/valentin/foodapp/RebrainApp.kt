@@ -9,6 +9,7 @@ import timber.log.Timber
 /**
  *  [Application] subclass to work with our app.
  *
+ * @property DAGGER property for DI
  */
 class RebrainApp : Application() {
 
