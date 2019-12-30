@@ -1,6 +1,6 @@
 package com.falin.valentin.foodapp.di.module
 
-import com.falin.valentin.foodapp.di.scope.PerApplication
+import com.falin.valentin.foodapp.di.scope.PerScreen
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.repository.IntroInfoRepository
 import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
@@ -16,7 +16,7 @@ class IntroViewModelFactoryModule {
      * @return [IntroViewModelFactory]
      */
     @Provides
-    @PerApplication
+    @PerScreen
     fun provideFactory(storage: IntroDisplayStorage): IntroViewModelFactory {
         return IntroViewModelFactory(IntroInfoRepository(storage))
     }

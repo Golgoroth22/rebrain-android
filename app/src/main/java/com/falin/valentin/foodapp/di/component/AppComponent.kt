@@ -12,6 +12,7 @@ import com.falin.valentin.foodapp.utils.PreferencesHelper
 import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import dagger.Component
+import javax.inject.Singleton
 
 /**
  * Dagger2 [Component] app interface.
@@ -19,23 +20,9 @@ import dagger.Component
  */
 @PerApplication
 @Component(
-    modules = [IntroDisplayStorageModule::class, ProductModeStorageModule::class, SharedPreferencesModule::class, AppModule::class, IntroViewModelFactoryModule::class, ProductListViewModelFactoryModule::class]
+    modules = [SharedPreferencesModule::class, AppModule::class]
 )
 interface AppComponent {
-    /**
-     * This method can be called for get [ProductModeStorage].
-     *
-     * @return [ProductModeStorage]
-     */
-    fun productModeStorage(): ProductModeStorage
-
-    /**
-     * This method can be called for get [IntroDisplayStorage].
-     *
-     * @return [IntroDisplayStorage]
-     */
-    fun introDisplayStorage(): IntroDisplayStorage
-
     /**
      * This method can be called for get [PreferencesHelper].
      *
@@ -51,34 +38,14 @@ interface AppComponent {
     fun context(): Context
 
     /**
-     * This method can be called for get [IntroViewModelFactory].
+     * This method can be called for init [ScreenComponent] dagger subcomponent.
      *
-     * @return [IntroViewModelFactory]
+     * @return [PreferencesHelper]
      */
-    fun introViewModelFactory(): IntroViewModelFactory
-
-    /**
-     * This method can be called for get [ProductListViewModelFactory].
-     *
-     * @return [ProductListViewModelFactory]
-     */
-    fun productListViewModelFactory(): ProductListViewModelFactory
-
-    /**
-     * This method can be called for inject in [IntroActivity]
-     *
-     */
-    fun inject(introActivity: IntroActivity)
-
-    /**
-     * This method can be called for inject in [SplashActivity]
-     *
-     */
-    fun inject(splashActivity: SplashActivity)
-
-    /**
-     * This method can be called for inject in [MainTabFragment]
-     *
-     */
-    fun inject(mainTabFragment: MainTabFragment)
+    fun initScreenComponent(
+        introDisplayStorageModule: IntroDisplayStorageModule,
+        introViewModelFactoryModule: IntroViewModelFactoryModule,
+        productListViewModelFactoryModule: ProductListViewModelFactoryModule,
+        productModeStorageModule: ProductModeStorageModule
+    ): ScreenComponent
 }

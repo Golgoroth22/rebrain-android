@@ -3,10 +3,9 @@ package com.falin.valentin.foodapp.screen.intro
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.di.component.DaggerAppComponent
-import com.falin.valentin.foodapp.di.module.AppModule
+import com.falin.valentin.foodapp.di.module.*
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.utils.Logger
@@ -29,7 +28,12 @@ class IntroActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerAppComponent.builder().appModule(AppModule(this)).build().inject(this)
+        DaggerAppComponent.builder().appModule(AppModule(this)).build().initScreenComponent(
+            IntroDisplayStorageModule(),
+            IntroViewModelFactoryModule(),
+            ProductListViewModelFactoryModule(),
+            ProductModeStorageModule()
+        ).inject(this)
         setContentView(R.layout.activity_intro)
         introViewModel = injectViewModel(viewModelFactory)
         checkIsIntroActivityViewed()

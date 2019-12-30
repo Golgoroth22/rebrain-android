@@ -12,13 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.di.component.DaggerAppComponent
-import com.falin.valentin.foodapp.di.module.AppModule
+import com.falin.valentin.foodapp.di.module.*
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
-import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModel
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
@@ -42,7 +41,12 @@ class MainTabFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerAppComponent.builder().appModule(AppModule(context!!)).build().inject(this)
+        DaggerAppComponent.builder().appModule(AppModule(context!!)).build().initScreenComponent(
+            IntroDisplayStorageModule(),
+            IntroViewModelFactoryModule(),
+            ProductListViewModelFactoryModule(),
+            ProductModeStorageModule()
+        ).inject(this)
     }
 
     override fun onCreateView(
