@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.di.component.DaggerAppComponent
-import com.falin.valentin.foodapp.di.module.*
+import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
@@ -41,12 +39,7 @@ class MainTabFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerAppComponent.builder().appModule(AppModule(context!!)).build().initScreenComponent(
-            IntroDisplayStorageModule(),
-            IntroViewModelFactoryModule(),
-            ProductListViewModelFactoryModule(),
-            ProductModeStorageModule()
-        ).inject(this)
+        RebrainApp.DAGGER.inject(this)
     }
 
     override fun onCreateView(

@@ -3,8 +3,7 @@ package com.falin.valentin.foodapp.screen.splash
 import android.os.Bundle
 import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.di.component.DaggerAppComponent
-import com.falin.valentin.foodapp.di.module.*
+import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.intro.IntroActivity
 import com.falin.valentin.foodapp.utils.Logger
@@ -30,12 +29,7 @@ class SplashActivity : BaseActivity(), CoroutineScope {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerAppComponent.builder().appModule(AppModule(this)).build().initScreenComponent(
-            IntroDisplayStorageModule(),
-            IntroViewModelFactoryModule(),
-            ProductListViewModelFactoryModule(),
-            ProductModeStorageModule()
-        ).inject(this)
+        RebrainApp.DAGGER.inject(this)
         setContentView(R.layout.activity_splash)
         introViewModel = injectViewModel(viewModelFactory)
         waitABitAndGoNext()
