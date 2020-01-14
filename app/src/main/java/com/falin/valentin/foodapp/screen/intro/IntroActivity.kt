@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.RebrainApp
+import com.falin.valentin.foodapp.di.component.DaggerAppComponent
+import com.falin.valentin.foodapp.di.module.AppModule
+import com.falin.valentin.foodapp.di.module.IntroDisplayStorageModule
+import com.falin.valentin.foodapp.di.module.IntroViewModelFactoryModule
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.utils.Logger
@@ -27,7 +30,7 @@ class IntroActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        RebrainApp.DAGGER.inject(this)
+        initDagger()
         setContentView(R.layout.activity_intro)
         introViewModel = injectViewModel(viewModelFactory)
         checkIsIntroActivityViewed()
@@ -35,6 +38,14 @@ class IntroActivity : BaseActivity() {
             MainActivity.start(this)
             finishAffinity()
         }
+    }
+
+    private fun initDagger() {
+        DaggerAppComponent.builder().appModule(AppModule(this)).build()
+            .initIntroComponent(
+                IntroDisplayStorageModule(),
+                IntroViewModelFactoryModule()
+            ).inject(this)
     }
 
     private fun checkIsIntroActivityViewed() {

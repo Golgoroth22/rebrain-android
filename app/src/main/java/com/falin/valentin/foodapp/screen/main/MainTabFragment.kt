@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.RebrainApp
+import com.falin.valentin.foodapp.di.component.DaggerAppComponent
+import com.falin.valentin.foodapp.di.module.AppModule
+import com.falin.valentin.foodapp.di.module.ProductListViewModelFactoryModule
+import com.falin.valentin.foodapp.di.module.ProductModeStorageModule
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
@@ -39,7 +42,7 @@ class MainTabFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        RebrainApp.DAGGER.inject(this)
+        initDagger()
     }
 
     override fun onCreateView(
@@ -50,6 +53,14 @@ class MainTabFragment : BaseFragment() {
         val rootView = inflater.inflate(R.layout.fragment_main_tab, container, false)
         initListeners(rootView)
         return rootView
+    }
+
+    private fun initDagger() {
+        DaggerAppComponent.builder().appModule(AppModule(context!!)).build()
+            .initMainTabComponent(
+                ProductListViewModelFactoryModule(),
+                ProductModeStorageModule()
+            ).inject(this)
     }
 
     private fun initListeners(rootView: View) {
