@@ -3,7 +3,7 @@ package com.falin.valentin.foodapp.screen.splash
 import android.os.Bundle
 import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.di.component.DaggerAppComponent
+import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.*
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.intro.IntroActivity
@@ -37,11 +37,10 @@ class SplashActivity : BaseActivity(), CoroutineScope {
     }
 
     private fun initDagger() {
-        DaggerAppComponent.builder().appModule(AppModule(this)).build()
-            .initSplashComponent(
-                IntroDisplayStorageModule(),
-                IntroViewModelFactoryModule()
-            ).inject(this)
+        RebrainApp.DAGGER.initSplashComponent(
+            IntroDisplayStorageModule(),
+            IntroViewModelFactoryModule()
+        ).inject(this)
     }
 
     private fun getSplashScreenDuration() = 500L

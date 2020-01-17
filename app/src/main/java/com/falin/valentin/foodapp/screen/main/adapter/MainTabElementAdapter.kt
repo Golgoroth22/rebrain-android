@@ -94,7 +94,6 @@ class MainTabElementAdapter(var displayMode: Int) :
             )
         )
 
-
         private val mainElementText: TextView = itemView.findViewById(R.id.card_main_element_text)
         private val mainElementPrice: TextView = itemView.findViewById(R.id.card_main_element_price)
         private val mainElementImage: ImageView =

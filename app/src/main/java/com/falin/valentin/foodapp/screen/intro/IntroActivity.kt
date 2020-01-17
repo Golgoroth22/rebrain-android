@@ -4,8 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.di.component.DaggerAppComponent
-import com.falin.valentin.foodapp.di.module.AppModule
+import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.IntroDisplayStorageModule
 import com.falin.valentin.foodapp.di.module.IntroViewModelFactoryModule
 import com.falin.valentin.foodapp.screen.BaseActivity
@@ -41,11 +40,10 @@ class IntroActivity : BaseActivity() {
     }
 
     private fun initDagger() {
-        DaggerAppComponent.builder().appModule(AppModule(this)).build()
-            .initIntroComponent(
-                IntroDisplayStorageModule(),
-                IntroViewModelFactoryModule()
-            ).inject(this)
+        RebrainApp.DAGGER.initIntroComponent(
+            IntroDisplayStorageModule(),
+            IntroViewModelFactoryModule()
+        ).inject(this)
     }
 
     private fun checkIsIntroActivityViewed() {
