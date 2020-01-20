@@ -6,19 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.di.component.DaggerAppComponent
-import com.falin.valentin.foodapp.di.module.AppModule
+import com.falin.valentin.foodapp.RebrainApp
+import com.falin.valentin.foodapp.di.module.ProductListViewModelFactoryModule
+import com.falin.valentin.foodapp.di.module.ProductModeStorageModule
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
-import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModel
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
@@ -42,7 +41,7 @@ class MainTabFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerAppComponent.builder().appModule(AppModule(context!!)).build().inject(this)
+        initDagger()
     }
 
     override fun onCreateView(
@@ -53,6 +52,13 @@ class MainTabFragment : BaseFragment() {
         val rootView = inflater.inflate(R.layout.fragment_main_tab, container, false)
         initListeners(rootView)
         return rootView
+    }
+
+    private fun initDagger() {
+        RebrainApp.DAGGER.initMainTabComponent(
+            ProductListViewModelFactoryModule(),
+            ProductModeStorageModule()
+        ).inject(this)
     }
 
     private fun initListeners(rootView: View) {

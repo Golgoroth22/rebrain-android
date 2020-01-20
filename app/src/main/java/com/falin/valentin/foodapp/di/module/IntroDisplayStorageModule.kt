@@ -1,12 +1,11 @@
 package com.falin.valentin.foodapp.di.module
 
-import android.content.Context
+import com.falin.valentin.foodapp.di.scope.PerScreen
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.interactor.Storage
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 /**
  * Dagger2 module for providing [IntroDisplayStorage].
@@ -21,7 +20,7 @@ class IntroDisplayStorageModule {
      * @return [IntroDisplayStorage]
      */
     @Provides
-    @Singleton
+    @PerScreen
     fun provideStorage(preferencesHelper: PreferencesHelper): Storage<Boolean> {
         return IntroDisplayStorage(preferencesHelper)
     }
