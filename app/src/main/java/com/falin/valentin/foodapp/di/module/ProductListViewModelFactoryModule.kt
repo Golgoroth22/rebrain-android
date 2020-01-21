@@ -9,6 +9,10 @@ import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import dagger.Module
 import dagger.Provides
 
+/**
+ * Dagger2 module for providing [ProductListViewModelFactory].
+ *
+ */
 @Module
 class ProductListViewModelFactoryModule {
 

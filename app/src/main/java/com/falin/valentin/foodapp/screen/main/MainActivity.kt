@@ -12,14 +12,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
-import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModelFactory
-import kotlin.math.log
 
 
 /**
@@ -39,10 +36,7 @@ class MainActivity : BaseActivity() {
             this,
             MainActivityViewModelFactory()
         ).get(MainActivityViewModel::class.java)
-        attachNewFragmentAndDetachOldFragment(
-            activityViewModel.favoriteTabFragment,
-            activityViewModel.mainTabFragment
-        )
+        attachFragments()
         main_activity_custom_bottom_bar.setOnCustomClickListener(object : onClickCustomListener {
             override fun onClick(tabType: MainTabType) {
                 when (tabType) {
@@ -103,6 +97,16 @@ class MainActivity : BaseActivity() {
             transaction.attach(newFragment)
         }
         transaction.commit()
+    }
+
+    private fun attachFragments() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction
+            .add(R.id.main_activity_frame_layout, activityViewModel.mainTabFragment)
+            .add(R.id.main_activity_frame_layout, activityViewModel.favoriteTabFragment)
+            .detach(activityViewModel.favoriteTabFragment)
+            .attach(activityViewModel.mainTabFragment)
+            .commit()
     }
 
     companion object {
