@@ -7,7 +7,7 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.custom_view.MainTabType
-import com.falin.valentin.foodapp.screen.custom_view.onClickCustomListener
+import com.falin.valentin.foodapp.screen.custom_view.OnClickCustomListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
@@ -37,19 +37,22 @@ class MainActivity : BaseActivity() {
             MainActivityViewModelFactory()
         ).get(MainActivityViewModel::class.java)
         attachFragments()
-        main_activity_custom_bottom_bar.setOnCustomClickListener(object : onClickCustomListener {
+        main_activity_custom_bottom_bar.setOnCustomClickListener(object : OnClickCustomListener {
             override fun onClick(tabType: MainTabType) {
                 when (tabType) {
                     MainTabType.MAIN -> {
                         attachNewFragmentAndDetachOldFragment(
-                            activityViewModel.favoriteTabFragment,
                             activityViewModel.mainTabFragment
                         )
                     }
                     MainTabType.FAVORITE -> {
                         attachNewFragmentAndDetachOldFragment(
-                            activityViewModel.mainTabFragment,
                             activityViewModel.favoriteTabFragment
+                        )
+                    }
+                    MainTabType.ACCOUNT -> {
+                        attachNewFragmentAndDetachOldFragment(
+                            activityViewModel.accountTabFragment
                         )
                     }
                 }
@@ -83,13 +86,10 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(custom_toolbar)
     }
 
-    private fun attachNewFragmentAndDetachOldFragment(
-        oldFragment: BaseFragment,
-        newFragment: BaseFragment
-    ) {
+    private fun attachNewFragmentAndDetachOldFragment(newFragment: BaseFragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        if (supportFragmentManager.findFragmentById(oldFragment.id) != null) {
-            transaction.detach(oldFragment)
+        if (supportFragmentManager.findFragmentById((supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout) as BaseFragment).id) != null) {
+            transaction.detach(supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout) as BaseFragment)
         }
         if (supportFragmentManager.findFragmentById(newFragment.id) == null) {
             transaction.add(R.id.main_activity_frame_layout, newFragment)
@@ -102,9 +102,11 @@ class MainActivity : BaseActivity() {
     private fun attachFragments() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction
-            .add(R.id.main_activity_frame_layout, activityViewModel.mainTabFragment)
             .add(R.id.main_activity_frame_layout, activityViewModel.favoriteTabFragment)
             .detach(activityViewModel.favoriteTabFragment)
+            .add(R.id.main_activity_frame_layout, activityViewModel.accountTabFragment)
+            .detach(activityViewModel.accountTabFragment)
+            .add(R.id.main_activity_frame_layout, activityViewModel.mainTabFragment)
             .attach(activityViewModel.mainTabFragment)
             .commit()
     }
