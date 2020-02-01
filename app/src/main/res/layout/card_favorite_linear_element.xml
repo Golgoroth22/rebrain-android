@@ -87,7 +87,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/card_favorite_element_favorite_button"
+            android:id="@+id/card_favorite_element_favorite_image"
             android:layout_width="23dp"
             android:layout_height="28dp"
             android:layout_marginEnd="10dp"

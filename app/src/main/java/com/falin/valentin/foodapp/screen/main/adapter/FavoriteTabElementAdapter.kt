@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.falin.valentin.foodapp.R
@@ -51,6 +52,8 @@ class FavoriteTabElementAdapter :
 
         private val titleText: TextView = itemView.findViewById(R.id.card_favorite_element_text)
         private val priceText: TextView = itemView.findViewById(R.id.card_favorite_element_price)
+        private val favoriteImage: ImageView =
+            itemView.findViewById(R.id.card_favorite_element_favorite_image)
         private val image: ImageView =
             itemView.findViewById(R.id.card_favorite_element_image)
 
@@ -58,6 +61,11 @@ class FavoriteTabElementAdapter :
             titleText.text = product.name
             priceText.text = "${product.price}"
             Glide.with(image.context).load(product.imageUrl).into(image)
+            favoriteImage.setOnClickListener {
+                val list = adapterList.toMutableList()
+                list.remove(product)
+                updateList(list)
+            }
         }
     }
 }
