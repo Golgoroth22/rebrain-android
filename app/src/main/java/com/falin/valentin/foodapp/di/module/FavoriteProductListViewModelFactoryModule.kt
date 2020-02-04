@@ -1,8 +1,8 @@
 package com.falin.valentin.foodapp.di.module
 
 import com.falin.valentin.foodapp.di.scope.PerScreen
+import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.repository.FavoriteProductsRepository
-import com.falin.valentin.foodapp.utils.Generator
 import com.falin.valentin.foodapp.viewmodel.FavoriteProductListViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -20,7 +20,7 @@ class FavoriteProductListViewModelFactoryModule {
      */
     @Provides
     @PerScreen
-    fun provideFactory(): FavoriteProductListViewModelFactory {
-        return FavoriteProductListViewModelFactory(FavoriteProductsRepository(Generator()))
+    fun provideFactory(storage: FavoriteProductsStorage): FavoriteProductListViewModelFactory {
+        return FavoriteProductListViewModelFactory(FavoriteProductsRepository(storage))
     }
 }

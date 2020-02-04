@@ -21,7 +21,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_main_tab_recycler"
             android:layout_width="0dp"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            tools:listitem="@layout/card_main_linear_element" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

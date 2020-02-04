@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.google.android.material.tabs.TabLayout
 import org.jetbrains.anko.toast
@@ -33,6 +35,7 @@ class MainTabElementAdapter(var displayMode: Int) :
         basketButtonListener = { id: String -> context.toast(id) }
     }
 
+    private val favorites: FavoriteProductsStorage = RebrainApp.DAGGER.favoriteProductsStorage()
     private var basketButtonListener: ((String) -> Toast)? = null
     private var adapterList = mutableListOf<Any>()
 
@@ -107,6 +110,7 @@ class MainTabElementAdapter(var displayMode: Int) :
             Glide.with(mainElementImage.context).load(product.imageUrl).into(mainElementImage)
             mainElementBasketButton.setOnClickListener {
                 basketButtonListener?.invoke(product.name)
+                favorites.addProduct(product)
             }
         }
     }

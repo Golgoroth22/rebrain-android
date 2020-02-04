@@ -11,9 +11,8 @@ import com.falin.valentin.foodapp.repository.ProductsRepository
  *
  * @property products Property for contain products. Wrapped in [MutableLiveData]
  */
-class FavoriteProductListViewModel(productsRepository: FavoriteProductsRepository) :
+class FavoriteProductListViewModel(private val productsRepository: FavoriteProductsRepository) :
     ViewModel() {
-
     var products: MutableLiveData<List<Product>> = MutableLiveData()
 
     init {

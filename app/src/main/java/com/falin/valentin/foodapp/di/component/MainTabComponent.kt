@@ -2,6 +2,7 @@ package com.falin.valentin.foodapp.di.component
 
 import com.falin.valentin.foodapp.di.module.*
 import com.falin.valentin.foodapp.di.scope.PerScreen
+import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.interactor.ProductModeStorage
 import com.falin.valentin.foodapp.screen.main.MainTabFragment
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory

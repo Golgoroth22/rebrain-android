@@ -9,7 +9,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 
 /**
  * Simple [RecyclerView.Adapter] subclass.
@@ -62,9 +64,10 @@ class FavoriteTabElementAdapter :
             priceText.text = "${product.price}"
             Glide.with(image.context).load(product.imageUrl).into(image)
             favoriteImage.setOnClickListener {
-                val list = adapterList.toMutableList()
-                list.remove(product)
-                updateList(list)
+                updateList(adapterList.filter {
+                    product != it
+                })
+                RebrainApp.DAGGER.favoriteProductsStorage().removeProduct(product)
             }
         }
     }

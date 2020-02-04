@@ -3,6 +3,7 @@ package com.falin.valentin.foodapp.di.component
 import android.content.Context
 import com.falin.valentin.foodapp.di.module.*
 import com.falin.valentin.foodapp.di.scope.PerApplication
+import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import dagger.Component
 
@@ -12,7 +13,7 @@ import dagger.Component
  */
 @PerApplication
 @Component(
-    modules = [SharedPreferencesModule::class, AppModule::class]
+    modules = [SharedPreferencesModule::class, AppModule::class, FavoriteProductsStorageModule::class]
 )
 interface AppComponent {
     /**
@@ -28,6 +29,13 @@ interface AppComponent {
      * @return [Context]
      */
     fun context(): Context
+
+    /**
+     * This method can be called for get [FavoriteProductsStorage].
+     *
+     * @return [FavoriteProductsStorage]
+     */
+    fun favoriteProductsStorage(): FavoriteProductsStorage
 
     /**
      * This method can be called for init [MainTabComponent] dagger subcomponent.
@@ -67,4 +75,5 @@ interface AppComponent {
         introDisplayStorageModule: IntroDisplayStorageModule,
         introViewModelFactoryModule: IntroViewModelFactoryModule
     ): IntroComponent
+
 }
