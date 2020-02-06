@@ -8,7 +8,8 @@ import javax.inject.Inject
  *
  * @property list List for containing favorite products
  */
-class FavoriteProductsStorage @Inject constructor(): AddProductCallback, RemoveProductCallback {
+class FavoriteProductsStorage @Inject constructor() : AddProductCallback, RemoveProductCallback,
+    Storage<List<Product>> {
     private var list = mutableListOf<Product>()
 
     override fun addProduct(product: Product) {
@@ -21,9 +22,9 @@ class FavoriteProductsStorage @Inject constructor(): AddProductCallback, RemoveP
         list.remove(product)
     }
 
-    /**
-     * This method can be called for get current list of favorite products.
-     *
-     */
-    fun getData() = list
+    override fun getData() = list
+
+    override fun setData() {
+        list = mutableListOf()
+    }
 }
