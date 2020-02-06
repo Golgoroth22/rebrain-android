@@ -12,6 +12,7 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.FavoriteProductListViewModelFactoryModule
 import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.FavoriteTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
@@ -29,6 +30,8 @@ class FavoriteTabFragment : BaseFragment() {
     override val owner: Logger.Owner
         get() = Logger.Owner.FAVORITE_TAB_FRAGMENT
 
+    @Inject
+    lateinit var favoriteProductsStorage: FavoriteProductsStorage
     @Inject
     lateinit var viewModelFactory: FavoriteProductListViewModelFactory
     private lateinit var productListViewModel: FavoriteProductListViewModel
@@ -60,7 +63,7 @@ class FavoriteTabFragment : BaseFragment() {
     }
 
     private fun initViews() {
-        favoriteTabRecyclerAdapter = FavoriteTabElementAdapter()
+        favoriteTabRecyclerAdapter = FavoriteTabElementAdapter(favoriteProductsStorage)
         lm = LinearLayoutManager(context)
         rv = fragment_favorite_recycler.apply {
             layoutManager = lm

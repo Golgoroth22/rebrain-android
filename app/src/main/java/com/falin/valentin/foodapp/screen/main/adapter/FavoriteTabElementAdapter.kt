@@ -12,6 +12,7 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
+import com.falin.valentin.foodapp.interactor.RemoveProductCallback
 
 /**
  * Simple [RecyclerView.Adapter] subclass.
@@ -19,7 +20,7 @@ import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
  * for display recycler elements.
  *
  */
-class FavoriteTabElementAdapter :
+class FavoriteTabElementAdapter(private val favoriteProducts: RemoveProductCallback) :
     RecyclerView.Adapter<FavoriteTabElementAdapter.FavoriteTabElementViewHolder>() {
     private var adapterList = emptyList<Product>()
 
@@ -67,7 +68,7 @@ class FavoriteTabElementAdapter :
                 updateList(adapterList.filter {
                     product != it
                 })
-                RebrainApp.DAGGER.favoriteProductsStorage().removeProduct(product)
+                favoriteProducts.removeProduct(product)
             }
         }
     }
