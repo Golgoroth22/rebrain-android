@@ -15,7 +15,7 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.domain.Product
-import com.falin.valentin.foodapp.interactor.AddProductCallback
+import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.google.android.material.tabs.TabLayout
 import org.jetbrains.anko.toast
@@ -27,18 +27,17 @@ import org.jetbrains.anko.toast
  * for display recycler elements.
  *
  */
-class MainTabElementAdapter(
-    var displayMode: Int,
-    private val favoriteProducts: AddProductCallback
-) :
+class MainTabElementAdapter(var displayMode: Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    constructor(context: Context, dMode: Int, favoriteProducts: AddProductCallback)
-            : this(dMode, favoriteProducts) {
+    constructor(context: Context, dMode: Int, favoriteProducts: FavoriteProductsStorage)
+            : this(dMode) {
         basketButtonListener = { id: String -> context.toast(id) }
+        addProductListener = { pr: Product -> favoriteProducts.addProduct(pr) }
     }
 
-    private var basketButtonListener: ((String) -> Toast)? = null
+    private lateinit var basketButtonListener: ((String) -> Toast)
+    private lateinit var addProductListener: ((Product) -> Unit)
     private var adapterList = mutableListOf<Any>()
 
     var carouselPicturesList = emptyList<Int>()
@@ -111,8 +110,8 @@ class MainTabElementAdapter(
             mainElementPrice.text = "${product.price}"
             Glide.with(mainElementImage.context).load(product.imageUrl).into(mainElementImage)
             mainElementBasketButton.setOnClickListener {
-                basketButtonListener?.invoke(product.name)
-                favoriteProducts.addProduct(product)
+                basketButtonListener.invoke(product.name)
+                addProductListener.invoke(product)
             }
         }
     }

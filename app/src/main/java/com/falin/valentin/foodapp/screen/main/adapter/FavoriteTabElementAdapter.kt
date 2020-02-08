@@ -5,14 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
-import com.falin.valentin.foodapp.interactor.RemoveProductCallback
 
 /**
  * Simple [RecyclerView.Adapter] subclass.
@@ -20,8 +17,14 @@ import com.falin.valentin.foodapp.interactor.RemoveProductCallback
  * for display recycler elements.
  *
  */
-class FavoriteTabElementAdapter(private val favoriteProducts: RemoveProductCallback) :
+class FavoriteTabElementAdapter() :
     RecyclerView.Adapter<FavoriteTabElementAdapter.FavoriteTabElementViewHolder>() {
+
+    constructor(favoriteProducts: FavoriteProductsStorage) : this() {
+        removeProductListener = { pr: Product -> favoriteProducts.removeProduct(pr) }
+    }
+
+    private lateinit var removeProductListener: ((Product) -> Unit)
     private var adapterList = emptyList<Product>()
 
     override fun onCreateViewHolder(
@@ -68,7 +71,7 @@ class FavoriteTabElementAdapter(private val favoriteProducts: RemoveProductCallb
                 updateList(adapterList.filter {
                     product != it
                 })
-                favoriteProducts.removeProduct(product)
+                removeProductListener.invoke(product)
             }
         }
     }
