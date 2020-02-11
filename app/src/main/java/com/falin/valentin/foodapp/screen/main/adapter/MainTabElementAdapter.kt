@@ -27,17 +27,16 @@ import org.jetbrains.anko.toast
  * for display recycler elements.
  *
  */
-class MainTabElementAdapter(var displayMode: Int) :
+class MainTabElementAdapter(var displayMode: Int, favoriteProducts: FavoriteProductsStorage) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     constructor(context: Context, dMode: Int, favoriteProducts: FavoriteProductsStorage)
-            : this(dMode) {
+            : this(dMode, favoriteProducts) {
         basketButtonListener = { id: String -> context.toast(id) }
-        addProductListener = { pr: Product -> favoriteProducts.addProduct(pr) }
     }
 
     private lateinit var basketButtonListener: ((String) -> Toast)
-    private lateinit var addProductListener: ((Product) -> Unit)
+    private val addProductListener: ((Product) -> Unit)
     private var adapterList = mutableListOf<Any>()
 
     var carouselPicturesList = emptyList<Int>()
@@ -86,6 +85,10 @@ class MainTabElementAdapter(var displayMode: Int) :
         adapterList.addAll(list)
         carouselPicturesList = picturesList
         notifyDataSetChanged()
+    }
+
+    init {
+        addProductListener = { pr: Product -> favoriteProducts.addProduct(pr) }
     }
 
     inner class MainTabProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
