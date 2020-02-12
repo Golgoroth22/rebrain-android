@@ -17,7 +17,7 @@ import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
  * for display recycler elements.
  *
  */
-class FavoriteTabElementAdapter(favoriteProducts: FavoriteProductsStorage) :
+class FavoriteTabElementAdapter(onClickListener: (Product) -> Unit) :
     RecyclerView.Adapter<FavoriteTabElementAdapter.FavoriteTabElementViewHolder>() {
 
     private val removeProductListener: ((Product) -> Unit)
