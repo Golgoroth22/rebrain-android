@@ -27,16 +27,19 @@ import org.jetbrains.anko.toast
  * for display recycler elements.
  *
  */
-class MainTabElementAdapter(var displayMode: Int, favoriteProducts: FavoriteProductsStorage) :
+class MainTabElementAdapter(var displayMode: Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    constructor(context: Context, dMode: Int, favoriteProducts: FavoriteProductsStorage)
-            : this(dMode, favoriteProducts) {
-        basketButtonListener = { id: String -> context.toast(id) }
+    constructor(context: Context, dMode: Int, onClickListener: (Product) -> Unit)
+            : this(dMode) {
+        basketButtonListener =
+            { id: String, product: Product ->
+                context.toast(id)
+                onClickListener.invoke(product)
+            }
     }
 
-    private lateinit var basketButtonListener: ((String) -> Toast)
-    private val addProductListener: ((Product) -> Unit)
+    private lateinit var basketButtonListener: ((String, Product) -> Unit)
     private var adapterList = mutableListOf<Any>()
 
     var carouselPicturesList = emptyList<Int>()
@@ -87,10 +90,6 @@ class MainTabElementAdapter(var displayMode: Int, favoriteProducts: FavoriteProd
         notifyDataSetChanged()
     }
 
-    init {
-        addProductListener = { pr: Product -> favoriteProducts.addProduct(pr) }
-    }
-
     inner class MainTabProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         constructor(parent: ViewGroup, layoutId: Int) : this(
@@ -113,8 +112,7 @@ class MainTabElementAdapter(var displayMode: Int, favoriteProducts: FavoriteProd
             mainElementPrice.text = "${product.price}"
             Glide.with(mainElementImage.context).load(product.imageUrl).into(mainElementImage)
             mainElementBasketButton.setOnClickListener {
-                basketButtonListener.invoke(product.name)
-                addProductListener.invoke(product)
+                basketButtonListener.invoke(product.name, product)
             }
         }
     }

@@ -17,10 +17,9 @@ import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
  * for display recycler elements.
  *
  */
-class FavoriteTabElementAdapter(onClickListener: (Product) -> Unit) :
+class FavoriteTabElementAdapter(private val onClickListener: (Product) -> Unit) :
     RecyclerView.Adapter<FavoriteTabElementAdapter.FavoriteTabElementViewHolder>() {
 
-    private val removeProductListener: ((Product) -> Unit)
     private var adapterList = emptyList<Product>()
 
     override fun onCreateViewHolder(
@@ -45,10 +44,6 @@ class FavoriteTabElementAdapter(onClickListener: (Product) -> Unit) :
         notifyDataSetChanged()
     }
 
-    init {
-        removeProductListener = { pr: Product -> favoriteProducts.removeProduct(pr) }
-    }
-
     inner class FavoriteTabElementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         constructor(parent: ViewGroup, layoutId: Int) : this(
@@ -71,7 +66,7 @@ class FavoriteTabElementAdapter(onClickListener: (Product) -> Unit) :
                 updateList(adapterList.filter {
                     product != it
                 })
-                removeProductListener.invoke(product)
+                onClickListener.invoke(product)
             }
         }
     }

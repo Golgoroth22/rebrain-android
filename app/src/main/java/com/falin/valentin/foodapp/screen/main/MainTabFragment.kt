@@ -73,7 +73,10 @@ class MainTabFragment : BaseFragment() {
     private fun initRv(rootView: View) {
         rv = rootView.fragment_main_tab_recycler
         mainTabRecyclerAdapter =
-            MainTabElementAdapter(context!!, productListViewModel.getProductsDisplayMode(), favoriteProductsStorage)
+            MainTabElementAdapter(
+                context!!,
+                productListViewModel.getProductsDisplayMode()
+            ) { product -> favoriteProductsStorage.addProduct(product) }
         selectLayoutManager()
         rv.apply {
             layoutManager = lm

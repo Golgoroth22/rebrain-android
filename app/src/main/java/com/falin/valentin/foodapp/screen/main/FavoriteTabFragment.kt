@@ -63,7 +63,8 @@ class FavoriteTabFragment : BaseFragment() {
     }
 
     private fun initViews() {
-        favoriteTabRecyclerAdapter = FavoriteTabElementAdapter(favoriteProductsStorage)
+        favoriteTabRecyclerAdapter =
+            FavoriteTabElementAdapter { product -> favoriteProductsStorage.removeProduct(product) }
         lm = LinearLayoutManager(context)
         rv = fragment_favorite_recycler.apply {
             layoutManager = lm
