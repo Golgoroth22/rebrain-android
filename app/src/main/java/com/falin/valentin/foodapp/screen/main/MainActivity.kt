@@ -7,19 +7,16 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.custom_view.MainTabType
-import com.falin.valentin.foodapp.screen.custom_view.onClickCustomListener
+import com.falin.valentin.foodapp.screen.custom_view.OnClickCustomListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
-import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModelFactory
-import kotlin.math.log
 
 
 /**
@@ -39,23 +36,23 @@ class MainActivity : BaseActivity() {
             this,
             MainActivityViewModelFactory()
         ).get(MainActivityViewModel::class.java)
-        attachNewFragmentAndDetachOldFragment(
-            activityViewModel.favoriteTabFragment,
-            activityViewModel.mainTabFragment
-        )
-        main_activity_custom_bottom_bar.setOnCustomClickListener(object : onClickCustomListener {
+        attachFragments()
+        main_activity_custom_bottom_bar.setOnCustomClickListener(object : OnClickCustomListener {
             override fun onClick(tabType: MainTabType) {
                 when (tabType) {
                     MainTabType.MAIN -> {
                         attachNewFragmentAndDetachOldFragment(
-                            activityViewModel.favoriteTabFragment,
                             activityViewModel.mainTabFragment
                         )
                     }
                     MainTabType.FAVORITE -> {
                         attachNewFragmentAndDetachOldFragment(
-                            activityViewModel.mainTabFragment,
                             activityViewModel.favoriteTabFragment
+                        )
+                    }
+                    MainTabType.ACCOUNT -> {
+                        attachNewFragmentAndDetachOldFragment(
+                            activityViewModel.accountTabFragment
                         )
                     }
                 }
@@ -89,13 +86,10 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(custom_toolbar)
     }
 
-    private fun attachNewFragmentAndDetachOldFragment(
-        oldFragment: BaseFragment,
-        newFragment: BaseFragment
-    ) {
+    private fun attachNewFragmentAndDetachOldFragment(newFragment: BaseFragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        if (supportFragmentManager.findFragmentById(oldFragment.id) != null) {
-            transaction.detach(oldFragment)
+        if (supportFragmentManager.findFragmentById((supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout) as BaseFragment).id) != null) {
+            transaction.detach(supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout) as BaseFragment)
         }
         if (supportFragmentManager.findFragmentById(newFragment.id) == null) {
             transaction.add(R.id.main_activity_frame_layout, newFragment)
@@ -103,6 +97,18 @@ class MainActivity : BaseActivity() {
             transaction.attach(newFragment)
         }
         transaction.commit()
+    }
+
+    private fun attachFragments() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction
+            .add(R.id.main_activity_frame_layout, activityViewModel.favoriteTabFragment)
+            .detach(activityViewModel.favoriteTabFragment)
+            .add(R.id.main_activity_frame_layout, activityViewModel.accountTabFragment)
+            .detach(activityViewModel.accountTabFragment)
+            .add(R.id.main_activity_frame_layout, activityViewModel.mainTabFragment)
+            .attach(activityViewModel.mainTabFragment)
+            .commit()
     }
 
     companion object {

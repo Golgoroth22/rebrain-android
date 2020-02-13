@@ -21,11 +21,14 @@
 
     <!-- Custom Button -->
     <string name="custom_button_image">Custom Button Image</string>
-    <string name="custom_button_text_main">Главный</string>
-    <string name="custom_button_text_favorite">Избранное</string>
     <string name="card_element_title_text">Название блюда</string>
     <string name="card_element_price_postfix">руб.</string>
     <string name="card_element_price_text">250</string>
+
+    <!-- Custom Bottom Bar -->
+    <string name="custom_button_text_main">Главный</string>
+    <string name="custom_button_text_favorite">Избранное</string>
+    <string name="custom_button_text_account">Профиль</string>
 
     <!-- Exit Dialog -->
     <string name="exit_dialog_title_text">Выход</string>

@@ -12,4 +12,5 @@
     <color name="colorCustomUncheckedButtonText">#b4b2b2</color>
     <color name="colorLine6">#0F000000</color>
     <color name="colorViewPagerDot30">#4D000000</color>
+    <color name="colorFavoriteButton">#4cff9800</color>
 </resources>

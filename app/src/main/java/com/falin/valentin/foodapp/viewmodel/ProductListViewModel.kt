@@ -9,6 +9,7 @@ import com.falin.valentin.foodapp.repository.ProductsRepository
 /**
  * [ViewModel] subclass for work with model data and showing it.
  *
+ * @property products Property for contain products. Wrapped in [MutableLiveData]
  */
 class ProductListViewModel(
     private val productsRepository: ProductsRepository,

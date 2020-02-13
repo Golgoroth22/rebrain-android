@@ -16,11 +16,12 @@ class CustomBottomBarView @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : LinearLayout(context, attrs), View.OnClickListener {
 
-    lateinit var customListener: onClickCustomListener
+    lateinit var customListener: OnClickCustomListener
     private val tabButtonsMap by lazy {
         hashMapOf<MainTabType, CustomButtonView>(
             MainTabType.MAIN to custom_bottom_bar_main_button,
-            MainTabType.FAVORITE to custom_bottom_bar_favorite_button
+            MainTabType.FAVORITE to custom_bottom_bar_favorite_button,
+            MainTabType.ACCOUNT to custom_bottom_bar_account_button
         )
     }
 
@@ -28,8 +29,10 @@ class CustomBottomBarView @JvmOverloads constructor(
         inflate(context, R.layout.layout_custom_bottom_bar, this)
         custom_bottom_bar_main_button.tabType = MainTabType.MAIN
         custom_bottom_bar_favorite_button.tabType = MainTabType.FAVORITE
+        custom_bottom_bar_account_button.tabType = MainTabType.ACCOUNT
         custom_bottom_bar_main_button.setOnClickListener(this)
         custom_bottom_bar_favorite_button.setOnClickListener(this)
+        custom_bottom_bar_account_button.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -55,7 +58,7 @@ class CustomBottomBarView @JvmOverloads constructor(
         tabButtonsMap[selectedTabType]?.setChecked(true)
     }
 
-    fun setOnCustomClickListener(listener: onClickCustomListener) {
+    fun setOnCustomClickListener(listener: OnClickCustomListener) {
         customListener = listener
     }
 }
@@ -64,7 +67,7 @@ class CustomBottomBarView @JvmOverloads constructor(
  * Custom listener to work with in in [MainActivity].
  *
  */
-interface onClickCustomListener {
+interface OnClickCustomListener {
     fun onClick(tabType: MainTabType)
 }
 
@@ -73,5 +76,5 @@ interface onClickCustomListener {
  *
  */
 enum class MainTabType {
-    MAIN, FAVORITE
+    MAIN, FAVORITE, ACCOUNT
 }

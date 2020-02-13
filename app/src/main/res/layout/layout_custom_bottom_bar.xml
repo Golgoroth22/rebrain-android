@@ -7,6 +7,17 @@
     android:orientation="horizontal">
 
     <com.falin.valentin.foodapp.screen.custom_view.CustomButtonView
+        android:id="@+id/custom_bottom_bar_account_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        app:isChecked="false"
+        app:off_image="@drawable/ic_account_on"
+        app:on_image="@drawable/ic_account_off"
+        app:text="@string/custom_button_text_account" />
+
+    <com.falin.valentin.foodapp.screen.custom_view.CustomButtonView
         android:id="@+id/custom_bottom_bar_main_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

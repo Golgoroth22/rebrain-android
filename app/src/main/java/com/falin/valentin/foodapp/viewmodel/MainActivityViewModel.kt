@@ -3,6 +3,7 @@ package com.falin.valentin.foodapp.viewmodel
 import android.view.MenuItem
 import androidx.lifecycle.ViewModel
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.screen.main.AccountTabFragment
 import com.falin.valentin.foodapp.screen.main.FavoriteTabFragment
 import com.falin.valentin.foodapp.screen.main.MainTabFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
@@ -12,10 +13,12 @@ import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
  *
  * @property mainTabFragment fragment for main tab
  * @property favoriteTabFragment fragment for favorite tab
+ * @property accountTabFragment fragment for account tab
  */
 class MainActivityViewModel : ViewModel() {
     var mainTabFragment: MainTabFragment = MainTabFragment.newInstance()
     var favoriteTabFragment: FavoriteTabFragment = FavoriteTabFragment.newInstance()
+    var accountTabFragment: AccountTabFragment = AccountTabFragment.newInstance()
 
     /**
      * This method can be called for switch fragment adapter display mode.
