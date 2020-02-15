@@ -22,6 +22,7 @@ import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModel
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
+import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
 /**
@@ -66,6 +67,7 @@ class MainTabFragment : BaseFragment() {
 
     private fun initListeners(rootView: View) {
         rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
+            productListViewModel.getData()
             rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
         }
     }
