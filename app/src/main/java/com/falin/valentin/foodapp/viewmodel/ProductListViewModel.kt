@@ -1,6 +1,5 @@
 package com.falin.valentin.foodapp.viewmodel
 
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.falin.valentin.foodapp.RebrainApp
