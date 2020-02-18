@@ -24,9 +24,10 @@ class ProductListViewModelFactoryModule {
      */
     @Provides
     @PerScreen
-    fun provideFactory(storage: ProductModeStorage): ProductListViewModelFactory {
+    fun provideFactory(storage: ProductModeStorage, okHttpClient: OkHttpClient):
+            ProductListViewModelFactory {
         return ProductListViewModelFactory(
-            ProductsRepository(Generator()), ProductsDisplayModeRepository(storage), OkHttpClient()
+            ProductsRepository(Generator()), ProductsDisplayModeRepository(storage), okHttpClient
         )
     }
 }

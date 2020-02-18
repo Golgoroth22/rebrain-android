@@ -1,6 +1,7 @@
 package com.falin.valentin.foodapp.di.module
 
 import com.falin.valentin.foodapp.di.scope.PerApplication
+import com.falin.valentin.foodapp.network.LoggingInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -22,16 +23,6 @@ class OkHttpModule {
     @Provides
     @PerApplication
     fun provideClient(): OkHttpClient {
-        return OkHttpClient().newBuilder().addNetworkInterceptor(object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val request = chain.request()
-                val t1 = System.nanoTime()
-                Timber.i("Sending request ${request.url} on ${chain.connection()} + ${request.headers}")
-                val response = chain.proceed(request)
-                val t2 = System.nanoTime()
-                Timber.i("Received response for ${response.request.url} in ${t2 - t1} + ${response.headers}")
-                return response
-            }
-        }).build()
+        return OkHttpClient().newBuilder().addNetworkInterceptor(LoggingInterceptor()).build()
     }
 }
