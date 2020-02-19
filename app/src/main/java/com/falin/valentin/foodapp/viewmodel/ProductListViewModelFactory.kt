@@ -14,11 +14,10 @@ import javax.inject.Inject
 @Suppress("UNCHECKED_CAST")
 class ProductListViewModelFactory @Inject constructor(
     private val productsRepository: ProductsRepository,
-    private val productsDisplayDisplayModeRepository: ProductsDisplayModeRepository,
-    private val okHttpClient: OkHttpClient
+    private val productsDisplayDisplayModeRepository: ProductsDisplayModeRepository
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ProductListViewModel(productsRepository, productsDisplayDisplayModeRepository, okHttpClient) as T
+        return ProductListViewModel(productsRepository, productsDisplayDisplayModeRepository) as T
     }
 }

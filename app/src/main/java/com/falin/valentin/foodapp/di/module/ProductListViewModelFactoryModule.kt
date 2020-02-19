@@ -27,7 +27,6 @@ class ProductListViewModelFactoryModule {
     fun provideFactory(storage: ProductModeStorage, okHttpClient: OkHttpClient):
             ProductListViewModelFactory {
         return ProductListViewModelFactory(
-            ProductsRepository(Generator()), ProductsDisplayModeRepository(storage), okHttpClient
-        )
+            ProductsRepository(Generator(), okHttpClient), ProductsDisplayModeRepository(storage))
     }
 }
