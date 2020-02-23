@@ -6,6 +6,7 @@ import com.falin.valentin.foodapp.di.scope.PerApplication
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import dagger.Component
+import okhttp3.OkHttpClient
 
 /**
  * Dagger2 [Component] app interface.
@@ -13,7 +14,7 @@ import dagger.Component
  */
 @PerApplication
 @Component(
-    modules = [SharedPreferencesModule::class, AppModule::class, FavoriteProductsStorageModule::class]
+    modules = [SharedPreferencesModule::class, AppModule::class, FavoriteProductsStorageModule::class, OkHttpModule::class]
 )
 interface AppComponent {
     /**
@@ -36,6 +37,13 @@ interface AppComponent {
      * @return [FavoriteProductsStorage]
      */
     fun favoriteProductsStorage(): FavoriteProductsStorage
+
+    /**
+     * This method can be called for get [OkHttpClient].
+     *
+     * @return [OkHttpClient]
+     */
+    fun okHttpClient(): OkHttpClient
 
     /**
      * This method can be called for init [MainTabComponent] dagger subcomponent.

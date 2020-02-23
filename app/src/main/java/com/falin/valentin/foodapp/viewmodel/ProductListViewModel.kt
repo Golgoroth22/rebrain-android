@@ -26,10 +26,26 @@ class ProductListViewModel(
         return productsRepository.getPictures()
     }
 
+    /**
+     * This method can be called for get current products display mode.
+     *
+     */
     fun getProductsDisplayMode() = productsDisplayDisplayModeRepository.getDisplayMode()
 
+    /**
+     * This method can be called for switch products display mode.
+     *
+     */
     fun switchDisplayMode() {
         productsDisplayDisplayModeRepository.switchDisplayMode()
+    }
+
+    /**
+     * This method can be called for send some request.
+     *
+     */
+    fun sendSomeRequest() {
+        productsRepository.sendSomeRequest()
     }
 
     init {

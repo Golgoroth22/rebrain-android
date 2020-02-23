@@ -66,6 +66,7 @@ class MainTabFragment : BaseFragment() {
 
     private fun initListeners(rootView: View) {
         rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
+            productListViewModel.sendSomeRequest()
             rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
         }
     }

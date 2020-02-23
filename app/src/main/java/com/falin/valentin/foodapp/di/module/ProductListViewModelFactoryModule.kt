@@ -8,6 +8,7 @@ import com.falin.valentin.foodapp.utils.Generator
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
 
 /**
  * Dagger2 module for providing [ProductListViewModelFactory].
@@ -23,9 +24,9 @@ class ProductListViewModelFactoryModule {
      */
     @Provides
     @PerScreen
-    fun provideFactory(storage: ProductModeStorage): ProductListViewModelFactory {
+    fun provideFactory(storage: ProductModeStorage, okHttpClient: OkHttpClient):
+            ProductListViewModelFactory {
         return ProductListViewModelFactory(
-            ProductsRepository(Generator()), ProductsDisplayModeRepository(storage)
-        )
+            ProductsRepository(Generator(), okHttpClient), ProductsDisplayModeRepository(storage))
     }
 }
