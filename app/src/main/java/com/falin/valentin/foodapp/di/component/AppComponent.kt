@@ -4,9 +4,12 @@ import android.content.Context
 import com.falin.valentin.foodapp.di.module.*
 import com.falin.valentin.foodapp.di.scope.PerApplication
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
+import com.falin.valentin.foodapp.repository.ProductsRepository
+import com.falin.valentin.foodapp.screen.splash.SplashActivity
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import dagger.Component
 import okhttp3.OkHttpClient
+import retrofit2.Retrofit
 
 /**
  * Dagger2 [Component] app interface.
@@ -14,7 +17,7 @@ import okhttp3.OkHttpClient
  */
 @PerApplication
 @Component(
-    modules = [SharedPreferencesModule::class, AppModule::class, FavoriteProductsStorageModule::class, OkHttpModule::class]
+    modules = [SharedPreferencesModule::class, AppModule::class, FavoriteProductsStorageModule::class, OkHttpModule::class, RetrofitModule::class, RetrofitApiModule::class]
 )
 interface AppComponent {
     /**
@@ -44,6 +47,13 @@ interface AppComponent {
      * @return [OkHttpClient]
      */
     fun okHttpClient(): OkHttpClient
+
+    /**
+     * This method can be called for get [Retrofit].
+     *
+     * @return [Retrofit]
+     */
+    fun retrofit(): Retrofit
 
     /**
      * This method can be called for init [MainTabComponent] dagger subcomponent.
@@ -84,4 +94,9 @@ interface AppComponent {
         introViewModelFactoryModule: IntroViewModelFactoryModule
     ): IntroComponent
 
+    /**
+     * This method can be called for inject in [ProductsRepository]
+     *
+     */
+    fun inject(repository: ProductsRepository)
 }

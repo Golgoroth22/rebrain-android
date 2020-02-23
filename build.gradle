@@ -16,6 +16,7 @@ buildscript {
         kotlin = versions.kotlin
         lifecycle = versions.lifecycle
         okhttp = versions.okhttp
+        retrofit2 = versions.retrofit2
         timber = versions.timber
         test_runner = versions.test_runner
         test_espresso_core = versions.test_espresso_core

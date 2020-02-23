@@ -1,10 +1,13 @@
 package com.falin.valentin.foodapp.repository
 
 import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.network.retrofit.pojo.products.Products
+import com.falin.valentin.foodapp.network.retrofit.service.ProductsService
 import com.falin.valentin.foodapp.utils.Generator
-import okhttp3.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import timber.log.Timber
-import java.io.IOException
 
 /**
  * Repository-layer class for work with products data.
@@ -12,7 +15,7 @@ import java.io.IOException
  */
 class ProductsRepository(
     private val generator: Generator,
-    private var okHttpClient: OkHttpClient
+    private val productsService: ProductsService
 ) {
 
     /**
@@ -36,22 +39,16 @@ class ProductsRepository(
      * This method can be called for send some request.
      *
      */
-    fun sendSomeRequest() {
-        val request = Request.Builder()
-            .url("http://api.android.srwx.net/api/v2")
-            .build()
-        try {
-            okHttpClient.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    Timber.e("Timber228 $e")
-                }
+    fun sendProductsRequest() {
+        val products = productsService.getProducts("", false)
+        products.enqueue(object : Callback<Products> {
+            override fun onFailure(call: Call<Products>, t: Throwable) {
+                Timber.e("Timber228 onFailure ${t.message}")
+            }
 
-                override fun onResponse(call: Call, response: Response) {
-                    Timber.i("Timber228 ${response.body}")
-                }
-            })
-        } catch (e: IOException) {
-            Timber.e(e)
-        }
+            override fun onResponse(call: Call<Products>, response: Response<Products>) {
+                Timber.i("Timber228 onResponse ${response.body()?.data?.size}")
+            }
+        })
     }
 }
