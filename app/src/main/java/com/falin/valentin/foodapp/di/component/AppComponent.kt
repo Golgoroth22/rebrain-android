@@ -49,13 +49,6 @@ interface AppComponent {
     fun okHttpClient(): OkHttpClient
 
     /**
-     * This method can be called for get [Retrofit].
-     *
-     * @return [Retrofit]
-     */
-    fun retrofit(): Retrofit
-
-    /**
      * This method can be called for init [MainTabComponent] dagger subcomponent.
      *
      * @return [PreferencesHelper]

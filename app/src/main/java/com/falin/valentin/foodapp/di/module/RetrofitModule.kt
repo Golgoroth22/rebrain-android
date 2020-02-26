@@ -22,9 +22,20 @@ class RetrofitModule {
     @PerApplication
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://api.android.srwx.net/api/v2/")
+            .baseUrl(provideUrl())
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    /**
+     * This method can be called for get retrofit Url.
+     *
+     * @return [Retrofit] url
+     */
+    @Provides
+    @PerApplication
+    fun provideUrl(): String {
+        return "http://api.android.srwx.net/api/v2/"
     }
 }
