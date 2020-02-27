@@ -20,9 +20,9 @@ class RetrofitModule {
      */
     @Provides
     @PerApplication
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(provideUrl())
+            .baseUrl(url)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
