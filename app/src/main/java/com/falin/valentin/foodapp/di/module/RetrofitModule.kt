@@ -6,6 +6,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 
 /**
  * Dagger2 module for providing [Retrofit].
@@ -20,7 +21,7 @@ class RetrofitModule {
      */
     @Provides
     @PerApplication
-    fun provideRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, @Named(RETROFIT_URL) url: String): Retrofit {
         return Retrofit.Builder()
             .baseUrl(url)
             .client(okHttpClient)
@@ -35,7 +36,12 @@ class RetrofitModule {
      */
     @Provides
     @PerApplication
+    @Named(RETROFIT_URL)
     fun provideUrl(): String {
         return "http://api.android.srwx.net/api/v2/"
+    }
+
+    companion object {
+        private const val RETROFIT_URL = "RetrofitUrl"
     }
 }
