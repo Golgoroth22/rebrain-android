@@ -45,7 +45,7 @@ class ProductListViewModel(
      *
      */
     fun sendSomeRequest() {
-        productsRepository.sendSomeRequest()
+        productsRepository.sendProductsRequest()
     }
 
     init {
