@@ -1,25 +1,16 @@
 package com.falin.valentin.foodapp.network.retrofit.pojo.order
 
-import com.falin.valentin.foodapp.network.retrofit.pojo.products.Product
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.falin.valentin.foodapp.network.retrofit.pojo.products.ProductResponse
+import com.squareup.moshi.Json
 
 /**
  * POJO class for display retrofit [OrderResponse].
  *
- * @property data Display list of [Product]
+ * @property data Display list of [ProductResponse]
  */
 data class OrderResponse(
-    @SerializedName("id")
-    @Expose
-    val id: Int,
-    @SerializedName("products")
-    @Expose
-    val products: List<Product>,
-    @SerializedName("productsCount")
-    @Expose
-    val productsCount: Int,
-    @SerializedName("price")
-    @Expose
-    val price: Double
+    @Json(name = "id") val id: Int,
+    @Json(name = "products") val products: List<ProductResponse>,
+    @Json(name = "productsCount") val productsCount: Int,
+    @Json(name = "price") val price: Double
 )

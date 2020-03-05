@@ -1,6 +1,6 @@
 package com.falin.valentin.foodapp.network.retrofit.service
 
-import com.falin.valentin.foodapp.network.retrofit.pojo.login.User
+import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.PUT
@@ -11,5 +11,5 @@ import retrofit2.http.PUT
  */
 interface UserAvatarService {
     @PUT("user/avatar")
-    fun putAvatar(@Body avatar: String): Call<User>
+    fun putAvatar(@Body avatar: String): Call<UserResponse>
 }

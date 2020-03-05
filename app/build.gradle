@@ -59,9 +59,14 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$lifecycle"
     kapt "android.arch.lifecycle:compiler:$lifecycle"
 
+    /* Moshi */
+    implementation "com.squareup.moshi:moshi:$moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi"
+
     /* Network */
     implementation "com.squareup.retrofit2:retrofit:$retrofit2"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_moshi_conv"
 
     /* Timber */
     implementation "com.jakewharton.timber:timber:$timber"

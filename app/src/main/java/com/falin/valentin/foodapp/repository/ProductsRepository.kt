@@ -1,7 +1,7 @@
 package com.falin.valentin.foodapp.repository
 
 import com.falin.valentin.foodapp.domain.Product
-import com.falin.valentin.foodapp.network.retrofit.pojo.products.Products
+import com.falin.valentin.foodapp.network.retrofit.pojo.products.ProductsResponse
 import com.falin.valentin.foodapp.network.retrofit.service.ProductsService
 import com.falin.valentin.foodapp.utils.Generator
 import retrofit2.Call
@@ -41,12 +41,12 @@ class ProductsRepository(
      */
     fun sendProductsRequest() {
         val products = productsService.getProducts("", false)
-        products.enqueue(object : Callback<Products> {
-            override fun onFailure(call: Call<Products>, t: Throwable) {
+        products.enqueue(object : Callback<ProductsResponse> {
+            override fun onFailure(call: Call<ProductsResponse>, t: Throwable) {
                 Timber.e("Timber228 onFailure ${t.message}")
             }
 
-            override fun onResponse(call: Call<Products>, response: Response<Products>) {
+            override fun onResponse(call: Call<ProductsResponse>, response: Response<ProductsResponse>) {
                 Timber.i("Timber228 onResponse ${response.body()?.data?.size}")
             }
         })
