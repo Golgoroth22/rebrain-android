@@ -1,7 +1,6 @@
 package com.falin.valentin.foodapp.di.module
 
 import com.falin.valentin.foodapp.di.scope.PerApplication
-import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -22,11 +21,11 @@ class RetrofitModule {
      */
     @Provides
     @PerApplication
-    fun provideRetrofit(okHttpClient: OkHttpClient, @Named(RETROFIT_URL) url: String): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, @Named(RETROFIT_URL) url: String, converter: MoshiConverterFactory): Retrofit {
         return Retrofit.Builder()
             .baseUrl(url)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
+            .addConverterFactory(converter)
             .build()
     }
 
