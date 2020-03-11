@@ -17,7 +17,7 @@ import retrofit2.Retrofit
  */
 @PerApplication
 @Component(
-    modules = [SharedPreferencesModule::class, AppModule::class, FavoriteProductsStorageModule::class, OkHttpModule::class, RetrofitModule::class, RetrofitApiModule::class]
+    modules = [SharedPreferencesModule::class, AppModule::class, FavoriteProductsStorageModule::class, OkHttpModule::class, RetrofitModule::class, RetrofitApiModule::class, MoshiConverterFactoryModule::class]
 )
 interface AppComponent {
     /**

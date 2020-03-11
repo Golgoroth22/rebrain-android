@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
 
 /**
@@ -21,11 +21,11 @@ class RetrofitModule {
      */
     @Provides
     @PerApplication
-    fun provideRetrofit(okHttpClient: OkHttpClient, @Named(RETROFIT_URL) url: String): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, @Named(RETROFIT_URL) url: String, converter: MoshiConverterFactory): Retrofit {
         return Retrofit.Builder()
             .baseUrl(url)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(converter)
             .build()
     }
 

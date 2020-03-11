@@ -15,8 +15,10 @@ buildscript {
         junit = versions.junit
         kotlin = versions.kotlin
         lifecycle = versions.lifecycle
+        moshi = versions.moshi
         okhttp = versions.okhttp
         retrofit2 = versions.retrofit2
+        retrofit2_moshi_conv = versions.retrofit2_moshi_conv
         timber = versions.timber
         test_runner = versions.test_runner
         test_espresso_core = versions.test_espresso_core
