@@ -49,7 +49,8 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger2"
 
     /* Firebase */
-    implementation "com.google.firebase:firebase-analytics:$firebase"
+    implementation "com.google.firebase:firebase-analytics:$firebase_analytics"
+    implementation "com.google.firebase:firebase-messaging:$firebase_messaging"
 
     /* OkHttp */
     implementation "com.squareup.okhttp3:okhttp:$okhttp"

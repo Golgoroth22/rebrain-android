@@ -11,7 +11,8 @@ buildscript {
         coroutines = versions.coroutines
         constraint = versions.constraint
         dagger2 = versions.dagger2
-        firebase = versions.firebase
+        firebase_analytics = versions.firebase_analytics
+        firebase_messaging = versions.firebase_messaging
         glide = versions.glide
         gms_google_services = versions.gms_google_services
         junit = versions.junit

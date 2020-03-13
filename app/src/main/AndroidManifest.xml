@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        package="com.falin.valentin.foodapp">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.falin.valentin.foodapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:name=".RebrainApp"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        android:name=".RebrainApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-                android:name=".screen.intro.IntroActivity"
-                android:taskAffinity="@string/start_tusk"
-                android:theme="@style/AppTheme.IntroTheme" />
+            android:name=".screen.intro.IntroActivity"
+            android:taskAffinity="@string/start_tusk"
+            android:theme="@style/AppTheme.IntroTheme" />
         <activity android:name=".screen.main.MainActivity" />
         <activity
-                android:name=".screen.splash.SplashActivity"
-                android:taskAffinity="@string/start_tusk"
-                android:theme="@style/AppTheme.SplashLauncherTheme">
+            android:name=".screen.splash.SplashActivity"
+            android:taskAffinity="@string/start_tusk"
+            android:theme="@style/AppTheme.SplashLauncherTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,6 +30,24 @@
             </intent-filter>
         </activity>
         <activity android:name=".screen.BaseActivity" />
+
+        <service
+            android:name=".service.AppFirebaseMessaging"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@color/colorPrimaryDark" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
     </application>
 
 </manifest>
