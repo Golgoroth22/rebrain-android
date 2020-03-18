@@ -36,8 +36,4 @@
     <string name="exit_dialog_negative_button_text">ОТМЕНА</string>
     <string name="exit_dialog_positive_button_text">ДА</string>
     <string name="exit_dialig_tag">EXIT</string>
-
-    <!-- Services -->
-    <string name="default_notification_channel_id">foodapp_firebase_main_channel</string>
-    <string name="channel_description">Channel description</string>
 </resources>
