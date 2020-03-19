@@ -3,7 +3,6 @@ package com.falin.valentin.foodapp.utils
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.domain.Product
 
-
 /**
  *  Generator class.
  *

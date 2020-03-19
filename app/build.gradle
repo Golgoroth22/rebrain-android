@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -46,6 +47,9 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger2"
     kapt "com.google.dagger:dagger-compiler:$dagger2"
     kapt "com.google.dagger:dagger-android-processor:$dagger2"
+
+    /* Firebase */
+    implementation "com.google.firebase:firebase-messaging:$firebase_messaging"
 
     /* OkHttp */
     implementation "com.squareup.okhttp3:okhttp:$okhttp"
