@@ -5,9 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.RebrainApp
+import com.falin.valentin.foodapp.di.module.AccountTabFragmentViewModelFactoryModule
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.utils.Logger
+import com.falin.valentin.foodapp.utils.injectViewModel
+import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModel
+import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModelFactory
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
@@ -18,11 +25,43 @@ class AccountTabFragment : BaseFragment() {
     override val owner: Logger.Owner
         get() = Logger.Owner.ACCOUNT_TAB_FRAGMENT
 
+    @Inject
+    lateinit var factory: AccountTabFragmentViewModelFactory
+    private lateinit var viewModel: AccountTabFragmentViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initDagger()
+        viewModel = injectViewModel(factory)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_account_tab, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        addNewFragment()
+    }
+
+    private fun initDagger() {
+        RebrainApp.DAGGER.initAccountTabComponent(
+            AccountTabFragmentViewModelFactoryModule()
+        ).inject(this)
+    }
+
+    private fun addNewFragment() {
+        childFragmentManager.beginTransaction()
+            .add(
+                R.id.fragment_account_tab_mainContainer,
+                if (viewModel.isUserAuthorized()) AccountFragment.newInstance()
+                else AuthorizationFragment.newInstance()
+            )
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit()
     }
 
     companion object {

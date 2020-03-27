@@ -43,11 +43,11 @@ class ProductsRepository(
         val products = productsService.getProducts("", false)
         products.enqueue(object : Callback<ProductsResponse> {
             override fun onFailure(call: Call<ProductsResponse>, t: Throwable) {
-                Timber.e("Timber228 onFailure ${t.message}")
+                Timber.e("ProductsRepository sendProductsRequest onFailure ${t.message}")
             }
 
             override fun onResponse(call: Call<ProductsResponse>, response: Response<ProductsResponse>) {
-                Timber.i("Timber228 onResponse ${response.body()?.data?.size}")
+                Timber.i("ProductsRepository sendProductsRequest onResponse ${response.body()?.data?.size}")
             }
         })
     }

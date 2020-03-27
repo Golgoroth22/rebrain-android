@@ -39,11 +39,12 @@ class AppFirebaseMessaging : FirebaseMessagingService() {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private fun createNotificationChannel(message: RemoteMessage) {
-        val name = message.notification?.title
-        val descriptionText = message.notification?.body
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(message.messageId, name, importance).apply {
-            description = descriptionText
+        val channel = NotificationChannel(
+            message.messageId,
+            message.notification?.title,
+            NotificationManager.IMPORTANCE_DEFAULT
+        ).apply {
+            description = message.notification?.body
         }
         val notificationManager: NotificationManager =
             getSystemService(NOTIFICATION_SERVICE) as NotificationManager

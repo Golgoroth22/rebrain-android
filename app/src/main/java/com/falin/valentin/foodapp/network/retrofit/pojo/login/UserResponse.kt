@@ -9,10 +9,12 @@ import com.squareup.moshi.Json
  * @property name Display object name
  * @property login Display something
  * @property avatar Display avatar url
+ * @property token Display user token
  */
 data class UserResponse(
     @Json(name = "id") val id: Int,
     @Json(name = "name") val name: String,
     @Json(name = "login") val login: String,
-    @Json(name = "avatar") val avatar: String
+    @Json(name = "avatar") val avatar: String?,
+    @Json(name = "accessToken") val token: String
 )

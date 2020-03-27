@@ -88,6 +88,24 @@ interface AppComponent {
     ): IntroComponent
 
     /**
+     * This method can be called for init [AuthorizationComponent] dagger subcomponent.
+     *
+     * @return [AuthorizationComponent]
+     */
+    fun initAuthComponent(
+        authorizationFragmentViewModelFactoryModule: AuthorizationFragmentViewModelFactoryModule
+    ): AuthorizationComponent
+
+    /**
+     * This method can be called for init [AuthorizationComponent] dagger subcomponent.
+     *
+     * @return [AuthorizationComponent]
+     */
+    fun initAccountTabComponent(
+        accountTabFragmentViewModelFactoryModule: AccountTabFragmentViewModelFactoryModule
+    ): AccountTabComponent
+
+    /**
      * This method can be called for inject in [ProductsRepository]
      *
      */

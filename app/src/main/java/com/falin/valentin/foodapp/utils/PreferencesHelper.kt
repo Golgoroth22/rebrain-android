@@ -21,8 +21,13 @@ class PreferencesHelper(context: Context) {
         get() = preferences.getInt(PRODUCT_MODE, 0)
         set(value) = preferences.edit().putInt(PRODUCT_MODE, value).apply()
 
+    var isUserAuthorized: Boolean
+        get() = preferences.getBoolean(IS_USER_AUTH, false)
+        set(value) = preferences.edit().putBoolean(IS_USER_AUTH, value).apply()
+
     companion object {
         private const val INTRO_INFO = "data.source.prefs.INTRO_INFO"
         private const val PRODUCT_MODE = "data.source.prefs.PRODUCT_MODE"
+        private const val IS_USER_AUTH = "data.source.prefs.IS_USER_AUTH"
     }
 }

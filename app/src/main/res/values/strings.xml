@@ -36,4 +36,12 @@
     <string name="exit_dialog_negative_button_text">ОТМЕНА</string>
     <string name="exit_dialog_positive_button_text">ДА</string>
     <string name="exit_dialig_tag">EXIT</string>
+
+    <!-- Fragment Authorization -->
+    <string name="fragment_authorization_login_hint_text">Логин</string>
+    <string name="fragment_authorization_password_hint_text">Пароль</string>
+    <string name="fragment_authorization_auth_button_text">войти</string>
+
+    <!-- Fragment Account -->
+    <string name="fragment_account_logout_text">ВЫХОД</string>
 </resources>
