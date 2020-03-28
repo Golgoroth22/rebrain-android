@@ -25,9 +25,19 @@ class PreferencesHelper(context: Context) {
         get() = preferences.getBoolean(IS_USER_AUTH, false)
         set(value) = preferences.edit().putBoolean(IS_USER_AUTH, value).apply()
 
+    var userToken: String
+        get() = preferences.getString(USER_TOKEN, "")
+        set(value) = preferences.edit().putString(USER_TOKEN, value).apply()
+
+    var userEmail: String
+        get() = preferences.getString(USER_EMAIL, "empty@ya.ru")
+        set(value) = preferences.edit().putString(USER_EMAIL, value).apply()
+
     companion object {
         private const val INTRO_INFO = "data.source.prefs.INTRO_INFO"
         private const val PRODUCT_MODE = "data.source.prefs.PRODUCT_MODE"
         private const val IS_USER_AUTH = "data.source.prefs.IS_USER_AUTH"
+        private const val USER_TOKEN = "data.source.prefs.USER_TOKEN"
+        private const val USER_EMAIL = "data.source.prefs.USER_EMAIL"
     }
 }

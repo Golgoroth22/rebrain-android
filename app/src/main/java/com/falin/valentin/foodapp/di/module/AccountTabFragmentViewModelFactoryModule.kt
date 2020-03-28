@@ -12,7 +12,7 @@ import dagger.Provides
  *
  */
 @Module
-class AccountTabFragmentViewModelFactoryModule {
+class AccountTabFragmentViewModelFactoryModule() {
     /**
      * This method can be called for get [AccountTabFragmentViewModelFactory].
      *

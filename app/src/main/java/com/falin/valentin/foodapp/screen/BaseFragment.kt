@@ -8,7 +8,6 @@ import com.falin.valentin.foodapp.utils.Logger
  *
  */
 abstract class BaseFragment : Fragment() {
-
     abstract val owner: Logger.Owner
 
     private val logger = Logger(lifecycle, owner)

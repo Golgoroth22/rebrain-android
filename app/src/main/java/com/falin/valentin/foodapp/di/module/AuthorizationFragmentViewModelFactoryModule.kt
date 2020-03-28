@@ -1,5 +1,6 @@
 package com.falin.valentin.foodapp.di.module
 
+import com.falin.valentin.foodapp.di.module.interfaces.ServerResponseCallback
 import com.falin.valentin.foodapp.di.scope.PerScreen
 import com.falin.valentin.foodapp.interactor.AuthorizationStorage
 import com.falin.valentin.foodapp.network.retrofit.service.LoginService
@@ -14,7 +15,7 @@ import dagger.Provides
  *
  */
 @Module
-class AuthorizationFragmentViewModelFactoryModule {
+class AuthorizationFragmentViewModelFactoryModule(private val callback: ServerResponseCallback) {
     /**
      * This method can be called for get [FavoriteProductListViewModelFactory].
      *
@@ -26,6 +27,6 @@ class AuthorizationFragmentViewModelFactoryModule {
         storage: AuthorizationStorage,
         service: LoginService
     ): AuthorizationFragmentViewModelFactory {
-        return AuthorizationFragmentViewModelFactory(AuthorizationRepository(storage, service))
+        return AuthorizationFragmentViewModelFactory(AuthorizationRepository(storage, service, callback))
     }
 }

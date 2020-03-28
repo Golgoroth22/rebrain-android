@@ -76,4 +76,15 @@
         app:layout_constraintEnd_toEndOf="@+id/fragment_authorization_password_textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/fragment_authorization_password_textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/fragment_authorization_password_textInputLayout" />
+
+    <ProgressBar
+        android:id="@+id/fragment_authorization_loadingProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_authorization_authButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fragment_authorization_login_textInputLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.AuthorizationFragmentViewModelFactoryModule
+import com.falin.valentin.foodapp.di.module.interfaces.ServerResponseCallback
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
@@ -24,13 +25,15 @@ import javax.inject.Inject
  * Use the [AuthorizationFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AuthorizationFragment : BaseFragment() {
+class AuthorizationFragment : BaseFragment(), ServerResponseCallback {
     override val owner: Logger.Owner
         get() = Logger.Owner.AUTH_FRAGMENT
 
     @Inject
     lateinit var viewModelFactory: AuthorizationFragmentViewModelFactory
     private lateinit var viewModel: AuthorizationFragmentViewModel
+
+    private lateinit var rootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,19 +45,28 @@ class AuthorizationFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_authorization, container, false)
-        initViews(rootView)
+        rootView = inflater.inflate(R.layout.fragment_authorization, container, false)
+        initViews()
         return rootView
     }
 
-    private fun initViews(rootView: View) {
+    override fun isRequestSuccess(isRequestSuccess: Boolean) {
+        if (isRequestSuccess) {
+            toast(getString(R.string.fragment_authorization_done_text))
+        } else {
+            setViewsEnabled()
+        }
+    }
+
+    private fun initViews() {
         rootView.fragment_authorization_authButton.setOnClickListener {
             val email = rootView.fragment_authorization_emailEditText.text.toString().trim()
             val pass = rootView.fragment_authorization_passwordEditText.text.toString().trim()
             if (isEmailAndPasswordValid(email, pass)) {
                 viewModel.tryToLogin(email, pass)
+                setViewsDisabled()
             } else {
-                toast("Некорректный адрес e-mail или пароль")
+                toast(getString(R.string.fragment_authorization_login_error_text))
             }
         }
         object : TextWatcher {
@@ -75,7 +87,7 @@ class AuthorizationFragment : BaseFragment() {
 
     private fun initDagger() {
         RebrainApp.DAGGER.initAuthComponent(
-            AuthorizationFragmentViewModelFactoryModule()
+            AuthorizationFragmentViewModelFactoryModule(this)
         ).inject(this)
     }
 
@@ -90,6 +102,20 @@ class AuthorizationFragment : BaseFragment() {
             return true
         }
         return false
+    }
+
+    private fun setViewsEnabled() {
+        rootView.fragment_authorization_authButton.isEnabled = true
+        rootView.fragment_authorization_emailEditText.isEnabled = true
+        rootView.fragment_authorization_passwordEditText.isEnabled = true
+        rootView.fragment_authorization_loadingProgress.visibility = View.GONE
+    }
+
+    private fun setViewsDisabled() {
+        rootView.fragment_authorization_authButton.isEnabled = false
+        rootView.fragment_authorization_emailEditText.isEnabled = false
+        rootView.fragment_authorization_passwordEditText.isEnabled = false
+        rootView.fragment_authorization_loadingProgress.visibility = View.VISIBLE
     }
 
     companion object {

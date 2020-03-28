@@ -8,5 +8,11 @@ import com.falin.valentin.foodapp.repository.AccountTabRepository
  *
  */
 class AccountTabFragmentViewModel(private val tabRepository: AccountTabRepository) : ViewModel() {
+
+    /**
+     * This method can be called for get info about user authorization status.
+     *
+     * @return [Boolean]
+     */
     fun isUserAuthorized() = tabRepository.isUserAuthorized()
 }

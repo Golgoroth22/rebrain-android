@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.RebrainApp
+import com.falin.valentin.foodapp.di.module.UserDataStorageModule
+import com.falin.valentin.foodapp.interactor.UserDataStorage
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.utils.Logger
 import kotlinx.android.synthetic.main.fragment_account.view.*
 import org.jetbrains.anko.support.v4.toast
+import javax.inject.Inject
 
 /**
  * A simple [BaseFragment] subclass.
@@ -19,6 +23,14 @@ import org.jetbrains.anko.support.v4.toast
 class AccountFragment : BaseFragment() {
     override val owner: Logger.Owner
         get() = Logger.Owner.ACCOUNT_FRAGMENT
+
+    @Inject
+    lateinit var userData: UserDataStorage
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initDagger()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +45,11 @@ class AccountFragment : BaseFragment() {
         rootView.fragment_account_pickupPointsButton.setOnClickListener {
             toast("In progress")
         }
+        rootView.fragment_account_userNameText.text = userData.getEmail()
+    }
+
+    private fun initDagger() {
+        RebrainApp.DAGGER.initAccountComponent(UserDataStorageModule()).inject(this)
     }
 
     companion object {

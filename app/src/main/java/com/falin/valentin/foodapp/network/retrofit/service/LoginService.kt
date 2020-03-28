@@ -1,5 +1,6 @@
 package com.falin.valentin.foodapp.network.retrofit.service
 
+import com.falin.valentin.foodapp.network.retrofit.pojo.login.LoginRequest
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -9,11 +10,6 @@ import retrofit2.http.*
  *
  */
 interface LoginService {
-    @FormUrlEncoded
     @POST("login/")
-    fun login(
-        @Header("Content-Type") contentType: String = "application/json",
-        @Field("login") login: String,
-        @Field("password") password: String
-    ): Call<UserResponse>
+    fun login(@Body loginRequest: LoginRequest): Call<UserResponse>
 }

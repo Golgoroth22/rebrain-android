@@ -102,8 +102,18 @@ interface AppComponent {
      * @return [AuthorizationComponent]
      */
     fun initAccountTabComponent(
-        accountTabFragmentViewModelFactoryModule: AccountTabFragmentViewModelFactoryModule
+        accountTabFragmentViewModelFactoryModule: AccountTabFragmentViewModelFactoryModule,
+        authorizationStorageModule: AuthorizationStorageModule
     ): AccountTabComponent
+
+    /**
+     * This method can be called for init [AccountComponent] dagger subcomponent.
+     *
+     * @return [AccountComponent]
+     */
+    fun initAccountComponent(
+        userDataStorageModule: UserDataStorageModule
+    ): AccountComponent
 
     /**
      * This method can be called for inject in [ProductsRepository]

@@ -2,6 +2,7 @@ package com.falin.valentin.foodapp.di.component
 
 import com.falin.valentin.foodapp.di.module.AccountTabFragmentViewModelFactoryModule
 import com.falin.valentin.foodapp.di.module.AuthorizationStorageModule
+import com.falin.valentin.foodapp.di.module.UserDataStorageModule
 import com.falin.valentin.foodapp.di.scope.PerScreen
 import com.falin.valentin.foodapp.screen.main.AccountTabFragment
 import dagger.Subcomponent
