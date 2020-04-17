@@ -3,10 +3,10 @@ package com.falin.valentin.foodapp.repository
 import com.falin.valentin.foodapp.interactor.AuthorizationStorage
 
 /**
- * Repository-layer class for work with [AccountTabFragment].
+ * Repository-layer class for work with user authorization status.
  *
  */
-class AccountTabRepository(
+class AuthorizationStatusRepository(
     private val authStorage: AuthorizationStorage
 ) {
     /**

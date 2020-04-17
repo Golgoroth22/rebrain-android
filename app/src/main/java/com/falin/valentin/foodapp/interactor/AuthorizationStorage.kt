@@ -20,8 +20,16 @@ class AuthorizationStorage @Inject constructor(private val preferencesHelper: Pr
      * This method can be called for setup authorization status to true.
      *
      */
-    fun setUserAuthorizationStatus() {
+    fun setUsedAuthorized() {
         preferencesHelper.isUserAuthorized = true
+    }
+
+    /**
+     * This method can be called for setup authorization status to false.
+     *
+     */
+    fun setUserUnauthorized() {
+        preferencesHelper.isUserAuthorized = false
     }
 
     /**

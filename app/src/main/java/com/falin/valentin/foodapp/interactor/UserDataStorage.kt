@@ -18,5 +18,5 @@ class UserDataStorage @Inject constructor(private val preferencesHelper: Prefere
      * This method can be called for get user token.
      *
      */
-    fun userToken() = preferencesHelper.userToken
+    fun getUserToken() = preferencesHelper.userToken
 }

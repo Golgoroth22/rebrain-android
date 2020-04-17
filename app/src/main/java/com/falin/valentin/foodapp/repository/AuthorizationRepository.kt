@@ -1,6 +1,6 @@
 package com.falin.valentin.foodapp.repository
 
-import com.falin.valentin.foodapp.di.module.interfaces.ServerResponseCallback
+import com.falin.valentin.foodapp.domain.LoginUiResponse
 import com.falin.valentin.foodapp.interactor.AuthorizationStorage
 import com.falin.valentin.foodapp.network.Constants
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.LoginRequest
@@ -17,8 +17,7 @@ import timber.log.Timber
  */
 class AuthorizationRepository(
     private val authStorage: AuthorizationStorage,
-    private val authService: LoginService,
-    private val callback: ServerResponseCallback
+    private val authService: LoginService
 ) {
     /**
      * This method can be called for get info about user authorization status.
@@ -40,20 +39,27 @@ class AuthorizationRepository(
      * @param email User email
      * @param pass User password
      */
-    fun tryToSendLoginRequest(email: String, pass: String) {
+    fun tryToSendLoginRequest(
+        email: String,
+        pass: String,
+        onSuccess: (LoginUiResponse) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
         authService.login(LoginRequest(email, pass)).enqueue(object : Callback<UserResponse> {
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Timber.e("AuthorizationRepository tryToSendLoginRequest onFailure ${t.message}")
-                callback.isRequestSuccess(false)
+                onFailure.invoke(t)
             }
 
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Timber.i("AuthorizationRepository tryToSendLoginRequest onResponse ${response.body()}")
                 if (response.code() == Constants.OK) {
+                    authStorage.setUsedAuthorized()
                     response.body()?.let { setUserData(it) }
-                    authStorage.setUserAuthorizationStatus()
-                    callback.isRequestSuccess(true)
                 }
+                onSuccess.invoke(
+                    LoginUiResponse(response.body(), response.message())
+                )
             }
         })
     }
