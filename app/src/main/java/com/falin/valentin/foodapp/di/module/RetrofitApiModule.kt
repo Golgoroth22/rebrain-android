@@ -1,6 +1,7 @@
 package com.falin.valentin.foodapp.di.module
 
 import com.falin.valentin.foodapp.di.scope.PerApplication
+import com.falin.valentin.foodapp.network.retrofit.service.LoginService
 import com.falin.valentin.foodapp.network.retrofit.service.ProductsService
 import dagger.Module
 import dagger.Provides
@@ -21,5 +22,16 @@ class RetrofitApiModule {
     @PerApplication
     fun provideProductsService(retrofit: Retrofit): ProductsService {
         return retrofit.create(ProductsService::class.java)
+    }
+
+    /**
+     * This method can be called for get [LoginService].
+     *
+     * @return [LoginService]
+     */
+    @Provides
+    @PerApplication
+    fun provideLoginService(retrofit: Retrofit): LoginService {
+        return retrofit.create(LoginService::class.java)
     }
 }

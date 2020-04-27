@@ -1,5 +1,6 @@
 package com.falin.valentin.foodapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.falin.valentin.foodapp.domain.Product
@@ -15,8 +16,8 @@ class ProductListViewModel(
     private val productsRepository: ProductsRepository,
     private val productsDisplayDisplayModeRepository: ProductsDisplayModeRepository
 ) : ViewModel() {
-
-    var products: MutableLiveData<List<Product>> = MutableLiveData()
+    private val mProducts = MutableLiveData<List<Product>>()
+    val products: LiveData<List<Product>> = mProducts
 
     /**
      * This method can be called for get [List] of pictures Id`s.
@@ -49,6 +50,6 @@ class ProductListViewModel(
     }
 
     init {
-        products.postValue(productsRepository.getProducts())
+        mProducts.postValue(productsRepository.getProducts())
     }
 }

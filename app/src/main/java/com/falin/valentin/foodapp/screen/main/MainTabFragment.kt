@@ -90,9 +90,9 @@ class MainTabFragment : BaseFragment() {
         productListViewModel = injectViewModel(viewModelFactory)
         initRv(view)
         productListViewModel.products.observe(this,
-            Observer<List<Product>> {
+            Observer { productList ->
                 mainTabRecyclerAdapter.setProductList(
-                    it,
+                    productList,
                     productListViewModel.getPictures()
                 )
             })

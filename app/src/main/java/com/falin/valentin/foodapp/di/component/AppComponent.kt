@@ -5,11 +5,9 @@ import com.falin.valentin.foodapp.di.module.*
 import com.falin.valentin.foodapp.di.scope.PerApplication
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.repository.ProductsRepository
-import com.falin.valentin.foodapp.screen.splash.SplashActivity
 import com.falin.valentin.foodapp.utils.PreferencesHelper
 import dagger.Component
 import okhttp3.OkHttpClient
-import retrofit2.Retrofit
 
 /**
  * Dagger2 [Component] app interface.
@@ -86,6 +84,34 @@ interface AppComponent {
         introDisplayStorageModule: IntroDisplayStorageModule,
         introViewModelFactoryModule: IntroViewModelFactoryModule
     ): IntroComponent
+
+    /**
+     * This method can be called for init [AuthorizationComponent] dagger subcomponent.
+     *
+     * @return [AuthorizationComponent]
+     */
+    fun initAuthComponent(
+        authorizationFragmentViewModelFactoryModule: AuthorizationFragmentViewModelFactoryModule
+    ): AuthorizationComponent
+
+    /**
+     * This method can be called for init [AuthorizationComponent] dagger subcomponent.
+     *
+     * @return [AuthorizationComponent]
+     */
+    fun initAccountTabComponent(
+        accountTabFragmentViewModelFactoryModule: AccountTabFragmentViewModelFactoryModule,
+        authorizationStorageModule: AuthorizationStorageModule
+    ): AccountTabComponent
+
+    /**
+     * This method can be called for init [AccountFragmentComponent] dagger subcomponent.
+     *
+     * @return [AccountFragmentComponent]
+     */
+    fun initAccountFragmentComponent(
+        userDataStorageModule: UserDataStorageModule
+    ): AccountFragmentComponent
 
     /**
      * This method can be called for inject in [ProductsRepository]

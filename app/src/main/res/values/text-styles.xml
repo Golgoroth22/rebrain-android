@@ -13,24 +13,40 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="Text.Regular.13">
-        <item name="android:textSize">13sp</item>
-    </style>
-
     <style name="Text.Regular.12">
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Text.Regular.13">
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="Text.Regular.15">
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="Text.Regular.28">
+        <item name="android:textSize">28sp</item>
+    </style>
+
     <style name="Text.Bold.22">
         <item name="android:textSize">22sp</item>
     </style>
 
+    <style name="Text.Bold.42">
+        <item name="android:textSize">42sp</item>
+    </style>
+
+    <style name="Text.Bold.14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Text.Bold.15">
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Text.Bold.14.gray">
+        <item name="android:textColor">@color/colorLogoutButtonText</item>
     </style>
 
     <style name="Text.Bold.15.Green">
@@ -45,11 +61,19 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <style name="Text.Regular.28.Black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="Text.Regular.16.White">
         <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="Text.Bold.22.White">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Text.Bold.42.White">
         <item name="android:textColor">@android:color/white</item>
     </style>
 

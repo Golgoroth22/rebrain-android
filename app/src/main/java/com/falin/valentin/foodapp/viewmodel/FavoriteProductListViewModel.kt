@@ -1,10 +1,10 @@
 package com.falin.valentin.foodapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.repository.FavoriteProductsRepository
-import com.falin.valentin.foodapp.repository.ProductsRepository
 
 /**
  * [ViewModel] subclass for work with model data and showing it.
@@ -13,9 +13,10 @@ import com.falin.valentin.foodapp.repository.ProductsRepository
  */
 class FavoriteProductListViewModel(private val productsRepository: FavoriteProductsRepository) :
     ViewModel() {
-    var products: MutableLiveData<List<Product>> = MutableLiveData()
+    private val mProducts: MutableLiveData<List<Product>> = MutableLiveData()
+    val products: LiveData<List<Product>> = mProducts
 
     init {
-        products.postValue(productsRepository.getProducts())
+        mProducts.postValue(productsRepository.getProducts())
     }
 }

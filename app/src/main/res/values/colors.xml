@@ -13,4 +13,9 @@
     <color name="colorLine6">#0F000000</color>
     <color name="colorViewPagerDot30">#4D000000</color>
     <color name="colorFavoriteButton">#4cff9800</color>
+    <color name="colorTextTransparent">#99ffffff</color>
+    <color name="colorAurhButtonText">#016a1e</color>
+    <color name="colorAccountBackground">#f9fafe</color>
+    <color name="colorLogoutButtonText">#9c9c9c</color>
+    <color name="colorPickupPointsButton">#5bb367</color>
 </resources>
