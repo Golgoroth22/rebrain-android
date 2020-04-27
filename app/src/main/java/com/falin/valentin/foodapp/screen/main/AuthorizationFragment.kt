@@ -54,15 +54,15 @@ class AuthorizationFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        viewModel.loadingLiveData.observe(this, Observer {
-            if (it) {
+        viewModel.responseLiveData.observe(this, Observer { uiResponse ->
+            if (uiResponse.error == null) {
                 toast(getString(R.string.fragment_authorization_done_text))
+            }
+            if (uiResponse.isLoading) {
+                setViewsDisabled()
             } else {
                 setViewsEnabled()
             }
-        })
-        viewModel.messageResponseLiveData.observe(this, Observer {
-            toast(it)
         })
     }
 
@@ -71,7 +71,6 @@ class AuthorizationFragment : BaseFragment() {
             val email = rootView.fragment_authorization_emailEditText.text.toString().trim()
             val pass = rootView.fragment_authorization_passwordEditText.text.toString().trim()
             viewModel.tryToLogin(email, pass)
-            setViewsDisabled()
         }
         rootView.fragment_authorization_emailEditText.setOnTextChanged {
             rootView.fragment_authorization_authButton.isEnabled =

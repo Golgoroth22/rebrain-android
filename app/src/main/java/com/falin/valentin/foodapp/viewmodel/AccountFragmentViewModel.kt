@@ -1,5 +1,7 @@
 package com.falin.valentin.foodapp.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.falin.valentin.foodapp.repository.AccountFragmentRepository
 
@@ -8,10 +10,10 @@ import com.falin.valentin.foodapp.repository.AccountFragmentRepository
  *
  */
 class AccountFragmentViewModel(private val repository: AccountFragmentRepository) : ViewModel() {
-    /**
-     * This method can be called for get user email.
-     *
-     * @return User email
-     */
-    fun getUserEmail() = repository.getUserEmail()
+    private val mEmailLiveData = MutableLiveData<String>()
+    val emailLiveData: LiveData<String> = mEmailLiveData
+
+    init {
+        mEmailLiveData.postValue(repository.getUserEmail())
+    }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
@@ -42,14 +43,20 @@ class AccountFragment : BaseFragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_account, container, false)
         initViews(rootView)
+        initLiveData(rootView)
         return rootView
+    }
+
+    private fun initLiveData(rootView: View) {
+        viewModel.emailLiveData.observe(this, Observer { email ->
+            rootView.fragment_account_userNameText.text = email
+        })
     }
 
     private fun initViews(rootView: View) {
         rootView.fragment_account_pickupPointsButton.setOnClickListener {
             toast("In progress")
         }
-        rootView.fragment_account_userNameText.text = viewModel.getUserEmail()
     }
 
     private fun initDagger() {

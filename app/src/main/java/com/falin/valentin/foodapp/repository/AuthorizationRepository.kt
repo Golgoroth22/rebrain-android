@@ -42,7 +42,7 @@ class AuthorizationRepository(
     fun tryToSendLoginRequest(
         email: String,
         pass: String,
-        onSuccess: (LoginUiResponse) -> Unit,
+        onSuccess: (UserResponse) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
         authService.login(LoginRequest(email, pass)).enqueue(object : Callback<UserResponse> {
@@ -57,9 +57,7 @@ class AuthorizationRepository(
                     authStorage.setUsedAuthorized()
                     response.body()?.let { setUserData(it) }
                 }
-                onSuccess.invoke(
-                    LoginUiResponse(response.body(), response.message())
-                )
+                response.body()?.let { onSuccess.invoke(it) }
             }
         })
     }
