@@ -3,6 +3,7 @@ package com.falin.valentin.foodapp.di.module
 import com.falin.valentin.foodapp.di.scope.PerApplication
 import com.falin.valentin.foodapp.network.retrofit.service.LoginService
 import com.falin.valentin.foodapp.network.retrofit.service.ProductsService
+import com.falin.valentin.foodapp.network.retrofit.service.UserAvatarService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -33,5 +34,16 @@ class RetrofitApiModule {
     @PerApplication
     fun provideLoginService(retrofit: Retrofit): LoginService {
         return retrofit.create(LoginService::class.java)
+    }
+
+    /**
+     * This method can be called for get [UserAvatarService].
+     *
+     * @return [UserAvatarService]
+     */
+    @Provides
+    @PerApplication
+    fun provideUserAvatarService(retrofit: Retrofit): UserAvatarService {
+        return retrofit.create(UserAvatarService::class.java)
     }
 }
