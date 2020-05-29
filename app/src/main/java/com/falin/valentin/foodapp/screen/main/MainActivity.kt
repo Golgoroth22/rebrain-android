@@ -96,11 +96,7 @@ class MainActivity : BaseActivity() {
         if (supportFragmentManager.findFragmentById((supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout) as BaseFragment).id) != null) {
             transaction.detach(supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout) as BaseFragment)
         }
-        if (supportFragmentManager.findFragmentById(newFragment.id) == null) {
-            transaction.add(R.id.main_activity_frame_layout, newFragment)
-        } else {
-            transaction.attach(newFragment)
-        }
+        transaction.attach(newFragment)
         transaction.commit()
     }
 
