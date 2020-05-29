@@ -6,20 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.Glide
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.AccountTabFragmentViewModelFactoryModule
 import com.falin.valentin.foodapp.di.module.AuthorizationStorageModule
-import com.falin.valentin.foodapp.interactor.AuthorizationStorage
-import com.falin.valentin.foodapp.interactor.UserDataStorage
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModel
 import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_account.view.*
 import javax.inject.Inject
 
 /**

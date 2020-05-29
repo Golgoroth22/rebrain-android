@@ -24,6 +24,5 @@
     <com.falin.valentin.foodapp.screen.custom_view.CustomBottomBarView
         android:id="@+id/main_activity_custom_bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_height="wrap_content" />
 </LinearLayout>
