@@ -1,90 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorIntroBackground"
+    android:overScrollMode="never"
+    android:scrollbars="none"
     tools:context=".screen.main.AuthorizationFragment">
 
-    <TextView
-        android:id="@+id/fragment_authorization_logoText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:text="@string/app_name"
-        android:textAppearance="@style/Text.Bold.42.White"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fragment_authorization_login_textInputLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="55dp"
-        android:hint="@string/fragment_authorization_login_hint_text"
-        android:theme="@style/TextInputLayoutTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_authorization_logoText">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/fragment_authorization_emailEditText"
+        <TextView
+            android:id="@+id/fragment_authorization_logoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="84dp"
+            android:text="@string/app_name"
+            android:textAppearance="@style/Text.Bold.42.White"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_authorization_login_textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="55dp"
+            android:hint="@string/fragment_authorization_login_hint_text"
+            android:theme="@style/TextInputLayoutTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_authorization_logoText">
+
+            <EditText
+                android:id="@+id/fragment_authorization_emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:inputType="textEmailAddress"
+                android:selectAllOnFocus="true"
+                android:textColor="@android:color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_authorization_password_textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/fragment_authorization_password_hint_text"
+            android:theme="@style/TextInputLayoutTheme"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_authorization_login_textInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/fragment_authorization_login_textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_authorization_login_textInputLayout"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@android:color/white">
+
+            <EditText
+                android:id="@+id/fragment_authorization_passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:inputType="textPassword"
+                android:selectAllOnFocus="true"
+                android:textColor="@android:color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/fragment_authorization_authButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:backgroundTint="@android:color/white"
-            android:inputType="textEmailAddress"
-            android:selectAllOnFocus="true"
-            android:textColor="@android:color/white" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:enabled="false"
+            android:text="@string/fragment_authorization_auth_button_text"
+            android:textColor="@color/colorAurhButtonText"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_authorization_password_textInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/fragment_authorization_password_textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_authorization_password_textInputLayout" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fragment_authorization_password_textInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/fragment_authorization_password_hint_text"
-        android:theme="@style/TextInputLayoutTheme"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_authorization_login_textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/fragment_authorization_login_textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_authorization_login_textInputLayout"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@android:color/white">
-
-        <EditText
-            android:id="@+id/fragment_authorization_passwordEditText"
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:id="@+id/fragment_authorization_loadingProgress"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/white"
-            android:inputType="textPassword"
-            android:selectAllOnFocus="true"
-            android:textColor="@android:color/white" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/fragment_authorization_authButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@android:color/white"
-        android:enabled="false"
-        android:text="@string/fragment_authorization_auth_button_text"
-        android:textColor="@color/colorAurhButtonText"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_authorization_password_textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/fragment_authorization_password_textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_authorization_password_textInputLayout" />
-
-    <ProgressBar
-        android:id="@+id/fragment_authorization_loadingProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/white"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_authorization_authButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fragment_authorization_login_textInputLayout" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_authorization_authButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/fragment_authorization_login_textInputLayout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

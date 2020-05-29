@@ -64,7 +64,7 @@ class AccountTabFragment : BaseFragment() {
         } else {
             activity!!.main_activity_custom_bottom_bar.visibility = View.GONE
             activity!!.main_activity_line.visibility = View.GONE
-            AuthorizationFragment.newInstance()
+            AuthorizationFragment.newInstance { addNewFragment() }
         }
     }
 
