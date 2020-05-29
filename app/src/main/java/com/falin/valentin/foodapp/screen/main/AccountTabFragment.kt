@@ -18,6 +18,7 @@ import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModel
 import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_account.view.*
 import javax.inject.Inject
 
@@ -54,13 +55,21 @@ class AccountTabFragment : BaseFragment() {
 
     private fun addNewFragment() {
         childFragmentManager.beginTransaction()
-            .replace(
-                R.id.fragment_account_tab_mainContainer,
-                if (viewModel.isUserAuthorized()) AccountFragment.newInstance()
-                else AuthorizationFragment.newInstance()
-            )
+            .replace(R.id.fragment_account_tab_mainContainer, selectFragment())
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
+    }
+
+    private fun selectFragment(): BaseFragment {
+        return if (viewModel.isUserAuthorized()) {
+            activity!!.main_activity_custom_bottom_bar.visibility = View.VISIBLE
+            activity!!.main_activity_line.visibility = View.VISIBLE
+            AccountFragment.newInstance()
+        } else {
+            activity!!.main_activity_custom_bottom_bar.visibility = View.GONE
+            activity!!.main_activity_line.visibility = View.GONE
+            AuthorizationFragment.newInstance()
+        }
     }
 
     private fun initDagger() {
