@@ -54,7 +54,7 @@ class AccountTabFragment : BaseFragment() {
 
     private fun addNewFragment() {
         childFragmentManager.beginTransaction()
-            .add(
+            .replace(
                 R.id.fragment_account_tab_mainContainer,
                 if (viewModel.isUserAuthorized()) AccountFragment.newInstance()
                 else AuthorizationFragment.newInstance()
