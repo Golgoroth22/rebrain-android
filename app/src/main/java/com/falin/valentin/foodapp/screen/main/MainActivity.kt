@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
@@ -41,16 +43,19 @@ class MainActivity : BaseActivity() {
             override fun onClick(tabType: MainTabType) {
                 when (tabType) {
                     MainTabType.MAIN -> {
+                        custom_toolbar.visibility = View.VISIBLE
                         attachNewFragmentAndDetachOldFragment(
                             activityViewModel.mainTabFragment
                         )
                     }
                     MainTabType.FAVORITE -> {
+                        custom_toolbar.visibility = View.VISIBLE
                         attachNewFragmentAndDetachOldFragment(
                             activityViewModel.favoriteTabFragment
                         )
                     }
                     MainTabType.ACCOUNT -> {
+                        custom_toolbar.visibility = View.GONE
                         attachNewFragmentAndDetachOldFragment(
                             activityViewModel.accountTabFragment
                         )
