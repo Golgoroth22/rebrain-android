@@ -15,7 +15,7 @@ import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.utils.setOnTextChanged
 import com.falin.valentin.foodapp.viewmodel.AuthorizationFragmentViewModel
 import com.falin.valentin.foodapp.viewmodel.AuthorizationFragmentViewModelFactory
-import kotlinx.android.synthetic.main.fragment_authorization.view.*
+import kotlinx.android.synthetic.main.fragment_authorization.*
 import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
 import javax.inject.Inject
@@ -34,8 +34,6 @@ class AuthorizationFragment(private val successfulAuthorizationListener: () -> U
     lateinit var viewModelFactory: AuthorizationFragmentViewModelFactory
     private lateinit var viewModel: AuthorizationFragmentViewModel
 
-    private lateinit var rootView: View
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initDagger()
@@ -46,9 +44,9 @@ class AuthorizationFragment(private val successfulAuthorizationListener: () -> U
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.fragment_authorization, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_authorization, container, false)
         initLiveData()
-        initListeners()
+        initListeners(rootView)
         return rootView
     }
 
@@ -70,24 +68,24 @@ class AuthorizationFragment(private val successfulAuthorizationListener: () -> U
         })
     }
 
-    private fun initListeners() {
-        rootView.fragment_authorization_authButton.setOnClickListener {
-            val email = rootView.fragment_authorization_emailEditText.text.toString().trim()
-            val pass = rootView.fragment_authorization_passwordEditText.text.toString().trim()
+    private fun initListeners(rootView: View) {
+        this.fragment_authorization_authButton.setOnClickListener {
+            val email = this.fragment_authorization_emailEditText.text.toString().trim()
+            val pass = this.fragment_authorization_passwordEditText.text.toString().trim()
             viewModel.tryToLogin(email, pass)
         }
-        rootView.fragment_authorization_emailEditText.setOnTextChanged {
-            rootView.fragment_authorization_authButton.isEnabled =
+        this.fragment_authorization_emailEditText.setOnTextChanged {
+            this.fragment_authorization_authButton.isEnabled =
                 viewModel.isEmailAndPasswordValid(
-                    rootView.fragment_authorization_emailEditText.text.toString().trim(),
-                    rootView.fragment_authorization_passwordEditText.text.toString().trim()
+                    this.fragment_authorization_emailEditText.text.toString().trim(),
+                    this.fragment_authorization_passwordEditText.text.toString().trim()
                 )
         }
-        rootView.fragment_authorization_passwordEditText.setOnTextChanged {
-            rootView.fragment_authorization_authButton.isEnabled =
+        this.fragment_authorization_passwordEditText.setOnTextChanged {
+            this.fragment_authorization_authButton.isEnabled =
                 viewModel.isEmailAndPasswordValid(
-                    rootView.fragment_authorization_emailEditText.text.toString().trim(),
-                    rootView.fragment_authorization_passwordEditText.text.toString().trim()
+                    this.fragment_authorization_emailEditText.text.toString().trim(),
+                    this.fragment_authorization_passwordEditText.text.toString().trim()
                 )
         }
     }
@@ -99,17 +97,17 @@ class AuthorizationFragment(private val successfulAuthorizationListener: () -> U
     }
 
     private fun setViewsEnabled() {
-        rootView.fragment_authorization_authButton.isEnabled = true
-        rootView.fragment_authorization_emailEditText.isEnabled = true
-        rootView.fragment_authorization_passwordEditText.isEnabled = true
-        rootView.fragment_authorization_loadingProgress.visibility = View.GONE
+        this.fragment_authorization_authButton.isEnabled = true
+        this.fragment_authorization_emailEditText.isEnabled = true
+        this.fragment_authorization_passwordEditText.isEnabled = true
+        this.fragment_authorization_loadingProgress.visibility = View.GONE
     }
 
     private fun setViewsDisabled() {
-        rootView.fragment_authorization_authButton.isEnabled = false
-        rootView.fragment_authorization_emailEditText.isEnabled = false
-        rootView.fragment_authorization_passwordEditText.isEnabled = false
-        rootView.fragment_authorization_loadingProgress.visibility = View.VISIBLE
+        this.fragment_authorization_authButton.isEnabled = false
+        this.fragment_authorization_emailEditText.isEnabled = false
+        this.fragment_authorization_passwordEditText.isEnabled = false
+        this.fragment_authorization_loadingProgress.visibility = View.VISIBLE
     }
 
     companion object {

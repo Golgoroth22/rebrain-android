@@ -41,8 +41,6 @@ class AccountFragment : BaseFragment() {
     lateinit var factory: AccountFragmentViewModelFactory
     private lateinit var viewModel: AccountFragmentViewModel
 
-    private lateinit var rootView: View
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initDagger()
@@ -53,10 +51,10 @@ class AccountFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.fragment_account, container, false)
-        initViews()
-        initLiveData()
-        initListeners()
+        val rootView = inflater.inflate(R.layout.fragment_account, container, false)
+        initViews(rootView)
+        initLiveData(rootView)
+        initListeners(rootView)
         return rootView
     }
 
@@ -105,7 +103,7 @@ class AccountFragment : BaseFragment() {
         }
     }
 
-    private fun initListeners() {
+    private fun initListeners(rootView: View) {
         rootView.fragment_account_avatarImage.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     activity!!,
@@ -121,7 +119,7 @@ class AccountFragment : BaseFragment() {
         }
     }
 
-    private fun initLiveData() {
+    private fun initLiveData(rootView: View) {
         viewModel.emailLiveData.observe(this, Observer { email ->
             rootView.fragment_account_userNameText.text = email
         })
@@ -151,10 +149,10 @@ class AccountFragment : BaseFragment() {
             .load(avatar)
             .error(R.drawable.ic_account_no_image_100dp)
             .thumbnail(0.5f)
-            .into(rootView.fragment_account_avatarImage)
+            .into(this.fragment_account_avatarImage)
     }
 
-    private fun initViews() {
+    private fun initViews(rootView: View) {
         rootView.fragment_account_pickupPointsButton.setOnClickListener {
             toast("In progress")
         }
