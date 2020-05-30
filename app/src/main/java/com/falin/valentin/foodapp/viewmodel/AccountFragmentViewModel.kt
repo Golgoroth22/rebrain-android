@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.falin.valentin.foodapp.domain.AccountUiResponse
+import com.falin.valentin.foodapp.domain.UserUiResponse
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
 import com.falin.valentin.foodapp.repository.AccountFragmentRepository
 import java.io.File
@@ -19,8 +19,8 @@ import java.io.File
 class AccountFragmentViewModel(private val repository: AccountFragmentRepository) : ViewModel() {
     private val mEmailLiveData = MutableLiveData<String>()
     val emailLiveData: LiveData<String> = mEmailLiveData
-    private val mResponseLiveData = MutableLiveData<AccountUiResponse>()
-    val responseLiveData: LiveData<AccountUiResponse> = mResponseLiveData
+    private val mResponseLiveData = MutableLiveData<UserUiResponse>()
+    val responseLiveData: LiveData<UserUiResponse> = mResponseLiveData
 
 
     /**
@@ -31,7 +31,7 @@ class AccountFragmentViewModel(private val repository: AccountFragmentRepository
      * @param contentResolver activity content resolver
      */
     fun sendImage(bitmap: Bitmap, parentDir: File, contentResolver: ContentResolver) {
-        mResponseLiveData.postValue(AccountUiResponse(isLoading = true))
+        mResponseLiveData.postValue(UserUiResponse(isLoading = true))
         repository.tryToSendAvatar(
             bitmap,
             parentDir,
@@ -42,11 +42,11 @@ class AccountFragmentViewModel(private val repository: AccountFragmentRepository
 
 
     private fun receiveSuccessfulResponse(response: UserResponse) {
-        mResponseLiveData.postValue(AccountUiResponse(response, isLoading = false))
+        mResponseLiveData.postValue(UserUiResponse(response, isLoading = false))
     }
 
     private fun receiveFailureResponse(t: Throwable) {
-        mResponseLiveData.postValue(AccountUiResponse(isLoading = false, error = t))
+        mResponseLiveData.postValue(UserUiResponse(isLoading = false, error = t))
     }
 
     init {

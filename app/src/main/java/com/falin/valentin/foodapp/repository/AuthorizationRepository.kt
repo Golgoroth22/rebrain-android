@@ -1,6 +1,5 @@
 package com.falin.valentin.foodapp.repository
 
-import com.falin.valentin.foodapp.domain.LoginUiResponse
 import com.falin.valentin.foodapp.interactor.AuthorizationStorage
 import com.falin.valentin.foodapp.network.Constants
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.LoginRequest
