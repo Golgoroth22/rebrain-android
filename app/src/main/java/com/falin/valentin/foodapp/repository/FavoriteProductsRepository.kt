@@ -2,13 +2,16 @@ package com.falin.valentin.foodapp.repository
 
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
+import com.falin.valentin.foodapp.interactor.Storage
+import com.falin.valentin.foodapp.interactor.StorageJob
 
 /**
  * Repository-layer class for work with products data.
  *
  */
 class FavoriteProductsRepository(
-    private val storage: FavoriteProductsStorage
+    private val storage: Storage<List<Product>>,
+    private val storageJob: StorageJob
 ) {
     /**
      * This method can be called for get [List] of [Any] products.
@@ -21,6 +24,6 @@ class FavoriteProductsRepository(
      *
      */
     fun setProducts(product: Product) {
-        storage.addProduct(product)
+        storageJob.addProduct(product)
     }
 }

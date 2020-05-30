@@ -26,6 +26,6 @@ class AuthorizationFragmentViewModelFactoryModule {
         storage: AuthorizationStorage,
         service: LoginService
     ): AuthorizationFragmentViewModelFactory {
-        return AuthorizationFragmentViewModelFactory(AuthorizationRepository(storage, service))
+        return AuthorizationFragmentViewModelFactory(AuthorizationRepository(storage, storage, service))
     }
 }

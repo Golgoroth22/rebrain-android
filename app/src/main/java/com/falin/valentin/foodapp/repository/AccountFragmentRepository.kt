@@ -3,7 +3,7 @@ package com.falin.valentin.foodapp.repository
 import android.content.ContentResolver
 import android.graphics.Bitmap
 import android.net.Uri
-import com.falin.valentin.foodapp.interactor.UserDataStorage
+import com.falin.valentin.foodapp.interactor.UserStorage
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
 import com.falin.valentin.foodapp.network.retrofit.service.UserAvatarService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -16,13 +16,12 @@ import retrofit2.Response
 import timber.log.Timber
 import java.io.*
 
-
 /**
  * Repository-layer class for work with [AccountFragment].
  *
  */
 class AccountFragmentRepository(
-    private val storage: UserDataStorage,
+    private val storage: UserStorage<String>,
     private val userAvatarService: UserAvatarService
 ) {
     /**

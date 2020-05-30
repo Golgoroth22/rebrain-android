@@ -1,6 +1,7 @@
 package com.falin.valentin.foodapp.repository
 
-import com.falin.valentin.foodapp.interactor.AuthorizationStorage
+import com.falin.valentin.foodapp.interactor.AuthorizationDataStorage
+import com.falin.valentin.foodapp.interactor.AuthorizationInfoStorage
 import com.falin.valentin.foodapp.network.Constants
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.LoginRequest
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
@@ -15,7 +16,8 @@ import timber.log.Timber
  *
  */
 class AuthorizationRepository(
-    private val authStorage: AuthorizationStorage,
+    private val authStorage: AuthorizationDataStorage,
+    private val authInfoStorage: AuthorizationInfoStorage,
     private val authService: LoginService
 ) {
     /**
@@ -23,7 +25,7 @@ class AuthorizationRepository(
      *
      * @return [Boolean]
      */
-    fun isUserAuthorized() = authStorage.isUserAuthorized()
+    fun isUserAuthorized() = authInfoStorage.isUserAuthorized()
 
     /**
      * This method can be called for setup user token.
