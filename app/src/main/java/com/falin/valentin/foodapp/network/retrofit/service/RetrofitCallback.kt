@@ -5,6 +5,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.IllegalStateException
 
+/**
+ * [Callback]-subclass for simple work with requests.
+ *
+ */
 class RetrofitCallback<T>(
     val onSuccess: (T) -> Unit,
     val onError: (Throwable) -> Unit
