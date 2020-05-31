@@ -111,7 +111,7 @@ class AccountFragment : BaseFragment() {
                     activity!!, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST
                 )
             }
-            startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), 2020)
+            startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), CAMERA_REQUEST_CODE)
         }
     }
 
@@ -159,8 +159,8 @@ class AccountFragment : BaseFragment() {
     }
 
     companion object {
-        private const val CAMERA_REQUEST_CODE = 2020
-        private const val CAMERA_PERMISSION_REQUEST = 2021
+        private const val CAMERA_REQUEST_CODE = 300390
+        private const val CAMERA_PERMISSION_REQUEST = 300391
 
         fun newInstance() = AccountFragment()
     }
