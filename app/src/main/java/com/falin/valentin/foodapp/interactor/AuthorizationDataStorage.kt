@@ -12,7 +12,7 @@ interface AuthorizationDataStorage {
      * This method can be called for setup authorization status to true.
      *
      */
-    fun setUsedAuthorized()
+    fun setUserAuthorized()
 
     /**
      * This method can be called for setup authorization status to false.

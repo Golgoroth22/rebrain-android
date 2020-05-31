@@ -69,9 +69,7 @@ class AccountFragment : BaseFragment() {
                         bitmap.height / 3,
                         false
                     )
-                    if (scaledBitmap != null) {
-                        viewModel.setAvatar(scaledBitmap)
-                    }
+                    viewModel.setAvatar(scaledBitmap)
                 }
             }
             else -> super.onActivityResult(requestCode, resultCode, data)

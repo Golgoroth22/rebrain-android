@@ -13,7 +13,6 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.ProductListViewModelFactoryModule
 import com.falin.valentin.foodapp.di.module.ProductModeStorageModule
-import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
@@ -66,7 +65,7 @@ class MainTabFragment : BaseFragment() {
 
     private fun initListeners(rootView: View) {
         rootView.fragment_main_tab_swipe_refresh.setOnRefreshListener {
-            productListViewModel.sendSomeRequest()
+            productListViewModel.getProducts()
             rootView.fragment_main_tab_swipe_refresh.isRefreshing = false
         }
     }

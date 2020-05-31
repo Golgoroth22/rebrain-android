@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.falin.valentin.foodapp.domain.UserUiResponse
-import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
 import com.falin.valentin.foodapp.repository.AccountFragmentRepository
+import timber.log.Timber
 
 /**
  * [ViewModel] subclass for work with model data and showing it.
@@ -30,17 +30,19 @@ class AccountFragmentViewModel(private val repository: AccountFragmentRepository
         mResponseLiveData.postValue(UserUiResponse(isLoading = true))
         repository.setAvatar(
             bitmap,
-            { response -> receiveSuccessfulResponse(response) },
+            { unit -> receiveSuccessfulResponse(unit) },
             { throwable -> receiveFailureResponse(throwable) })
     }
 
 
-    private fun receiveSuccessfulResponse(response: UserResponse) {
-        mResponseLiveData.postValue(UserUiResponse(response, isLoading = false))
+    private fun receiveSuccessfulResponse(u: Unit) {
+        mResponseLiveData.postValue(UserUiResponse(isLoading = false))
+        Timber.i("AccountFragmentViewModel receiveSuccessfulResponse $u")
     }
 
     private fun receiveFailureResponse(t: Throwable) {
         mResponseLiveData.postValue(UserUiResponse(isLoading = false, error = t))
+        Timber.e("AccountFragmentViewModel receiveFailureResponse ${t.message}")
     }
 
     init {

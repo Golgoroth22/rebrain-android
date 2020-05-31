@@ -16,6 +16,7 @@ import com.falin.valentin.foodapp.utils.setOnTextChanged
 import com.falin.valentin.foodapp.viewmodel.AuthorizationFragmentViewModel
 import com.falin.valentin.foodapp.viewmodel.AuthorizationFragmentViewModelFactory
 import kotlinx.android.synthetic.main.fragment_authorization.*
+import kotlinx.android.synthetic.main.fragment_authorization.view.*
 import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
 import javax.inject.Inject
@@ -69,23 +70,23 @@ class AuthorizationFragment(private val successfulAuthorizationListener: () -> U
     }
 
     private fun initListeners(rootView: View) {
-        this.fragment_authorization_authButton.setOnClickListener {
+        rootView.fragment_authorization_authButton.setOnClickListener {
             val email = this.fragment_authorization_emailEditText.text.toString().trim()
             val pass = this.fragment_authorization_passwordEditText.text.toString().trim()
             viewModel.tryToLogin(email, pass)
         }
-        this.fragment_authorization_emailEditText.setOnTextChanged {
-            this.fragment_authorization_authButton.isEnabled =
+        rootView.fragment_authorization_emailEditText.setOnTextChanged {
+            rootView.fragment_authorization_authButton.isEnabled =
                 viewModel.isEmailAndPasswordValid(
-                    this.fragment_authorization_emailEditText.text.toString().trim(),
-                    this.fragment_authorization_passwordEditText.text.toString().trim()
+                    rootView.fragment_authorization_emailEditText.text.toString().trim(),
+                    rootView.fragment_authorization_passwordEditText.text.toString().trim()
                 )
         }
-        this.fragment_authorization_passwordEditText.setOnTextChanged {
-            this.fragment_authorization_authButton.isEnabled =
+        rootView.fragment_authorization_passwordEditText.setOnTextChanged {
+            rootView.fragment_authorization_authButton.isEnabled =
                 viewModel.isEmailAndPasswordValid(
-                    this.fragment_authorization_emailEditText.text.toString().trim(),
-                    this.fragment_authorization_passwordEditText.text.toString().trim()
+                    rootView.fragment_authorization_emailEditText.text.toString().trim(),
+                    rootView.fragment_authorization_passwordEditText.text.toString().trim()
                 )
         }
     }

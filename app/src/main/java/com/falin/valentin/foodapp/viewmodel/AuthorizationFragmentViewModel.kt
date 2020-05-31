@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.falin.valentin.foodapp.domain.UserUiResponse
+import com.falin.valentin.foodapp.network.Constants
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
 import com.falin.valentin.foodapp.repository.AuthorizationRepository
+import timber.log.Timber
 
 /**
  * [ViewModel] subclass for work with model data and showing it.
@@ -33,11 +35,15 @@ class AuthorizationFragmentViewModel(private val repository: AuthorizationReposi
     }
 
     private fun receiveSuccessfulResponse(response: UserResponse) {
+        repository.setUserAuthorized()
+        repository.setUserData(response)
         mResponseLiveData.postValue(UserUiResponse(response, isLoading = false))
+        Timber.i("AuthorizationFragmentViewModel receiveSuccessfulResponse $response")
     }
 
     private fun receiveFailureResponse(t: Throwable) {
         mResponseLiveData.postValue(UserUiResponse(isLoading = false, error = t))
+        Timber.e("AuthorizationFragmentViewModel receiveFailureResponse ${t.message}")
     }
 
     fun isEmailAndPasswordValid(email: String, password: String): Boolean {

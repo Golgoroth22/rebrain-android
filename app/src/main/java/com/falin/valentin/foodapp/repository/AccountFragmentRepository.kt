@@ -2,14 +2,12 @@ package com.falin.valentin.foodapp.repository
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.net.Uri
 import com.falin.valentin.foodapp.interactor.UserStorage
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
+import com.falin.valentin.foodapp.network.retrofit.service.RetrofitCallback
 import com.falin.valentin.foodapp.network.retrofit.service.UserAvatarService
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,30 +39,12 @@ class AccountFragmentRepository(
      */
     fun setAvatar(
         bitmap: Bitmap,
-        onSuccess: (UserResponse) -> Unit,
+        onSuccess: (Unit) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
         val file = convertBitmapToFile(bitmap, context.cacheDir)
-        val requestFile = file
-            .asRequestBody(context.contentResolver.getType(Uri.fromFile(file)).toMediaTypeOrNull())
-        val body = MultipartBody.Part.createFormData(AVATAR_NAME, file.name, requestFile)
-        val descriptionString = "hello, this is description speaking"
-        val description = descriptionString.toRequestBody(MultipartBody.FORM)
-
-        userAvatarService.putAvatar(description, body).enqueue(object : Callback<UserResponse> {
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                Timber.e("AccountFragmentRepository putAvatar onFailure ${t.message}")
-                onFailure.invoke(t)
-            }
-
-            override fun onResponse(
-                call: Call<UserResponse>,
-                response: Response<UserResponse>
-            ) {
-                Timber.i("AccountFragmentRepository putAvatar onResponse ${response.body()}")
-                response.body()?.let { onSuccess.invoke(it) }
-            }
-        })
+        val body = MultipartBody.Part.createFormData(AVATAR_NAME, file.name, file.asRequestBody())
+        userAvatarService.setAvatar(body).enqueue(RetrofitCallback<Unit>(onSuccess, onFailure))
     }
 
     private fun convertBitmapToFile(bitmap: Bitmap, parentDir: File): File {

@@ -1,5 +1,6 @@
 package com.falin.valentin.foodapp.di.module
 
+import android.content.Context
 import com.falin.valentin.foodapp.di.scope.PerScreen
 import com.falin.valentin.foodapp.interactor.UserDataStorage
 import com.falin.valentin.foodapp.network.retrofit.service.UserAvatarService
@@ -22,9 +23,10 @@ class AccountFragmentViewModelFactoryModule {
     @Provides
     @PerScreen
     fun provideFactory(
+        context: Context,
         storage: UserDataStorage,
         service: UserAvatarService
     ): AccountFragmentViewModelFactory {
-        return AccountFragmentViewModelFactory(AccountFragmentRepository(storage, service))
+        return AccountFragmentViewModelFactory(AccountFragmentRepository(context, storage, service))
     }
 }

@@ -13,7 +13,7 @@ class AuthorizationStorage @Inject constructor(private val preferencesHelper: Pr
 
     override fun isUserAuthorized() = preferencesHelper.isUserAuthorized
 
-    override fun setUsedAuthorized() {
+    override fun setUserAuthorized() {
         preferencesHelper.isUserAuthorized = true
     }
 
