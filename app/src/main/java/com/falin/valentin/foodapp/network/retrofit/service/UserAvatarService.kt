@@ -15,7 +15,7 @@ import retrofit2.http.Part
  */
 interface UserAvatarService {
     @Multipart
-    @PUT("user/avatar")
+    @PUT("user/avatar/")
     fun putAvatar(
         @Part("description") description: RequestBody,
         @Part file: MultipartBody.Part
