@@ -1,6 +1,5 @@
 package com.falin.valentin.foodapp.viewmodel
 
-import android.content.ContentResolver
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.falin.valentin.foodapp.domain.UserUiResponse
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
 import com.falin.valentin.foodapp.repository.AccountFragmentRepository
-import java.io.File
 
 /**
  * [ViewModel] subclass for work with model data and showing it.
@@ -27,15 +25,11 @@ class AccountFragmentViewModel(private val repository: AccountFragmentRepository
      * This method can be called for send user avatar on server.
      *
      * @param bitmap user avatar bitmap
-     * @param parentDir parent directory file
-     * @param contentResolver activity content resolver
      */
-    fun sendImage(bitmap: Bitmap, parentDir: File, contentResolver: ContentResolver) {
+    fun setAvatar(bitmap: Bitmap) {
         mResponseLiveData.postValue(UserUiResponse(isLoading = true))
-        repository.tryToSendAvatar(
+        repository.setAvatar(
             bitmap,
-            parentDir,
-            contentResolver,
             { response -> receiveSuccessfulResponse(response) },
             { throwable -> receiveFailureResponse(throwable) })
     }

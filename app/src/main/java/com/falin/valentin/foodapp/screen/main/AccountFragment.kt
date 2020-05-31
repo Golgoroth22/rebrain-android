@@ -70,11 +70,7 @@ class AccountFragment : BaseFragment() {
                         false
                     )
                     if (scaledBitmap != null) {
-                        viewModel.sendImage(
-                            scaledBitmap,
-                            context!!.cacheDir,
-                            activity!!.contentResolver
-                        )
+                        viewModel.setAvatar(scaledBitmap)
                     }
                 }
             }

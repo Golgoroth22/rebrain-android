@@ -1,6 +1,6 @@
 package com.falin.valentin.foodapp.repository
 
-import android.content.ContentResolver
+import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import com.falin.valentin.foodapp.interactor.UserStorage
@@ -21,6 +21,7 @@ import java.io.*
  *
  */
 class AccountFragmentRepository(
+    private val context: Context,
     private val storage: UserStorage<String>,
     private val userAvatarService: UserAvatarService
 ) {
@@ -35,21 +36,17 @@ class AccountFragmentRepository(
      * This method can be called for send user avatar on server.
      *
      * @param bitmap user avatar bitmap
-     * @param parentDir parent directory file
-     * @param contentResolver activity content resolver
      * @param onSuccess use it if request success
      * @param onFailure use it if request filed
      */
-    fun tryToSendAvatar(
+    fun setAvatar(
         bitmap: Bitmap,
-        parentDir: File,
-        contentResolver: ContentResolver,
         onSuccess: (UserResponse) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        val file = convertBitmapToFile(bitmap, parentDir)
+        val file = convertBitmapToFile(bitmap, context.cacheDir)
         val requestFile = file
-            .asRequestBody(contentResolver.getType(Uri.fromFile(file)).toMediaTypeOrNull())
+            .asRequestBody(context.contentResolver.getType(Uri.fromFile(file)).toMediaTypeOrNull())
         val body = MultipartBody.Part.createFormData(AVATAR_NAME, file.name, requestFile)
         val descriptionString = "hello, this is description speaking"
         val description = descriptionString.toRequestBody(MultipartBody.FORM)
