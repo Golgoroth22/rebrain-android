@@ -44,6 +44,14 @@ class ProductListViewModel(
     }
 
     /**
+     * This method can be called for add product to favorites.
+     *
+     */
+    fun addProductToFavorites(product: Product) {
+        productsRepository.addProductToFavorites(product)
+    }
+
+    /**
      * This method can be called for send products request.
      *
      */

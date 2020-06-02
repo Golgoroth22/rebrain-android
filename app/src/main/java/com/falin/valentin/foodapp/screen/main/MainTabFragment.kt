@@ -13,7 +13,6 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.ProductListViewModelFactoryModule
 import com.falin.valentin.foodapp.di.module.ProductModeStorageModule
-import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
@@ -34,9 +33,6 @@ class MainTabFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ProductListViewModelFactory
     private lateinit var productListViewModel: ProductListViewModel
-
-    @Inject
-    lateinit var favoriteProductsStorage: FavoriteProductsStorage
 
     private lateinit var rv: RecyclerView
     private lateinit var mainTabRecyclerAdapter: MainTabElementAdapter
@@ -77,7 +73,7 @@ class MainTabFragment : BaseFragment() {
             MainTabElementAdapter(
                 context!!,
                 productListViewModel.getProductsDisplayMode()
-            ) { product -> favoriteProductsStorage.addProduct(product) }
+            ) { product -> productListViewModel.addProductToFavorites(product) }
         selectLayoutManager()
         rv.apply {
             layoutManager = lm
