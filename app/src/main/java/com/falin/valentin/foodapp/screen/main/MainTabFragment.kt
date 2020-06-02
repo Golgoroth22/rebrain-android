@@ -34,6 +34,7 @@ class MainTabFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ProductListViewModelFactory
     private lateinit var productListViewModel: ProductListViewModel
+
     @Inject
     lateinit var favoriteProductsStorage: FavoriteProductsStorage
 

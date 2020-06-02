@@ -31,6 +31,8 @@ class AccountTabFragment : BaseFragment() {
     lateinit var factory: AccountTabFragmentViewModelFactory
     private lateinit var viewModel: AccountTabFragmentViewModel
 
+    private lateinit var bottomBarVisibilityListener: (Boolean) -> Unit
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initDagger()
@@ -58,14 +60,20 @@ class AccountTabFragment : BaseFragment() {
 
     private fun selectFragment(): BaseFragment {
         return if (viewModel.isUserAuthorized()) {
-            activity!!.main_activity_custom_bottom_bar.visibility = View.VISIBLE
-            activity!!.main_activity_line.visibility = View.VISIBLE
+            bottomBarVisibilityListener.invoke(true)
             AccountFragment.newInstance()
         } else {
-            activity!!.main_activity_custom_bottom_bar.visibility = View.GONE
-            activity!!.main_activity_line.visibility = View.GONE
+            bottomBarVisibilityListener.invoke(false)
             AuthorizationFragment.newInstance { addNewFragment() }
         }
+    }
+
+    /**
+     * This method can be called for set bottombar visibility.
+     *
+     */
+    fun attachBottomBarVisibilityListener(mBottomBarVisibilityListener: (Boolean) -> Unit) {
+        bottomBarVisibilityListener = mBottomBarVisibilityListener
     }
 
     private fun initDagger() {

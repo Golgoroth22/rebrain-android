@@ -13,13 +13,11 @@ import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModelFactory
-
 
 /**
  * [BaseActivity] subclass to work with MainActivity our application and showing it.
@@ -91,6 +89,16 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(custom_toolbar)
     }
 
+    private fun setBottomBarVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            main_activity_custom_bottom_bar.visibility = View.VISIBLE
+            main_activity_line.visibility = View.VISIBLE
+        } else {
+            main_activity_custom_bottom_bar.visibility = View.GONE
+            main_activity_line.visibility = View.GONE
+        }
+    }
+
     private fun attachNewFragmentAndDetachOldFragment(newFragment: BaseFragment) {
         val transaction = supportFragmentManager.beginTransaction()
         if (supportFragmentManager.findFragmentById((supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout) as BaseFragment).id) != null) {
@@ -101,6 +109,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun attachFragments() {
+        activityViewModel.accountTabFragment.attachBottomBarVisibilityListener { isVisible ->
+            setBottomBarVisibility(isVisible)
+        }
         val transaction = supportFragmentManager.beginTransaction()
         transaction
             .add(R.id.main_activity_frame_layout, activityViewModel.favoriteTabFragment)
