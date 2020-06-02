@@ -98,17 +98,17 @@ class AuthorizationFragment(private val successfulAuthorizationListener: () -> U
     }
 
     private fun setViewsEnabled() {
-        this.fragment_authorization_authButton.isEnabled = true
-        this.fragment_authorization_emailEditText.isEnabled = true
-        this.fragment_authorization_passwordEditText.isEnabled = true
-        this.fragment_authorization_loadingProgress.visibility = View.GONE
+        fragment_authorization_authButton.isEnabled = true
+        fragment_authorization_emailEditText.isEnabled = true
+        fragment_authorization_passwordEditText.isEnabled = true
+        fragment_authorization_loadingProgress.visibility = View.GONE
     }
 
     private fun setViewsDisabled() {
-        this.fragment_authorization_authButton.isEnabled = false
-        this.fragment_authorization_emailEditText.isEnabled = false
-        this.fragment_authorization_passwordEditText.isEnabled = false
-        this.fragment_authorization_loadingProgress.visibility = View.VISIBLE
+        fragment_authorization_authButton.isEnabled = false
+        fragment_authorization_emailEditText.isEnabled = false
+        fragment_authorization_passwordEditText.isEnabled = false
+        fragment_authorization_loadingProgress.visibility = View.VISIBLE
     }
 
     companion object {
