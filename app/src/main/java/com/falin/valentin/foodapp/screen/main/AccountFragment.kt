@@ -65,8 +65,8 @@ class AccountFragment : BaseFragment() {
                     val bitmap = data?.extras?.get("data") as Bitmap
                     val scaledBitmap = Bitmap.createScaledBitmap(
                         bitmap,
-                        bitmap.width / 3,
-                        bitmap.height / 3,
+                        bitmap.width / 5,
+                        bitmap.height / 5,
                         false
                     )
                     viewModel.setAvatar(scaledBitmap)
@@ -119,7 +119,7 @@ class AccountFragment : BaseFragment() {
         })
         viewModel.responseLiveData.observe(this, Observer { response ->
             if (response.data != null) {
-                setUserAvatar(response.data.avatar)
+                setUserAvatar(viewModel.getUserAvatarLink())
             }
             if (response.error != null) {
                 Snackbar.make(
@@ -157,8 +157,8 @@ class AccountFragment : BaseFragment() {
     }
 
     companion object {
-        private const val CAMERA_REQUEST_CODE = 300390
-        private const val CAMERA_PERMISSION_REQUEST = 300391
+        private const val CAMERA_REQUEST_CODE = 30039
+        private const val CAMERA_PERMISSION_REQUEST = 30039
 
         fun newInstance() = AccountFragment()
     }

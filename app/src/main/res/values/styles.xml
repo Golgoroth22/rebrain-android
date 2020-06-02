@@ -22,4 +22,8 @@
         <item name="colorControlNormal">@color/colorAppAccent</item>
         <item name="colorControlActivated">@color/colorAppAccent</item>
     </style>
+
+    <style name="ProgressBarCustomColor" parent="Widget.AppCompat.ProgressBar">
+        <item name="colorAccent">@android:color/white</item>
+    </style>
 </resources>

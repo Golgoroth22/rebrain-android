@@ -37,7 +37,7 @@ class AuthorizationFragmentViewModel(private val repository: AuthorizationReposi
     private fun receiveSuccessfulResponse(response: UserResponse) {
         repository.setUserAuthorized()
         repository.setUserData(response)
-        mResponseLiveData.postValue(UserUiResponse(response, isLoading = false))
+        mResponseLiveData.postValue(UserUiResponse(response.convert(), isLoading = false))
         Timber.i("AuthorizationFragmentViewModel receiveSuccessfulResponse $response")
     }
 

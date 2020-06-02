@@ -13,4 +13,10 @@ class UserDataStorage @Inject constructor(private val preferencesHelper: Prefere
     override fun getEmail() = preferencesHelper.userEmail
 
     override fun getUserToken() = preferencesHelper.userToken
+
+    override fun getUserAvatarLink() = preferencesHelper.userAvatarLink
+
+    override fun setUserAvatarLink(link: String) {
+        preferencesHelper.userAvatarLink = link
+    }
 }

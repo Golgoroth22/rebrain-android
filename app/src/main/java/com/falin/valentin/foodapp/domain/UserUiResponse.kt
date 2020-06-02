@@ -1,7 +1,5 @@
 package com.falin.valentin.foodapp.domain
 
-import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
-
 /**
  * This is a data class for work with [AuthorizationFragment].
  *
@@ -11,7 +9,7 @@ import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
  *
  */
 data class UserUiResponse(
-    val data: UserResponse? = null,
+    val data: User? = null,
     val isLoading: Boolean,
     val error: Throwable? = null
 )

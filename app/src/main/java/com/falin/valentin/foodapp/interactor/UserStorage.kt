@@ -16,4 +16,16 @@ interface UserStorage<T> {
      *
      */
     fun getUserToken(): T
+
+    /**
+     * This method can be called for get user avatar link.
+     *
+     */
+    fun getUserAvatarLink(): String
+
+    /**
+     * This method can be called for set user avatar link.
+     *
+     */
+    fun setUserAvatarLink(link: String)
 }

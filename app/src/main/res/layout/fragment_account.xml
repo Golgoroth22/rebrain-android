@@ -50,10 +50,10 @@
 
         <ProgressBar
             android:id="@+id/fragment_account_avatarProgress"
+            android:theme="@style/ProgressBarCustomColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:progressTint="@android:color/white"
             android:visibility="gone" />
     </androidx.cardview.widget.CardView>
 

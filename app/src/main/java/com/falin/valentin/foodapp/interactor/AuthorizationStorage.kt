@@ -22,7 +22,7 @@ class AuthorizationStorage @Inject constructor(private val preferencesHelper: Pr
     }
 
     override fun setUserAuthorizationData(user: UserResponse) {
-        preferencesHelper.userToken = user.token
+        preferencesHelper.userToken = user.token!!
         preferencesHelper.userEmail = user.name
     }
 }
