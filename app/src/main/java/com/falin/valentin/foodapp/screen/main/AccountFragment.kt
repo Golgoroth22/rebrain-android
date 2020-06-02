@@ -84,7 +84,7 @@ class AccountFragment : BaseFragment() {
         when (requestCode) {
             CAMERA_PERMISSION_REQUEST -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), 2020)
+                    startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), CAMERA_REQUEST_CODE)
                 } else {
                     Snackbar.make(
                         fragment_account_rootLayout,
