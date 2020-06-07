@@ -76,7 +76,7 @@ class AccountFragmentRepository(
     }
 
     private fun convertBitmapToFile(bitmap: Bitmap, parentDir: File): File {
-        val file = File(parentDir, AVATAR_NAME)
+        val file = File(parentDir, "$AVATAR_NAME.jpg")
         file.createNewFile()
 
         val bos = ByteArrayOutputStream()
@@ -100,6 +100,6 @@ class AccountFragmentRepository(
     }
 
     companion object {
-        private const val AVATAR_NAME = "DAavatarNET4"
+        private const val AVATAR_NAME = "avatar"
     }
 }

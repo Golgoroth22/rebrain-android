@@ -65,8 +65,8 @@ class AccountFragment : BaseFragment() {
                     val bitmap = data?.extras?.get("data") as Bitmap
                     val scaledBitmap = Bitmap.createScaledBitmap(
                         bitmap,
-                        bitmap.width / 5,
-                        bitmap.height / 5,
+                        bitmap.width / 6,
+                        bitmap.height / 6,
                         false
                     )
                     viewModel.setAvatar(scaledBitmap)
@@ -111,6 +111,10 @@ class AccountFragment : BaseFragment() {
             }
             startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), CAMERA_REQUEST_CODE)
         }
+
+        rootView.fragment_account_pickupPointsButton.setOnClickListener {
+            toast("In progress")
+        }
     }
 
     private fun initLiveData(rootView: View) {
@@ -119,7 +123,7 @@ class AccountFragment : BaseFragment() {
         })
         viewModel.responseLiveData.observe(this, Observer { response ->
             if (response.data != null) {
-                setUserAvatar(viewModel.getUserAvatarLink())
+                setUserAvatar(viewModel.getUserAvatarLink(), rootView)
             }
             if (response.error != null) {
                 Snackbar.make(
@@ -127,7 +131,7 @@ class AccountFragment : BaseFragment() {
                     response.error.localizedMessage,
                     Snackbar.LENGTH_LONG
                 ).show()
-                setUserAvatar(null)
+                setUserAvatar(null, rootView)
             }
             if (response.isLoading) {
                 rootView.fragment_account_avatarImage.setImageDrawable(null)
@@ -138,18 +142,16 @@ class AccountFragment : BaseFragment() {
         })
     }
 
-    private fun setUserAvatar(avatar: String?) {
+    private fun setUserAvatar(avatar: String?, rootView: View) {
         Glide.with(context!!)
             .load(avatar)
             .error(R.drawable.ic_account_no_image_100dp)
             .thumbnail(0.5f)
-            .into(this.fragment_account_avatarImage)
+            .into(rootView.fragment_account_avatarImage)
     }
 
     private fun initViews(rootView: View) {
-        rootView.fragment_account_pickupPointsButton.setOnClickListener {
-            toast("In progress")
-        }
+        setUserAvatar(viewModel.getUserAvatarLink(), rootView)
     }
 
     private fun initDagger() {
