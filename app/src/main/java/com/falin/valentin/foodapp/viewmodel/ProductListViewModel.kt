@@ -15,6 +15,9 @@ import timber.log.Timber
  * [ViewModel] subclass for work with model data and showing it.
  *
  * @property productsLiveData Property for contain products. Wrapped in [MutableLiveData]
+ * @property productsList Contain last list of products
+ * @property picturesLiveData Contain list of pictures wrapped in [LiveData]
+ * @property picturesList Contain last list of pictures
  */
 class ProductListViewModel(
     private val productsRepository: ProductsRepository,
@@ -32,7 +35,7 @@ class ProductListViewModel(
      * This method can be called for get [List] of pictures Id`s.
      *
      */
-    fun getPictures() {
+    private fun getPictures() {
         mPicturesLiveData.postValue(picturesRepository.getUris())
     }
 
