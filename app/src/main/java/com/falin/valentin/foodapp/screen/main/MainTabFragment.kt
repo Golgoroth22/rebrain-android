@@ -85,13 +85,20 @@ class MainTabFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         productListViewModel = injectViewModel(viewModelFactory)
         initRv(view)
-        productListViewModel.products.observe(this,
-            Observer { productList ->
-                mainTabRecyclerAdapter.setProductList(
-                    productList,
-                    productListViewModel.getPictures()
-                )
-            })
+        productListViewModel.picturesLiveData.observe(this, Observer { pList ->
+            productListViewModel.picturesList = pList
+            mainTabRecyclerAdapter.setProductList(
+                productListViewModel.productsList,
+                pList
+            )
+        })
+        productListViewModel.productsLiveData.observe(this, Observer { productList ->
+            productListViewModel.productsList = productList
+            mainTabRecyclerAdapter.setProductList(
+                productList,
+                productListViewModel.picturesList
+            )
+        })
     }
 
     /**

@@ -50,6 +50,7 @@ dependencies {
 
     /* Firebase */
     implementation "com.google.firebase:firebase-messaging:$firebase_messaging"
+    implementation "com.google.firebase:firebase-storage-ktx:$firebase_storage"
 
     /* OkHttp */
     implementation "com.squareup.okhttp3:okhttp:$okhttp"

@@ -12,6 +12,7 @@ buildscript {
         constraint = versions.constraint
         dagger2 = versions.dagger2
         firebase_messaging = versions.firebase_messaging
+        firebase_storage = versions.firebase_storage
         glide = versions.glide
         gms_google_services = versions.gms_google_services
         junit = versions.junit

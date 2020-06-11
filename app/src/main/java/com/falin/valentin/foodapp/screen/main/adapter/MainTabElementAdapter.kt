@@ -1,6 +1,7 @@
 package com.falin.valentin.foodapp.screen.main.adapter
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.falin.valentin.foodapp.R
@@ -42,7 +44,7 @@ class MainTabElementAdapter(var displayMode: Int) :
     private lateinit var basketButtonListener: ((String, Product) -> Unit)
     private var adapterList = mutableListOf<Any>()
 
-    var carouselPicturesList = emptyList<Int>()
+    var carouselPicturesList = emptyList<Uri>()
         private set
 
     var currentCarouselId: Int = 0
@@ -82,7 +84,7 @@ class MainTabElementAdapter(var displayMode: Int) :
      * This method can be called for set [adapterList].
      *
      */
-    fun setProductList(list: List<Any>, picturesList: List<Int>) {
+    fun setProductList(list: List<Any>, picturesList: List<Uri>) {
         adapterList.clear()
         adapterList.add(list[CAROUSEL_ID])
         adapterList.addAll(list)
