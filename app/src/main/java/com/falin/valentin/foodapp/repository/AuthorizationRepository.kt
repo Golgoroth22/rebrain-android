@@ -1,22 +1,19 @@
 package com.falin.valentin.foodapp.repository
 
-import com.falin.valentin.foodapp.domain.LoginUiResponse
-import com.falin.valentin.foodapp.interactor.AuthorizationStorage
-import com.falin.valentin.foodapp.network.Constants
+import com.falin.valentin.foodapp.interactor.AuthorizationDataStorage
+import com.falin.valentin.foodapp.interactor.AuthorizationInfoStorage
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.LoginRequest
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
 import com.falin.valentin.foodapp.network.retrofit.service.LoginService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import timber.log.Timber
+import com.falin.valentin.foodapp.network.retrofit.service.RetrofitCallback
 
 /**
  * Repository-layer class for work with [AuthorizationFragment].
  *
  */
 class AuthorizationRepository(
-    private val authStorage: AuthorizationStorage,
+    private val authStorage: AuthorizationDataStorage,
+    private val authInfoStorage: AuthorizationInfoStorage,
     private val authService: LoginService
 ) {
     /**
@@ -24,7 +21,7 @@ class AuthorizationRepository(
      *
      * @return [Boolean]
      */
-    fun isUserAuthorized() = authStorage.isUserAuthorized()
+    fun isUserAuthorized() = authInfoStorage.isUserAuthorized()
 
     /**
      * This method can be called for setup user token.
@@ -32,6 +29,12 @@ class AuthorizationRepository(
      * @param user User token
      */
     fun setUserData(user: UserResponse) = authStorage.setUserAuthorizationData(user)
+
+    /**
+     * This method can be called for setup authorization status to true.
+     *
+     */
+    fun setUserAuthorized() = authStorage.setUserAuthorized()
 
     /**
      * This method can be called for trying login user.
@@ -45,20 +48,7 @@ class AuthorizationRepository(
         onSuccess: (UserResponse) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        authService.login(LoginRequest(email, pass)).enqueue(object : Callback<UserResponse> {
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                Timber.e("AuthorizationRepository tryToSendLoginRequest onFailure ${t.message}")
-                onFailure.invoke(t)
-            }
-
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                Timber.i("AuthorizationRepository tryToSendLoginRequest onResponse ${response.body()}")
-                if (response.code() == Constants.OK) {
-                    authStorage.setUsedAuthorized()
-                    response.body()?.let { setUserData(it) }
-                }
-                response.body()?.let { onSuccess.invoke(it) }
-            }
-        })
+        authService.login(LoginRequest(email, pass))
+            .enqueue(RetrofitCallback<UserResponse>(onSuccess, onFailure))
     }
 }

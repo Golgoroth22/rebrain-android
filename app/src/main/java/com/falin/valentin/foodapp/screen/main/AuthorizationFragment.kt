@@ -1,9 +1,6 @@
 package com.falin.valentin.foodapp.screen.main
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +15,10 @@ import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.utils.setOnTextChanged
 import com.falin.valentin.foodapp.viewmodel.AuthorizationFragmentViewModel
 import com.falin.valentin.foodapp.viewmodel.AuthorizationFragmentViewModelFactory
+import kotlinx.android.synthetic.main.fragment_authorization.*
 import kotlinx.android.synthetic.main.fragment_authorization.view.*
 import org.jetbrains.anko.support.v4.toast
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -27,15 +26,14 @@ import javax.inject.Inject
  * Use the [AuthorizationFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AuthorizationFragment : BaseFragment() {
+class AuthorizationFragment(private val successfulAuthorizationListener: () -> Unit) :
+    BaseFragment() {
     override val owner: Logger.Owner
         get() = Logger.Owner.AUTH_FRAGMENT
 
     @Inject
     lateinit var viewModelFactory: AuthorizationFragmentViewModelFactory
     private lateinit var viewModel: AuthorizationFragmentViewModel
-
-    private lateinit var rootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,16 +45,21 @@ class AuthorizationFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.fragment_authorization, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_authorization, container, false)
         initLiveData()
-        initListeners()
+        initListeners(rootView)
         return rootView
     }
 
     private fun initLiveData() {
         viewModel.responseLiveData.observe(this, Observer { uiResponse ->
-            if (uiResponse.error == null) {
+            Timber.i("AuthorizationFragment responseLiveData $uiResponse")
+            if (uiResponse.data != null) {
                 toast(getString(R.string.fragment_authorization_done_text))
+                successfulAuthorizationListener.invoke()
+            }
+            if (uiResponse.error != null) {
+                toast(uiResponse.error.localizedMessage)
             }
             if (uiResponse.isLoading) {
                 setViewsDisabled()
@@ -66,10 +69,10 @@ class AuthorizationFragment : BaseFragment() {
         })
     }
 
-    private fun initListeners() {
+    private fun initListeners(rootView: View) {
         rootView.fragment_authorization_authButton.setOnClickListener {
-            val email = rootView.fragment_authorization_emailEditText.text.toString().trim()
-            val pass = rootView.fragment_authorization_passwordEditText.text.toString().trim()
+            val email = this.fragment_authorization_emailEditText.text.toString().trim()
+            val pass = this.fragment_authorization_passwordEditText.text.toString().trim()
             viewModel.tryToLogin(email, pass)
         }
         rootView.fragment_authorization_emailEditText.setOnTextChanged {
@@ -95,20 +98,21 @@ class AuthorizationFragment : BaseFragment() {
     }
 
     private fun setViewsEnabled() {
-        rootView.fragment_authorization_authButton.isEnabled = true
-        rootView.fragment_authorization_emailEditText.isEnabled = true
-        rootView.fragment_authorization_passwordEditText.isEnabled = true
-        rootView.fragment_authorization_loadingProgress.visibility = View.GONE
+        fragment_authorization_authButton.isEnabled = true
+        fragment_authorization_emailEditText.isEnabled = true
+        fragment_authorization_passwordEditText.isEnabled = true
+        fragment_authorization_loadingProgress.visibility = View.GONE
     }
 
     private fun setViewsDisabled() {
-        rootView.fragment_authorization_authButton.isEnabled = false
-        rootView.fragment_authorization_emailEditText.isEnabled = false
-        rootView.fragment_authorization_passwordEditText.isEnabled = false
-        rootView.fragment_authorization_loadingProgress.visibility = View.VISIBLE
+        fragment_authorization_authButton.isEnabled = false
+        fragment_authorization_emailEditText.isEnabled = false
+        fragment_authorization_passwordEditText.isEnabled = false
+        fragment_authorization_loadingProgress.visibility = View.VISIBLE
     }
 
     companion object {
-        fun newInstance() = AuthorizationFragment()
+        fun newInstance(successfulAuthorizationListener: () -> Unit) =
+            AuthorizationFragment(successfulAuthorizationListener)
     }
 }

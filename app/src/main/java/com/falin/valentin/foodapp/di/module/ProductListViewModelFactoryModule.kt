@@ -1,6 +1,7 @@
 package com.falin.valentin.foodapp.di.module
 
 import com.falin.valentin.foodapp.di.scope.PerScreen
+import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.interactor.ProductModeStorage
 import com.falin.valentin.foodapp.network.retrofit.service.ProductsService
 import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
@@ -24,9 +25,14 @@ class ProductListViewModelFactoryModule {
      */
     @Provides
     @PerScreen
-    fun provideFactory(storage: ProductModeStorage, productsService: ProductsService):
-            ProductListViewModelFactory {
+    fun provideFactory(
+        storage: ProductModeStorage,
+        fStorage: FavoriteProductsStorage,
+        productsService: ProductsService
+    ): ProductListViewModelFactory {
         return ProductListViewModelFactory(
-            ProductsRepository(Generator(), productsService), ProductsDisplayModeRepository(storage))
+            ProductsRepository(Generator(), fStorage, productsService),
+            ProductsDisplayModeRepository(storage)
+        )
     }
 }

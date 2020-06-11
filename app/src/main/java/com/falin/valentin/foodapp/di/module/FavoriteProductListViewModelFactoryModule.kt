@@ -21,6 +21,6 @@ class FavoriteProductListViewModelFactoryModule {
     @Provides
     @PerScreen
     fun provideFactory(storage: FavoriteProductsStorage): FavoriteProductListViewModelFactory {
-        return FavoriteProductListViewModelFactory(FavoriteProductsRepository(storage))
+        return FavoriteProductListViewModelFactory(FavoriteProductsRepository(storage, storage))
     }
 }

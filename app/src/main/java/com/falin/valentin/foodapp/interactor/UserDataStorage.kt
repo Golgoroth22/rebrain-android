@@ -7,16 +7,16 @@ import javax.inject.Inject
  * Interactor-layer class for work with user data.
  *
  */
-class UserDataStorage @Inject constructor(private val preferencesHelper: PreferencesHelper) {
-    /**
-     * This method can be called for get user email.
-     *
-     */
-    fun getEmail() = preferencesHelper.userEmail
+class UserDataStorage @Inject constructor(private val preferencesHelper: PreferencesHelper) :
+    UserStorage<String> {
 
-    /**
-     * This method can be called for get user token.
-     *
-     */
-    fun getUserToken() = preferencesHelper.userToken
+    override fun getEmail() = preferencesHelper.userEmail
+
+    override fun getUserToken() = preferencesHelper.userToken
+
+    override fun getUserAvatarLink() = preferencesHelper.userAvatarLink
+
+    override fun setUserAvatarLink(link: String) {
+        preferencesHelper.userAvatarLink = link
+    }
 }

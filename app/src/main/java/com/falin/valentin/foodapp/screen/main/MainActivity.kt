@@ -12,12 +12,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModelFactory
-
 
 /**
  * [BaseActivity] subclass to work with MainActivity our application and showing it.
@@ -41,16 +41,19 @@ class MainActivity : BaseActivity() {
             override fun onClick(tabType: MainTabType) {
                 when (tabType) {
                     MainTabType.MAIN -> {
+                        custom_toolbar.visibility = View.VISIBLE
                         attachNewFragmentAndDetachOldFragment(
                             activityViewModel.mainTabFragment
                         )
                     }
                     MainTabType.FAVORITE -> {
+                        custom_toolbar.visibility = View.VISIBLE
                         attachNewFragmentAndDetachOldFragment(
                             activityViewModel.favoriteTabFragment
                         )
                     }
                     MainTabType.ACCOUNT -> {
+                        custom_toolbar.visibility = View.GONE
                         attachNewFragmentAndDetachOldFragment(
                             activityViewModel.accountTabFragment
                         )
@@ -86,20 +89,29 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(custom_toolbar)
     }
 
+    private fun setBottomBarVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            main_activity_custom_bottom_bar.visibility = View.VISIBLE
+            main_activity_line.visibility = View.VISIBLE
+        } else {
+            main_activity_custom_bottom_bar.visibility = View.GONE
+            main_activity_line.visibility = View.GONE
+        }
+    }
+
     private fun attachNewFragmentAndDetachOldFragment(newFragment: BaseFragment) {
         val transaction = supportFragmentManager.beginTransaction()
         if (supportFragmentManager.findFragmentById((supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout) as BaseFragment).id) != null) {
             transaction.detach(supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout) as BaseFragment)
         }
-        if (supportFragmentManager.findFragmentById(newFragment.id) == null) {
-            transaction.add(R.id.main_activity_frame_layout, newFragment)
-        } else {
-            transaction.attach(newFragment)
-        }
+        transaction.attach(newFragment)
         transaction.commit()
     }
 
     private fun attachFragments() {
+        activityViewModel.accountTabFragment.attachBottomBarVisibilityListener { isVisible ->
+            setBottomBarVisibility(isVisible)
+        }
         val transaction = supportFragmentManager.beginTransaction()
         transaction
             .add(R.id.main_activity_frame_layout, activityViewModel.favoriteTabFragment)

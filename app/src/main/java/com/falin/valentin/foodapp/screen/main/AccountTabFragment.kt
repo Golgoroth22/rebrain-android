@@ -6,19 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.Glide
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.AccountTabFragmentViewModelFactoryModule
 import com.falin.valentin.foodapp.di.module.AuthorizationStorageModule
-import com.falin.valentin.foodapp.interactor.AuthorizationStorage
-import com.falin.valentin.foodapp.interactor.UserDataStorage
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModel
 import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModelFactory
-import kotlinx.android.synthetic.main.fragment_account.view.*
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 /**
@@ -33,6 +30,8 @@ class AccountTabFragment : BaseFragment() {
     @Inject
     lateinit var factory: AccountTabFragmentViewModelFactory
     private lateinit var viewModel: AccountTabFragmentViewModel
+
+    private lateinit var bottomBarVisibilityListener: (Boolean) -> Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,13 +53,27 @@ class AccountTabFragment : BaseFragment() {
 
     private fun addNewFragment() {
         childFragmentManager.beginTransaction()
-            .add(
-                R.id.fragment_account_tab_mainContainer,
-                if (viewModel.isUserAuthorized()) AccountFragment.newInstance()
-                else AuthorizationFragment.newInstance()
-            )
+            .replace(R.id.fragment_account_tab_mainContainer, selectFragment())
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
+    }
+
+    private fun selectFragment(): BaseFragment {
+        return if (viewModel.isUserAuthorized()) {
+            bottomBarVisibilityListener.invoke(true)
+            AccountFragment.newInstance()
+        } else {
+            bottomBarVisibilityListener.invoke(false)
+            AuthorizationFragment.newInstance { addNewFragment() }
+        }
+    }
+
+    /**
+     * This method can be called for set bottombar visibility.
+     *
+     */
+    fun attachBottomBarVisibilityListener(mBottomBarVisibilityListener: (Boolean) -> Unit) {
+        bottomBarVisibilityListener = mBottomBarVisibilityListener
     }
 
     private fun initDagger() {

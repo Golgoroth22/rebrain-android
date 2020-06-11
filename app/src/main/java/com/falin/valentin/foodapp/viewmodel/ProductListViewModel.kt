@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.network.retrofit.pojo.products.ProductsResponse
 import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
 import com.falin.valentin.foodapp.repository.ProductsRepository
+import timber.log.Timber
 
 /**
  * [ViewModel] subclass for work with model data and showing it.
@@ -42,11 +44,30 @@ class ProductListViewModel(
     }
 
     /**
-     * This method can be called for send some request.
+     * This method can be called for add product to favorites.
      *
      */
-    fun sendSomeRequest() {
-        productsRepository.sendProductsRequest()
+    fun addProductToFavorites(product: Product) {
+        productsRepository.addProductToFavorites(product)
+    }
+
+    /**
+     * This method can be called for send products request.
+     *
+     */
+    fun getProducts() {
+        productsRepository.sendProductsRequest(
+            { response -> receiveSuccessfulResponse(response) },
+            { throwable -> receiveFailureResponse(throwable) }
+        )
+    }
+
+    private fun receiveSuccessfulResponse(productsResponse: ProductsResponse) {
+        Timber.i("ProductListViewModel receiveSuccessfulResponse $productsResponse")
+    }
+
+    private fun receiveFailureResponse(t: Throwable) {
+        Timber.e("ProductListViewModel receiveFailureResponse ${t.message}")
     }
 
     init {

@@ -10,6 +10,6 @@ import retrofit2.http.Header
  *
  */
 interface UserService {
-    @GET("user")
-    fun getUser(@Header("Authorization") token: String): Call<UserResponse>
+    @GET("user/")
+    fun getUser(@Header("x-access-token") token: String): Call<UserResponse>
 }
