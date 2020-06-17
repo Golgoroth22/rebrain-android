@@ -19,7 +19,7 @@ class FirebaseCloudStorageRepository {
         storageReference.child("images/scavens.jpg")
     )
 
-    fun getUris(): List<Uri> {
+    suspend fun getUris(): List<Uri> {
         val resultList = mutableListOf<Uri>()
         imageRefs.forEach {
             it.downloadUrl.addOnSuccessListener { uri ->

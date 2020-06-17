@@ -9,7 +9,11 @@ import com.falin.valentin.foodapp.network.retrofit.pojo.products.ProductsRespons
 import com.falin.valentin.foodapp.repository.FirebaseCloudStorageRepository
 import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
 import com.falin.valentin.foodapp.repository.ProductsRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
+import kotlin.coroutines.CoroutineContext
 
 /**
  * [ViewModel] subclass for work with model data and showing it.
@@ -23,7 +27,9 @@ class ProductListViewModel(
     private val productsRepository: ProductsRepository,
     private val picturesRepository: FirebaseCloudStorageRepository,
     private val productsDisplayDisplayModeRepository: ProductsDisplayModeRepository
-) : ViewModel() {
+) : ViewModel(), CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO
     private val mProductsLiveData = MutableLiveData<List<Product>>()
     val productsLiveData: LiveData<List<Product>> = mProductsLiveData
     var productsList = emptyList<Product>()
@@ -35,7 +41,7 @@ class ProductListViewModel(
      * This method can be called for get [List] of pictures Id`s.
      *
      */
-    private fun getPictures() {
+    private fun getPictures() = launch {
         mPicturesLiveData.postValue(picturesRepository.getUris())
     }
 
@@ -82,7 +88,6 @@ class ProductListViewModel(
 
     init {
         mProductsLiveData.postValue(productsRepository.getProducts())
-        mPicturesLiveData.postValue(emptyList())
         getPictures()
     }
 }
