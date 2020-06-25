@@ -18,6 +18,7 @@ buildscript {
         junit = versions.junit
         kotlin = versions.kotlin
         lifecycle = versions.lifecycle
+        lifecycle_viewmodel = versions.lifecycle_viewmodel
         moshi = versions.moshi
         okhttp = versions.okhttp
         retrofit2 = versions.retrofit2

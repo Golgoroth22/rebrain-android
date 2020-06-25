@@ -63,6 +63,7 @@ dependencies {
 
     /* Lifecycle */
     implementation "android.arch.lifecycle:extensions:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel"
     kapt "android.arch.lifecycle:compiler:$lifecycle"
 
     /* Moshi */
