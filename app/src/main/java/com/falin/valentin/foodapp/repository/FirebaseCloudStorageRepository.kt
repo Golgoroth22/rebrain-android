@@ -21,13 +21,22 @@ class FirebaseCloudStorageRepository {
 
     suspend fun getUris(): List<Uri> {
         val resultList = mutableListOf<Uri>()
+        var error: Throwable? = null
         imageRefs.forEach {
             it.downloadUrl.addOnSuccessListener { uri ->
                 resultList.add(uri)
             }.addOnFailureListener { exception ->
+                error = exception
                 Timber.i("FirebaseCloudStorageRepository getUris $exception")
             }
         }
-        return resultList
+        while (resultList.size != imageRefs.size && error == null) {
+            //wait
+        }
+        return if (error != null) {
+            emptyList()
+        } else {
+            resultList
+        }
     }
 }

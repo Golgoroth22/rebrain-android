@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.network.retrofit.pojo.products.ProductsResponse
 import com.falin.valentin.foodapp.repository.FirebaseCloudStorageRepository
@@ -12,6 +13,7 @@ import com.falin.valentin.foodapp.repository.ProductsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
@@ -27,9 +29,7 @@ class ProductListViewModel(
     private val productsRepository: ProductsRepository,
     private val picturesRepository: FirebaseCloudStorageRepository,
     private val productsDisplayDisplayModeRepository: ProductsDisplayModeRepository
-) : ViewModel(), CoroutineScope {
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO
+) : ViewModel() {
     private val mProductsLiveData = MutableLiveData<List<Product>>()
     val productsLiveData: LiveData<List<Product>> = mProductsLiveData
     var productsList = emptyList<Product>()
@@ -41,8 +41,10 @@ class ProductListViewModel(
      * This method can be called for get [List] of pictures Id`s.
      *
      */
-    private fun getPictures() = launch {
-        mPicturesLiveData.postValue(picturesRepository.getUris())
+    private fun getPictures() = viewModelScope.launch {
+        withContext(this.coroutineContext + Dispatchers.IO) {
+            mPicturesLiveData.postValue(picturesRepository.getUris())
+        }
     }
 
     /**
