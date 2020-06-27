@@ -40,6 +40,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$androidx"
     implementation "com.google.android.material:material:$androidx"
     implementation "androidx.core:core-ktx:$androidx_ktx"
+    implementation "com.google.android.gms:play-services-maps:$maps"
 
     /* Dagger 2 */
     implementation "com.google.dagger:dagger:$dagger2"

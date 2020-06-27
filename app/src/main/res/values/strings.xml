@@ -12,6 +12,9 @@
     <string name="intro_logo_text">Intro Logo</string>
     <string name="intro_status">intro_status</string>
 
+    <!-- Activity Map -->
+    <string name="activity_map_title">Map</string>
+
     <!-- Fragment`s -->
     <!-- Carousel layout -->
     <string name="carousel_image">Carousel Image</string>

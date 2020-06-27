@@ -1,5 +1,7 @@
 package com.falin.valentin.foodapp.utils
 
+import android.content.Context
+import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
@@ -48,4 +50,13 @@ fun EditText.setOnTextChanged(onTextChanged: (String) -> Unit) {
 
         override fun afterTextChanged(s: Editable?) {}
     })
+}
+
+/**
+ * This [Context] extension method can be called for simple start new activity.
+ *
+ * @param T activity class
+ */
+inline fun <reified T> Context.launchActivity() {
+    startActivity(Intent(this, T::class.java))
 }
