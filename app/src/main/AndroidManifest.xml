@@ -23,7 +23,8 @@
 
         <activity
             android:name=".screen.map.MapActivity"
-            android:label="@string/activity_map_title" />
+            android:label="@string/activity_map_title"
+            android:parentActivityName=".screen.main.MainActivity"/>
         <activity
             android:name=".screen.intro.IntroActivity"
             android:taskAffinity="@string/start_tusk"

@@ -1,5 +1,8 @@
 package com.falin.valentin.foodapp.screen.map
 
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.falin.valentin.foodapp.R
@@ -10,6 +13,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.layout_toolbar.*
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -18,10 +22,22 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+        initViews()
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.activity_map_mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
+
+    private fun initViews() {
+        initToolbar()
+    }
+
+    private fun initToolbar() {
+        custom_toolbar.title = getString(R.string.activity_map_toolbar_title)
+        setSupportActionBar(custom_toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        custom_toolbar.navigationIcon?.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
     }
 
     /**
