@@ -9,6 +9,6 @@ import retrofit2.http.GET
  *
  */
 interface PickupsService {
-    @GET("pickups")
+    @GET("pickups/")
     fun getPickups(): Call<PickupsResponse>
 }
