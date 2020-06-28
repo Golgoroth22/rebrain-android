@@ -6,32 +6,58 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.location.Location
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.falin.valentin.foodapp.R
+import com.falin.valentin.foodapp.RebrainApp
+import com.falin.valentin.foodapp.di.module.MapActivityViewModelFactoryModule
+import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupsResponse
+import com.falin.valentin.foodapp.screen.BaseActivity
+import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.RationaleDialog.Companion.newInstance
+import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.utils.isPermissionGranted
 import com.falin.valentin.foodapp.utils.requestPermission
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.falin.valentin.foodapp.viewmodel.MapActivityViewModel
+import com.falin.valentin.foodapp.viewmodel.factories.MapActivityViewModelFactory
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_map.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
+import javax.inject.Inject
 
 
-class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationClickListener,
-    GoogleMap.OnMyLocationButtonClickListener {
+class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationClickListener,
+    GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener {
+    override val owner: Logger.Owner
+        get() = Logger.Owner.MAP_ACTIVITY
 
-    private lateinit var mMap: GoogleMap
+    private lateinit var map: GoogleMap
     private var permissionDenied = false
+
+    @Inject
+    lateinit var factory: MapActivityViewModelFactory
+    private lateinit var viewModel: MapActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+        initDagger()
+        viewModel = injectViewModel(factory)
         initViews()
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.activity_map_mapFragment) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+        initLiveData()
+    }
+
+    override fun onBackPressed() {
+        if (activity_map_pickupRootLayout.visibility == View.VISIBLE) {
+            activity_map_pickupRootLayout.visibility = View.GONE
+        } else {
+            super.onBackPressed()
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -42,7 +68,12 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         if (requestCode != ACCESS_LOCATION_PERMISSION_REQUEST) {
             return
         }
-        if (isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (isPermissionGranted(
+                permissions,
+                grantResults,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        ) {
             enableMyLocation()
         } else {
             permissionDenied = true
@@ -50,19 +81,18 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        mMap.setOnMyLocationButtonClickListener(this)
-        mMap.setOnMyLocationClickListener(this)
+        map = googleMap
+        map.setOnMyLocationButtonClickListener(this)
+        map.setOnMyLocationClickListener(this)
+        map.setOnMarkerClickListener(this)
+        map.uiSettings.isZoomControlsEnabled = true
         enableMyLocation()
     }
 
-    override fun onMyLocationClick(location: Location) {
-        Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG).show()
-    }
+    override fun onMyLocationClick(location: Location) {}
 
     override fun onMyLocationButtonClick(): Boolean {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show()
-        return true
+        return false
     }
 
     override fun onResumeFragments() {
@@ -73,8 +103,36 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         }
     }
 
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val pickup = viewModel.getPickup(marker)
+        if (pickup != null) {
+            activity_map_pickupTitleText.text = pickup.name
+            activity_map_workTimeText.text = pickup.workingHours
+            activity_map_pickupRootLayout.visibility = View.VISIBLE
+        }
+        return false
+    }
+
     private fun initViews() {
         initToolbar()
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.activity_map_mapFragment) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+    }
+
+    private fun initLiveData() {
+        viewModel.pickupsLiveData.observe(this, Observer { response ->
+            if (response.data != null) {
+                viewModel.pickups = response.data
+                showMarkers(response.data)
+            }
+            if (response.error != null) {
+                Snackbar.make(
+                    activity_map_rootLayout, response.error.localizedMessage,
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        })
     }
 
     private fun initToolbar() {
@@ -88,17 +146,32 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         newInstance(finishActivity = true).show(supportFragmentManager, "dialog")
     }
 
+    private fun showMarkers(markers: PickupsResponse) {
+        markers.data.forEach {
+            val sydney = LatLng(it.location.lat, it.location.lon)
+            map.addMarker(MarkerOptions().position(sydney).title(it.name)).also { marker ->
+                marker.tag = it.id
+            }
+            map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        }
+    }
+
     private fun enableMyLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED
         ) {
-            mMap.isMyLocationEnabled = true
+            map.isMyLocationEnabled = true
+            viewModel.getPickups()
         } else {
             requestPermission(
                 this, ACCESS_LOCATION_PERMISSION_REQUEST,
                 Manifest.permission.ACCESS_FINE_LOCATION, true
             )
         }
+    }
+
+    private fun initDagger() {
+        RebrainApp.DAGGER.initMapActivityComponent(MapActivityViewModelFactoryModule()).inject(this)
     }
 
     companion object {
