@@ -4,6 +4,7 @@ import com.falin.valentin.foodapp.di.scope.PerScreen
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.interactor.ProductModeStorage
 import com.falin.valentin.foodapp.network.retrofit.service.ProductsService
+import com.falin.valentin.foodapp.repository.FirebaseCloudStorageRepository
 import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
 import com.falin.valentin.foodapp.repository.ProductsRepository
 import com.falin.valentin.foodapp.utils.Generator
@@ -32,6 +33,7 @@ class ProductListViewModelFactoryModule {
     ): ProductListViewModelFactory {
         return ProductListViewModelFactory(
             ProductsRepository(Generator(), fStorage, productsService),
+            FirebaseCloudStorageRepository(),
             ProductsDisplayModeRepository(storage)
         )
     }

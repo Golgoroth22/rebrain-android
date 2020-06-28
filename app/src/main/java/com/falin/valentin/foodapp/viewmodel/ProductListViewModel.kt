@@ -1,32 +1,50 @@
 package com.falin.valentin.foodapp.viewmodel
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.falin.valentin.foodapp.domain.Product
 import com.falin.valentin.foodapp.network.retrofit.pojo.products.ProductsResponse
+import com.falin.valentin.foodapp.repository.FirebaseCloudStorageRepository
 import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
 import com.falin.valentin.foodapp.repository.ProductsRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
+import kotlin.coroutines.CoroutineContext
 
 /**
  * [ViewModel] subclass for work with model data and showing it.
  *
- * @property products Property for contain products. Wrapped in [MutableLiveData]
+ * @property productsLiveData Property for contain products. Wrapped in [MutableLiveData]
+ * @property productsList Contain last list of products
+ * @property picturesLiveData Contain list of pictures wrapped in [LiveData]
+ * @property picturesList Contain last list of pictures
  */
 class ProductListViewModel(
     private val productsRepository: ProductsRepository,
+    private val picturesRepository: FirebaseCloudStorageRepository,
     private val productsDisplayDisplayModeRepository: ProductsDisplayModeRepository
 ) : ViewModel() {
-    private val mProducts = MutableLiveData<List<Product>>()
-    val products: LiveData<List<Product>> = mProducts
+    private val mProductsLiveData = MutableLiveData<List<Product>>()
+    val productsLiveData: LiveData<List<Product>> = mProductsLiveData
+    var productsList = emptyList<Product>()
+    private val mPicturesLiveData = MutableLiveData<List<Uri>>()
+    val picturesLiveData = mPicturesLiveData
+    var picturesList = emptyList<Uri>()
 
     /**
      * This method can be called for get [List] of pictures Id`s.
      *
      */
-    fun getPictures(): List<Int> {
-        return productsRepository.getPictures()
+    private fun getPictures() = viewModelScope.launch {
+        withContext(this.coroutineContext + Dispatchers.IO) {
+            mPicturesLiveData.postValue(picturesRepository.getUris())
+        }
     }
 
     /**
@@ -71,6 +89,7 @@ class ProductListViewModel(
     }
 
     init {
-        mProducts.postValue(productsRepository.getProducts())
+        mProductsLiveData.postValue(productsRepository.getProducts())
+        getPictures()
     }
 }
