@@ -6,7 +6,7 @@ import com.falin.valentin.foodapp.interactor.UserDataStorage
 import com.falin.valentin.foodapp.network.retrofit.service.UserAvatarService
 import com.falin.valentin.foodapp.network.retrofit.service.UserService
 import com.falin.valentin.foodapp.repository.AccountFragmentRepository
-import com.falin.valentin.foodapp.viewmodel.AccountFragmentViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.AccountFragmentViewModelFactory
 import dagger.Module
 import dagger.Provides
 

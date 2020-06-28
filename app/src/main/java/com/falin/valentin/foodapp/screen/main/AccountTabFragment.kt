@@ -14,8 +14,7 @@ import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModel
-import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModelFactory
-import kotlinx.android.synthetic.main.activity_main.*
+import com.falin.valentin.foodapp.viewmodel.factories.AccountTabFragmentViewModelFactory
 import javax.inject.Inject
 
 /**

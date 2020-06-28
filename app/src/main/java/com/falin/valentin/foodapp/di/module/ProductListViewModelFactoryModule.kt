@@ -8,7 +8,7 @@ import com.falin.valentin.foodapp.repository.FirebaseCloudStorageRepository
 import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
 import com.falin.valentin.foodapp.repository.ProductsRepository
 import com.falin.valentin.foodapp.utils.Generator
-import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.ProductListViewModelFactory
 import dagger.Module
 import dagger.Provides
 

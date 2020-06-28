@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
-import com.falin.valentin.foodapp.viewmodel.MainActivityViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.MainActivityViewModelFactory
 
 /**
  * [BaseActivity] subclass to work with MainActivity our application and showing it.

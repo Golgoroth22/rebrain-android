@@ -5,7 +5,7 @@ import com.falin.valentin.foodapp.di.module.IntroViewModelFactoryModule
 import com.falin.valentin.foodapp.di.scope.PerScreen
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.screen.intro.IntroActivity
-import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.IntroViewModelFactory
 import dagger.Component
 import dagger.Subcomponent
 

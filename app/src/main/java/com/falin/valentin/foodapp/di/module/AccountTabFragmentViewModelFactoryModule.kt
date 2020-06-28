@@ -3,7 +3,7 @@ package com.falin.valentin.foodapp.di.module
 import com.falin.valentin.foodapp.di.scope.PerScreen
 import com.falin.valentin.foodapp.interactor.AuthorizationStorage
 import com.falin.valentin.foodapp.repository.AuthorizationStatusRepository
-import com.falin.valentin.foodapp.viewmodel.AccountTabFragmentViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.AccountTabFragmentViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -23,6 +23,8 @@ class AccountTabFragmentViewModelFactoryModule {
     fun provideFactory(
         storage: AuthorizationStorage
     ): AccountTabFragmentViewModelFactory {
-        return AccountTabFragmentViewModelFactory(AuthorizationStatusRepository(storage))
+        return AccountTabFragmentViewModelFactory(
+            AuthorizationStatusRepository(storage)
+        )
     }
 }

@@ -23,11 +23,10 @@ import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.utils.launchActivity
 import com.falin.valentin.foodapp.viewmodel.AccountFragmentViewModel
-import com.falin.valentin.foodapp.viewmodel.AccountFragmentViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.AccountFragmentViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account.view.*
-import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
 /**

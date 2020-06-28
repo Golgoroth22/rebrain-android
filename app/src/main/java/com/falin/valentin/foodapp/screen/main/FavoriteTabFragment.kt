@@ -18,7 +18,7 @@ import com.falin.valentin.foodapp.screen.main.adapter.FavoriteTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.FavoriteProductListViewModel
-import com.falin.valentin.foodapp.viewmodel.FavoriteProductListViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.FavoriteProductListViewModelFactory
 import kotlinx.android.synthetic.main.fragment_favorite_tab.*
 import javax.inject.Inject
 

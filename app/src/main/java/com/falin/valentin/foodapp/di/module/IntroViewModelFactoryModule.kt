@@ -3,7 +3,7 @@ package com.falin.valentin.foodapp.di.module
 import com.falin.valentin.foodapp.di.scope.PerScreen
 import com.falin.valentin.foodapp.interactor.IntroDisplayStorage
 import com.falin.valentin.foodapp.repository.IntroInfoRepository
-import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.IntroViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -18,6 +18,8 @@ class IntroViewModelFactoryModule {
     @Provides
     @PerScreen
     fun provideFactory(storage: IntroDisplayStorage): IntroViewModelFactory {
-        return IntroViewModelFactory(IntroInfoRepository(storage))
+        return IntroViewModelFactory(
+            IntroInfoRepository(storage)
+        )
     }
 }

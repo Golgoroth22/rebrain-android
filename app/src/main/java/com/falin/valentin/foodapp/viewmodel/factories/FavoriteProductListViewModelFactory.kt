@@ -1,9 +1,9 @@
-package com.falin.valentin.foodapp.viewmodel
+package com.falin.valentin.foodapp.viewmodel.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.falin.valentin.foodapp.repository.FavoriteProductsRepository
-import com.falin.valentin.foodapp.repository.ProductsRepository
+import com.falin.valentin.foodapp.viewmodel.FavoriteProductListViewModel
 import javax.inject.Inject
 
 /**
@@ -15,6 +15,8 @@ class FavoriteProductListViewModelFactory @Inject constructor(
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return FavoriteProductListViewModel(productsRepository) as T
+        return FavoriteProductListViewModel(
+            productsRepository
+        ) as T
     }
 }

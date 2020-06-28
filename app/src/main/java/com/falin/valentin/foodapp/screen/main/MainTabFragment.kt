@@ -18,7 +18,7 @@ import com.falin.valentin.foodapp.screen.main.adapter.MainTabElementAdapter
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.ProductListViewModel
-import com.falin.valentin.foodapp.viewmodel.ProductListViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.ProductListViewModelFactory
 import kotlinx.android.synthetic.main.fragment_main_tab.view.*
 import javax.inject.Inject
 

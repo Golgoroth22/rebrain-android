@@ -14,7 +14,7 @@ import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.utils.setOnTextChanged
 import com.falin.valentin.foodapp.viewmodel.AuthorizationFragmentViewModel
-import com.falin.valentin.foodapp.viewmodel.AuthorizationFragmentViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.AuthorizationFragmentViewModelFactory
 import kotlinx.android.synthetic.main.fragment_authorization.*
 import kotlinx.android.synthetic.main.fragment_authorization.view.*
 import org.jetbrains.anko.support.v4.toast
