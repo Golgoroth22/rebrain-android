@@ -13,7 +13,7 @@ class MapActivityRepository(private val storage: UserStorage<String>,
                             private val service: PickupsService) {
 
     /**
-     * This method can be called for take pickups.
+     * This method can be called to take pickups.
      *
      */
     fun getPickups(

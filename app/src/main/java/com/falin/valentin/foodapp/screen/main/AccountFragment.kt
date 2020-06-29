@@ -117,7 +117,7 @@ class AccountFragment : BaseFragment() {
         }
 
         rootView.fragment_account_pickupPointsButton.setOnClickListener {
-            context!!.launchActivity<MapActivity>()
+            requireContext().launchActivity<MapActivity>()
         }
     }
 
