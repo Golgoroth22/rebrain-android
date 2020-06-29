@@ -8,15 +8,15 @@ import android.location.Location
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.MapActivityViewModelFactoryModule
 import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupResponse
-import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupsResponse
 import com.falin.valentin.foodapp.screen.BaseActivity
+import com.falin.valentin.foodapp.screen.dialog.RationaleDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
-import com.falin.valentin.foodapp.utils.RationaleDialog.Companion.newInstance
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.utils.isPermissionGranted
 import com.falin.valentin.foodapp.utils.requestPermission
@@ -61,8 +61,8 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     override fun onBackPressed() {
-        if (activity_map_pickupRootLayout.visibility == View.VISIBLE) {
-            activity_map_pickupRootLayout.visibility = View.GONE
+        if (activity_map_pickup_root_layout.isVisible) {
+            activity_map_pickup_root_layout.isVisible = false
         } else {
             super.onBackPressed()
         }
@@ -106,9 +106,9 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     private fun onMarkerClick(marker: Marker): Boolean {
         val pickup = viewModel.getPickup(marker)
         if (pickup != null) {
-            activity_map_pickupTitleText.text = pickup.name
-            activity_map_workTimeText.text = pickup.workingHours
-            activity_map_pickupRootLayout.visibility = View.VISIBLE
+            activity_map_pickup_title_text.text = pickup.name
+            activity_map_work_time_text.text = pickup.workingHours
+            activity_map_pickup_root_layout.visibility = View.VISIBLE
         }
         return false
     }
@@ -116,7 +116,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     private fun initViews() {
         initToolbar()
         val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.activity_map_mapFragment) as SupportMapFragment
+            .findFragmentById(R.id.activity_map_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
@@ -128,7 +128,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
             }
             if (response.error != null) {
                 Snackbar.make(
-                    activity_map_rootLayout, response.error.localizedMessage,
+                    activity_map_root_layout, response.error.localizedMessage,
                     Snackbar.LENGTH_LONG
                 ).show()
             }
@@ -143,7 +143,8 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun showMissingPermissionError() {
-        newInstance(finishActivity = true).show(supportFragmentManager, "dialog")
+        RationaleDialogFragment.newInstance(finishActivity = true)
+            .show(supportFragmentManager, "dialog")
     }
 
     private fun showMarkers(markers: List<PickupResponse>) {

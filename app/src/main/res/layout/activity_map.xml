@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_map_rootLayout"
+    android:id="@+id/activity_map_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
@@ -12,20 +12,20 @@
     <include layout="@layout/layout_toolbar" />
 
     <fragment
-        android:id="@+id/activity_map_mapFragment"
+        android:id="@+id/activity_map_map_fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_map_pickupRootLayout"
+        android:id="@+id/activity_map_pickup_root_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/activity_map_pickupTitleText"
+            android:id="@+id/activity_map_pickup_title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/activity_map_pickupDistanceText"
+            android:id="@+id/activity_map_pickup_distance_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/activity_map_directionImage"
+            android:id="@+id/activity_map_direction_image"
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginStart="18dp"
@@ -58,10 +58,10 @@
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_direction_12"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_map_pickupTitleText" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_map_pickup_title_text" />
 
         <TextView
-            android:id="@+id/activity_map_directionText"
+            android:id="@+id/activity_map_direction_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -71,13 +71,13 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/Text.Regular.12.Grey"
-            app:layout_constraintBottom_toBottomOf="@+id/activity_map_directionImage"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_map_direction_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/activity_map_directionImage"
-            app:layout_constraintTop_toTopOf="@+id/activity_map_directionImage" />
+            app:layout_constraintStart_toEndOf="@+id/activity_map_direction_image"
+            app:layout_constraintTop_toTopOf="@+id/activity_map_direction_image" />
 
         <ImageView
-            android:id="@+id/activity_map_workTimeImage"
+            android:id="@+id/activity_map_work_time_image"
             android:layout_width="13.3dp"
             android:layout_height="13.3dp"
             android:layout_marginStart="17.3dp"
@@ -85,10 +85,10 @@
             android:layout_marginTop="6dp"
             android:src="@drawable/ic_work_time_13"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_map_directionText" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_map_direction_text" />
 
         <TextView
-            android:id="@+id/activity_map_workTimeText"
+            android:id="@+id/activity_map_work_time_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="7.3dp"
@@ -98,13 +98,13 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/Text.Regular.12.Grey"
-            app:layout_constraintBottom_toBottomOf="@+id/activity_map_workTimeImage"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_map_work_time_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/activity_map_workTimeImage"
-            app:layout_constraintTop_toTopOf="@+id/activity_map_workTimeImage" />
+            app:layout_constraintStart_toEndOf="@+id/activity_map_work_time_image"
+            app:layout_constraintTop_toTopOf="@+id/activity_map_work_time_image" />
 
         <Button
-            android:id="@+id/activity_map_selectPickupButton"
+            android:id="@+id/activity_map_select_pickup_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -114,11 +114,11 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="14dp"
             android:backgroundTint="@color/colorPickupPointsButton"
-            android:text="ВЫБРАТЬ"
+            android:text="@string/activity_map_select_pickup_button"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_map_workTimeText" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_map_work_time_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

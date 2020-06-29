@@ -15,6 +15,7 @@
     <!-- Activity Map -->
     <string name="activity_map_title">Map</string>
     <string name="activity_map_toolbar_title">Самовывоз</string>
+    <string name="activity_map_select_pickup_button">ВЫБРАТЬ</string>
 
     <!-- Fragment`s -->
     <!-- Carousel layout -->
