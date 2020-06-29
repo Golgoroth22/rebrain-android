@@ -62,13 +62,13 @@ class RationaleDialogFragment : DialogFragment() {
          * @param requestCode    Id of the request that is used to request the permission. It is
          * returned to the
          * [androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback].
-         * @param finishActivity Whether the calling Activity should be finished if the dialog is
+         * @param finishOnCancel Whether the calling Activity should be finished if the dialog is
          * cancelled.
          */
-        fun newInstance(requestCode: Int = 0, finishActivity: Boolean): RationaleDialogFragment {
+        fun newInstance(requestCode: Int = 0, finishOnCancel: Boolean): RationaleDialogFragment {
             val arguments = Bundle().apply {
                 putInt(ARGUMENT_PERMISSION_REQUEST_CODE, requestCode)
-                putBoolean(ARGUMENT_FINISH_ACTIVITY, finishActivity)
+                putBoolean(ARGUMENT_FINISH_ACTIVITY, finishOnCancel)
             }
             return RationaleDialogFragment().apply {
                 this.arguments = arguments

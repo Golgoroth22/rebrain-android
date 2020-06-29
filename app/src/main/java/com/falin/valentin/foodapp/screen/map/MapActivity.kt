@@ -162,7 +162,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun showMissingPermissionError() {
-        RationaleDialogFragment.newInstance(finishActivity = true)
+        RationaleDialogFragment.newInstance(finishOnCancel = true)
             .show(supportFragmentManager, "dialog")
     }
 
