@@ -157,9 +157,9 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun enableMyLocation() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED
-        ) {
+        val permissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (permissionResult == PackageManager.PERMISSION_GRANTED) {
             map.isMyLocationEnabled = true
             viewModel.getPickups()
         } else {
