@@ -3,6 +3,7 @@ package com.falin.valentin.foodapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.falin.valentin.foodapp.domain.Pickup
 import com.falin.valentin.foodapp.domain.PickupsUiResponse
 import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupResponse
 import com.falin.valentin.foodapp.repository.MapActivityRepository
@@ -34,12 +35,14 @@ class MapActivityViewModel(private val repository: MapActivityRepository) : View
      *
      *@param marker Selected marker
      */
-    fun getPickup(marker: Marker): PickupResponse? {
+    fun getPickup(marker: Marker): Pickup? {
         return mPickupsLiveData.value?.data?.find { it.id == marker.tag }
     }
 
     private fun receiveSuccessfulResponse(pickupsResponse: List<PickupResponse>) {
-        mPickupsLiveData.postValue(PickupsUiResponse(pickupsResponse, isLoading = false))
+        val pickups = mutableListOf<Pickup>()
+        pickupsResponse.forEach { pickups.add(it.convert()) }
+        mPickupsLiveData.postValue(PickupsUiResponse(pickups, isLoading = false))
         Timber.i("MapActivityViewModel receiveSuccessfulResponse $pickupsResponse")
     }
 

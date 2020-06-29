@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.MapActivityViewModelFactoryModule
-import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupResponse
+import com.falin.valentin.foodapp.domain.Pickup
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.dialog.RationaleDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
@@ -30,7 +30,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_map.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import javax.inject.Inject
-
 
 class MapActivity : BaseActivity(), OnMapReadyCallback {
     override val owner: Logger.Owner
@@ -146,7 +145,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
             .show(supportFragmentManager, "dialog")
     }
 
-    private fun showMarkers(markers: List<PickupResponse>) {
+    private fun showMarkers(markers: List<Pickup>) {
         markers.forEach {
             val sydney = LatLng(it.location.lat, it.location.lon)
             map.addMarker(MarkerOptions().position(sydney).title(it.name)).also { marker ->
