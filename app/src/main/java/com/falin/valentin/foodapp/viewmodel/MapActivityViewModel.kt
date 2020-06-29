@@ -17,7 +17,6 @@ import timber.log.Timber
 class MapActivityViewModel(private val repository: MapActivityRepository) : ViewModel() {
     private val mPickupsLiveData = MutableLiveData<PickupsUiResponse>()
     val pickupsLiveData: LiveData<PickupsUiResponse> = mPickupsLiveData
-    lateinit var pickups: List<PickupResponse>
 
     /**
      * This method can be called for get pickups.
@@ -36,7 +35,7 @@ class MapActivityViewModel(private val repository: MapActivityRepository) : View
      *@param marker Selected marker
      */
     fun getPickup(marker: Marker): PickupResponse? {
-        return pickups.find { it.id == marker.tag }
+        return mPickupsLiveData.value?.data?.find { it.id == marker.tag }
     }
 
     private fun receiveSuccessfulResponse(pickupsResponse: List<PickupResponse>) {

@@ -123,7 +123,6 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     private fun initLiveData() {
         viewModel.pickupsLiveData.observe(this, Observer { response ->
             if (response.data != null) {
-                viewModel.pickups = response.data
                 showMarkers(response.data)
             }
             if (response.error != null) {
