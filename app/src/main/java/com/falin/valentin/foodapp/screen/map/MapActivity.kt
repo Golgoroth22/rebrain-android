@@ -23,6 +23,8 @@ import com.falin.valentin.foodapp.utils.isPermissionGranted
 import com.falin.valentin.foodapp.utils.requestPermission
 import com.falin.valentin.foodapp.viewmodel.MapActivityViewModel
 import com.falin.valentin.foodapp.viewmodel.factories.MapActivityViewModelFactory
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -30,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_map.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -38,6 +41,8 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
         get() = Logger.Owner.MAP_ACTIVITY
 
     private lateinit var map: GoogleMap
+    private var lastKnownLocation: Location? = null
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var permissionDenied = false
 
     @Inject
@@ -47,6 +52,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         initDagger()
         viewModel = injectViewModel(factory)
         initViews()
@@ -107,6 +113,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     private fun onMarkerClick(marker: Marker): Boolean {
         val pickup = viewModel.getPickup(marker)
         if (pickup != null) {
+            getDeviceLocation()
             activity_map_pickup_title_text.text = pickup.name
             activity_map_work_time_text.text = pickup.workingHours
             activity_map_pickup_root_layout.visibility = View.VISIBLE
@@ -121,6 +128,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
                     if (fromLocation[0].postalCode != null) ", ${fromLocation[0].postalCode}" else ""
                 )
             }
+            activity_map_pickup_distance_text.text = viewModel.getDistance(lastKnownLocation, marker.position)
         }
         return false
     }
@@ -160,11 +168,30 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun showMarkers(markers: List<Pickup>) {
         markers.forEach {
-            val sydney = LatLng(it.location.lat, it.location.lon)
-            map.addMarker(MarkerOptions().position(sydney).title(it.name)).also { marker ->
+            val latLng = LatLng(it.location.lat, it.location.lon)
+            map.addMarker(MarkerOptions().position(latLng).title(it.name)).also { marker ->
                 marker.tag = it.id
             }
-            map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+            map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+        }
+    }
+
+    private fun getDeviceLocation() {
+        try {
+            val permissionResult =
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            if (permissionResult == PackageManager.PERMISSION_GRANTED) {
+                val locationResult = fusedLocationProviderClient.lastLocation
+                locationResult.addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        lastKnownLocation = task.result
+                    } else {
+                        Timber.e("Current location is null. Using defaults. ${task.exception}")
+                    }
+                }
+            }
+        } catch (e: SecurityException) {
+            Timber.e("MapActivity Exception: ${e.message}")
         }
     }
 
@@ -174,6 +201,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
         if (permissionResult == PackageManager.PERMISSION_GRANTED) {
             map.isMyLocationEnabled = true
             viewModel.getPickups()
+            getDeviceLocation()
         } else {
             requestPermission(
                 this, ACCESS_LOCATION_PERMISSION_REQUEST,

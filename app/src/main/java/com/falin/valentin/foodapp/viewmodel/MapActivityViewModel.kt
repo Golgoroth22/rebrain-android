@@ -1,5 +1,6 @@
 package com.falin.valentin.foodapp.viewmodel
 
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,8 +8,11 @@ import com.falin.valentin.foodapp.models.domain.Pickup
 import com.falin.valentin.foodapp.models.ui.PickupsUiResponse
 import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupResponse
 import com.falin.valentin.foodapp.repository.MapActivityRepository
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import timber.log.Timber
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 /**
  * [ViewModel] subclass for work with model data and showing it.
@@ -63,5 +67,17 @@ class MapActivityViewModel(private val repository: MapActivityRepository) : View
             )
         )
         Timber.e("MapActivityViewModel receiveFailureResponse ${t.message}")
+    }
+
+    fun getDistance(firstLocation: Location?, secondLocation: LatLng): String {
+        return if (firstLocation != null) {
+            val x1 = firstLocation.latitude
+            val x2 = secondLocation.latitude
+            val y1 = firstLocation.longitude
+            val y2 = secondLocation.longitude
+            String.format("%.3fм", sqrt((x2 - x1).pow(2.0) + (y2 - y1).pow(2.0)) * 1000)
+        } else {
+            ""
+        }
     }
 }

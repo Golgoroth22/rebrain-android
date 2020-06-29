@@ -21,6 +21,7 @@ buildscript {
         lifecycle_viewmodel = versions.lifecycle_viewmodel
         moshi = versions.moshi
         maps = versions.maps
+        maps_places = versions.maps_places
         okhttp = versions.okhttp
         retrofit2 = versions.retrofit2
         retrofit2_moshi_conv = versions.retrofit2_moshi_conv
