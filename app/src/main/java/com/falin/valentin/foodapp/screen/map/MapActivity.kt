@@ -32,8 +32,7 @@ import kotlinx.android.synthetic.main.layout_toolbar.*
 import javax.inject.Inject
 
 
-class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationClickListener,
-    GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener {
+class MapActivity : BaseActivity(), OnMapReadyCallback {
     override val owner: Logger.Owner
         get() = Logger.Owner.MAP_ACTIVITY
 
@@ -51,6 +50,14 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationCl
         viewModel = injectViewModel(factory)
         initViews()
         initLiveData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (permissionDenied) {
+            showMissingPermissionError()
+            permissionDenied = false
+        }
     }
 
     override fun onBackPressed() {
@@ -83,28 +90,20 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationCl
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        map.setOnMyLocationButtonClickListener(this)
-        map.setOnMyLocationClickListener(this)
-        map.setOnMarkerClickListener(this)
+        map.setOnMyLocationButtonClickListener(::onMyLocationButtonClick)
+        map.setOnMyLocationClickListener(::onMyLocationClick)
+        map.setOnMarkerClickListener(::onMarkerClick)
         map.uiSettings.isZoomControlsEnabled = true
         enableMyLocation()
     }
 
-    override fun onMyLocationClick(location: Location) {}
+    private fun onMyLocationClick(location: Location) {}
 
-    override fun onMyLocationButtonClick(): Boolean {
+    private fun onMyLocationButtonClick(): Boolean {
         return false
     }
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        if (permissionDenied) {
-            showMissingPermissionError()
-            permissionDenied = false
-        }
-    }
-
-    override fun onMarkerClick(marker: Marker): Boolean {
+    private fun onMarkerClick(marker: Marker): Boolean {
         val pickup = viewModel.getPickup(marker)
         if (pickup != null) {
             activity_map_pickupTitleText.text = pickup.name
