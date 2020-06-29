@@ -1,6 +1,7 @@
 package com.falin.valentin.foodapp.di.module
 
 import com.falin.valentin.foodapp.di.scope.PerScreen
+import com.falin.valentin.foodapp.interactor.UserDataStorage
 import com.falin.valentin.foodapp.network.retrofit.service.PickupsService
 import com.falin.valentin.foodapp.repository.MapActivityRepository
 import com.falin.valentin.foodapp.viewmodel.factories.MapActivityViewModelFactory
@@ -21,7 +22,7 @@ class MapActivityViewModelFactoryModule {
      */
     @Provides
     @PerScreen
-    fun provideFactory(service: PickupsService): MapActivityViewModelFactory {
-        return MapActivityViewModelFactory(MapActivityRepository(service))
+    fun provideFactory(service: PickupsService, storage: UserDataStorage): MapActivityViewModelFactory {
+        return MapActivityViewModelFactory(MapActivityRepository(storage, service))
     }
 }

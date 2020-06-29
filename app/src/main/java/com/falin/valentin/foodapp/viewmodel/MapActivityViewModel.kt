@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.falin.valentin.foodapp.domain.PickupsUiResponse
-import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.LatLngResponse
 import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupResponse
-import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupsResponse
 import com.falin.valentin.foodapp.repository.MapActivityRepository
 import com.google.android.gms.maps.model.Marker
 import timber.log.Timber
@@ -19,7 +17,7 @@ import timber.log.Timber
 class MapActivityViewModel(private val repository: MapActivityRepository) : ViewModel() {
     private val mPickupsLiveData = MutableLiveData<PickupsUiResponse>()
     val pickupsLiveData: LiveData<PickupsUiResponse> = mPickupsLiveData
-    lateinit var pickups: PickupsResponse
+    lateinit var pickups: List<PickupResponse>
 
     /**
      * This method can be called for get pickups.
@@ -38,12 +36,12 @@ class MapActivityViewModel(private val repository: MapActivityRepository) : View
      *@param marker Selected marker
      */
     fun getPickup(marker: Marker): PickupResponse? {
-        return pickups.data.find { it.id == marker.tag }
+        return pickups.find { it.id == marker.tag }
     }
 
-    private fun receiveSuccessfulResponse(productsResponse: PickupsResponse) {
-        mPickupsLiveData.postValue(PickupsUiResponse(productsResponse, isLoading = false))
-        Timber.i("MapActivityViewModel receiveSuccessfulResponse $productsResponse")
+    private fun receiveSuccessfulResponse(pickupsResponse: List<PickupResponse>) {
+        mPickupsLiveData.postValue(PickupsUiResponse(pickupsResponse, isLoading = false))
+        Timber.i("MapActivityViewModel receiveSuccessfulResponse $pickupsResponse")
     }
 
     private fun receiveFailureResponse(t: Throwable) {

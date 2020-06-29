@@ -1,6 +1,6 @@
 package com.falin.valentin.foodapp.domain
 
-import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupsResponse
+import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupResponse
 
 /**
  * This is a data class for work with [MapActivity].
@@ -11,7 +11,7 @@ import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupsResponse
  *
  */
 data class PickupsUiResponse(
-    val data: PickupsResponse? = null,
+    val data: List<PickupResponse>? = null,
     val isLoading: Boolean,
     val error: Throwable? = null
 )

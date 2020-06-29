@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.MapActivityViewModelFactoryModule
+import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupResponse
 import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupsResponse
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.utils.Logger
@@ -146,8 +147,8 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationCl
         newInstance(finishActivity = true).show(supportFragmentManager, "dialog")
     }
 
-    private fun showMarkers(markers: PickupsResponse) {
-        markers.data.forEach {
+    private fun showMarkers(markers: List<PickupResponse>) {
+        markers.forEach {
             val sydney = LatLng(it.location.lat, it.location.lon)
             map.addMarker(MarkerOptions().position(sydney).title(it.name)).also { marker ->
                 marker.tag = it.id
