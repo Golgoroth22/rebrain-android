@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.view.View
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_map.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
+import java.util.*
 import javax.inject.Inject
 
 class MapActivity : BaseActivity(), OnMapReadyCallback {
@@ -108,6 +110,15 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
             activity_map_pickup_title_text.text = pickup.name
             activity_map_work_time_text.text = pickup.workingHours
             activity_map_pickup_root_layout.visibility = View.VISIBLE
+            val fromLocation = Geocoder(this, Locale.getDefault()).getFromLocation(
+                marker.position.latitude,
+                marker.position.longitude,
+                1
+            )
+            if (fromLocation != null && fromLocation.size > 0) {
+                activity_map_direction_text.text = fromLocation[0].getAddressLine(0)
+                activity_map_direction_text.append(", ${fromLocation[0].postalCode}")
+            }
         }
         return false
     }
