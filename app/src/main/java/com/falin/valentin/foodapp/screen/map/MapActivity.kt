@@ -117,7 +117,9 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
             )
             if (fromLocation != null && fromLocation.size > 0) {
                 activity_map_direction_text.text = fromLocation[0].getAddressLine(0)
-                activity_map_direction_text.append(", ${fromLocation[0].postalCode}")
+                activity_map_direction_text.append(
+                    if (fromLocation[0].postalCode != null) ", ${fromLocation[0].postalCode}" else ""
+                )
             }
         }
         return false
