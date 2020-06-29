@@ -1,7 +1,7 @@
 package com.falin.valentin.foodapp.utils
 
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.models.domain.Product
 
 /**
  *  Generator class.
@@ -27,7 +27,12 @@ class Generator {
 
     private fun initProductList(): List<Any> {
         return (1..20).map {
-            Product(1, "Product №$it", it * 10 * (it + 3), "https://tinyurl.com/yyvx5cvp")
+            Product(
+                1,
+                "Product №$it",
+                it * 10 * (it + 3),
+                "https://tinyurl.com/yyvx5cvp"
+            )
         }
     }
 

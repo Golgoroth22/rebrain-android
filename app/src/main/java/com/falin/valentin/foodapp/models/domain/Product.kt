@@ -1,4 +1,4 @@
-package com.falin.valentin.foodapp.domain
+package com.falin.valentin.foodapp.models.domain
 
 /**
  * This is a data class.

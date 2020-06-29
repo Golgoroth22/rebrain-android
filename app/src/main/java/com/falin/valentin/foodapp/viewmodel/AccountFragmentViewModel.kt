@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.falin.valentin.foodapp.domain.UserUiResponse
+import com.falin.valentin.foodapp.models.ui.UserUiResponse
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
 import com.falin.valentin.foodapp.repository.AccountFragmentRepository
 import timber.log.Timber
@@ -34,7 +34,11 @@ class AccountFragmentViewModel(private val repository: AccountFragmentRepository
      * @param bitmap user avatar bitmap
      */
     fun setAvatar(bitmap: Bitmap) {
-        mResponseLiveData.postValue(UserUiResponse(isLoading = true))
+        mResponseLiveData.postValue(
+            UserUiResponse(
+                isLoading = true
+            )
+        )
         repository.setAvatar(
             bitmap,
             { unit -> receiveAvatarSuccessfulResponse(unit) },
@@ -52,12 +56,22 @@ class AccountFragmentViewModel(private val repository: AccountFragmentRepository
 
     private fun receiveUserSuccessfulResponse(u: UserResponse) {
         repository.setUserAvatarLink(u.avatar)
-        mResponseLiveData.postValue(UserUiResponse(u.convert(), isLoading = false))
+        mResponseLiveData.postValue(
+            UserUiResponse(
+                u.convert(),
+                isLoading = false
+            )
+        )
         Timber.i("AccountFragmentViewModel receiveUserSuccessfulResponse $u")
     }
 
     private fun receiveFailureResponse(t: Throwable) {
-        mResponseLiveData.postValue(UserUiResponse(isLoading = false, error = t))
+        mResponseLiveData.postValue(
+            UserUiResponse(
+                isLoading = false,
+                error = t
+            )
+        )
         Timber.e("AccountFragmentViewModel receiveAvatarFailureResponse ${t.message}")
     }
 

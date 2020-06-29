@@ -1,4 +1,4 @@
-package com.falin.valentin.foodapp.domain
+package com.falin.valentin.foodapp.models.domain
 
 /**
  * POJO class for display latitude and longitude.

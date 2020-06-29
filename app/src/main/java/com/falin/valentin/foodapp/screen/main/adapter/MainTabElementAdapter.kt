@@ -16,7 +16,7 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.falin.valentin.foodapp.R
-import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.models.domain.Product
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.screen.main.carousel.adapter.CarouselStatePageAdapter
 import com.google.android.material.tabs.TabLayout

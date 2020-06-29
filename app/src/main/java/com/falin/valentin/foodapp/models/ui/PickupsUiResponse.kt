@@ -1,4 +1,6 @@
-package com.falin.valentin.foodapp.domain
+package com.falin.valentin.foodapp.models.ui
+
+import com.falin.valentin.foodapp.models.domain.Pickup
 
 /**
  * This is a data class for work with [MapActivity].

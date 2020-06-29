@@ -3,7 +3,7 @@ package com.falin.valentin.foodapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.models.domain.Product
 import com.falin.valentin.foodapp.repository.FavoriteProductsRepository
 
 /**

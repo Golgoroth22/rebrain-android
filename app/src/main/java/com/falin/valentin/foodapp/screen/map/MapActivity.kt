@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.MapActivityViewModelFactoryModule
-import com.falin.valentin.foodapp.domain.Pickup
+import com.falin.valentin.foodapp.models.domain.Pickup
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.dialog.RationaleDialogFragment
 import com.falin.valentin.foodapp.utils.Logger

@@ -3,8 +3,8 @@ package com.falin.valentin.foodapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.falin.valentin.foodapp.domain.Pickup
-import com.falin.valentin.foodapp.domain.PickupsUiResponse
+import com.falin.valentin.foodapp.models.domain.Pickup
+import com.falin.valentin.foodapp.models.ui.PickupsUiResponse
 import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupResponse
 import com.falin.valentin.foodapp.repository.MapActivityRepository
 import com.google.android.gms.maps.model.Marker
@@ -24,7 +24,11 @@ class MapActivityViewModel(private val repository: MapActivityRepository) : View
      *
      */
     fun getPickups() {
-        mPickupsLiveData.postValue(PickupsUiResponse(isLoading = true))
+        mPickupsLiveData.postValue(
+            PickupsUiResponse(
+                isLoading = true
+            )
+        )
         repository.getPickups(
             { response -> receiveSuccessfulResponse(response) },
             { throwable -> receiveFailureResponse(throwable) })
@@ -42,12 +46,22 @@ class MapActivityViewModel(private val repository: MapActivityRepository) : View
     private fun receiveSuccessfulResponse(pickupsResponse: List<PickupResponse>) {
         val pickups = mutableListOf<Pickup>()
         pickupsResponse.forEach { pickups.add(it.convert()) }
-        mPickupsLiveData.postValue(PickupsUiResponse(pickups, isLoading = false))
+        mPickupsLiveData.postValue(
+            PickupsUiResponse(
+                pickups,
+                isLoading = false
+            )
+        )
         Timber.i("MapActivityViewModel receiveSuccessfulResponse $pickupsResponse")
     }
 
     private fun receiveFailureResponse(t: Throwable) {
-        mPickupsLiveData.postValue(PickupsUiResponse(isLoading = false, error = t))
+        mPickupsLiveData.postValue(
+            PickupsUiResponse(
+                isLoading = false,
+                error = t
+            )
+        )
         Timber.e("MapActivityViewModel receiveFailureResponse ${t.message}")
     }
 }

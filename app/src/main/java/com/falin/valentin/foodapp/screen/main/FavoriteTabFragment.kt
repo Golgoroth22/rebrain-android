@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.FavoriteProductListViewModelFactoryModule
-import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.models.domain.Product
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.main.adapter.FavoriteTabElementAdapter
