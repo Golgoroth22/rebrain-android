@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 
 /**
@@ -66,12 +67,11 @@ class RationaleDialogFragment : DialogFragment() {
          * cancelled.
          */
         fun newInstance(requestCode: Int = 0, finishOnCancel: Boolean): RationaleDialogFragment {
-            val arguments = Bundle().apply {
-                putInt(ARGUMENT_PERMISSION_REQUEST_CODE, requestCode)
-                putBoolean(ARGUMENT_FINISH_ACTIVITY, finishOnCancel)
-            }
             return RationaleDialogFragment().apply {
-                this.arguments = arguments
+                this.arguments = bundleOf(
+                    ARGUMENT_PERMISSION_REQUEST_CODE to requestCode,
+                    ARGUMENT_FINISH_ACTIVITY to finishOnCancel
+                )
             }
         }
     }
