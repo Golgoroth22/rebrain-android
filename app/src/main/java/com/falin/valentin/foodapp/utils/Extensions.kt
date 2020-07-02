@@ -72,7 +72,9 @@ inline fun <reified T> Context.launchActivity() {
  * @see androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
  */
 fun isPermissionGranted(
-    grantPermissions: Array<String>, grantResults: IntArray, permission: String
+    grantPermissions: Array<String>,
+    grantResults: IntArray,
+    permission: String
 ): Boolean {
     for (i in grantPermissions.indices) {
         if (permission == grantPermissions[i]) {
@@ -87,8 +89,10 @@ fun isPermissionGranted(
  * be shown to the user, displays a dialog that triggers the request.
  */
 fun requestPermission(
-    activity: AppCompatActivity, requestId: Int,
-    permission: String, finishActivity: Boolean
+    activity: AppCompatActivity,
+    requestId: Int,
+    permission: String,
+    finishActivity: Boolean
 ) {
     if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
         // Display a dialog with rationale.
