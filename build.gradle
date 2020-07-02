@@ -19,6 +19,7 @@ buildscript {
         kotlin = versions.kotlin
         lifecycle = versions.lifecycle
         lifecycle_viewmodel = versions.lifecycle_viewmodel
+        lifecycle_livedata = versions.lifecycle_livedata
         moshi = versions.moshi
         maps = versions.maps
         maps_places = versions.maps_places

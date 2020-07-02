@@ -18,15 +18,7 @@ class MapActivityRepository(
      * This method can be called to take pickups.
      *
      */
-    suspend fun getPickups(
-        onSuccess: (List<PickupResponse>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        try {
-            val response = service.getPickups(storage.getUserToken())
-            onSuccess.invoke(response)
-        } catch (e: Exception) {
-            onFailure.invoke(e)
-        }
+    suspend fun getPickups(): List<PickupResponse> {
+        return service.getPickups(storage.getUserToken())
     }
 }

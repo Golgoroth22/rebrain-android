@@ -200,7 +200,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
             ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         if (permissionResult == PackageManager.PERMISSION_GRANTED) {
             map.isMyLocationEnabled = true
-            viewModel.getPickups()
+//            viewModel.getPickups()
             getDeviceLocation()
         } else {
             requestPermission(
