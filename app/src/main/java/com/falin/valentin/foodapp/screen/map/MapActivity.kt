@@ -168,7 +168,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun showMarkers(markers: List<Pickup>) {
         markers.forEach {
-            val latLng = LatLng(it.location.lat, it.location.lon)
+            val latLng = LatLng(it.location.latitude, it.location.longitude)
             map.addMarker(MarkerOptions().position(latLng).title(it.name)).also { marker ->
                 marker.tag = it.id
             }

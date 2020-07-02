@@ -1,6 +1,6 @@
 package com.falin.valentin.foodapp.network.retrofit.pojo.pickups
 
-import com.falin.valentin.foodapp.models.domain.LatLng
+import com.falin.valentin.foodapp.models.domain.Location
 import com.falin.valentin.foodapp.models.domain.Pickup
 import com.falin.valentin.foodapp.network.retrofit.pojo.BaseResponse
 import com.squareup.moshi.Json
@@ -22,7 +22,7 @@ data class PickupResponse(
 
     override fun convert() = Pickup(
         id,
-        LatLng(
+        Location(
             location.lat,
             location.lon
         ),

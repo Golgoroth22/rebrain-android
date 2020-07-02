@@ -10,7 +10,7 @@ package com.falin.valentin.foodapp.models.domain
  */
 data class Pickup(
     val id: Int,
-    val location: LatLng,
+    val location: Location,
     val name: String,
     val workingHours: String
 )
