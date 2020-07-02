@@ -11,5 +11,5 @@ import retrofit2.http.Header
  */
 interface PickupsService {
     @GET("pickups/")
-    fun getPickups(@Header("x-access-token") token: String): Call<List<PickupResponse>>
+    suspend fun getPickups(@Header("x-access-token") token: String): List<PickupResponse>
 }

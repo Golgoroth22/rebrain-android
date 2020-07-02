@@ -4,12 +4,17 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.falin.valentin.foodapp.models.domain.Pickup
 import com.falin.valentin.foodapp.models.ui.PickupsUiResponse
 import com.falin.valentin.foodapp.network.retrofit.pojo.pickups.PickupResponse
 import com.falin.valentin.foodapp.repository.MapActivityRepository
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 import timber.log.Timber
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -28,14 +33,14 @@ class MapActivityViewModel(private val repository: MapActivityRepository) : View
      *
      */
     fun getPickups() {
-        mPickupsLiveData.postValue(
-            PickupsUiResponse(
-                isLoading = true
-            )
-        )
-        repository.getPickups(
-            { response -> receiveSuccessfulResponse(response) },
-            { throwable -> receiveFailureResponse(throwable) })
+        mPickupsLiveData.postValue(PickupsUiResponse(isLoading = true))
+        viewModelScope.launch {
+            withContext(this.coroutineContext + Dispatchers.IO) {
+                repository.getPickups(
+                    { response -> receiveSuccessfulResponse(response) },
+                    { throwable -> receiveFailureResponse(throwable) })
+            }
+        }
     }
 
     /**
