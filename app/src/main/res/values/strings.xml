@@ -51,4 +51,8 @@
 
     <!-- Fragment Account -->
     <string name="fragment_account_logout_text">ВЫХОД</string>
+
+    <!-- Fragment RationaleDialog -->
+    <string name="rationale_permission_location_dialog">Для отображения пунктов самовывоза требуется доступ к вашему местоположению</string>
+    <string name="rationale_permission_location_required_toast">Доступ к отображению местоположения не разрешен :(</string>
 </resources>

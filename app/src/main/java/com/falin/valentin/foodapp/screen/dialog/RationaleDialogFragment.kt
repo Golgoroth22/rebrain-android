@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import com.falin.valentin.foodapp.R
 
 /**
  * A dialog that explains the use of the location permission and requests the necessary
@@ -27,7 +28,7 @@ class RationaleDialogFragment : DialogFragment() {
         finishActivity =
             arguments?.getBoolean(ARGUMENT_FINISH_ACTIVITY) ?: false
         return AlertDialog.Builder(activity)
-            .setMessage("R.string.permission_rationale_location")
+            .setMessage(R.string.rationale_permission_location_dialog)
             .setPositiveButton(android.R.string.ok) { dialog, which -> // After click on Ok, request the permission.
                 ActivityCompat.requestPermissions(
                     activity!!,
@@ -44,7 +45,7 @@ class RationaleDialogFragment : DialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         if (finishActivity) {
-            Toast.makeText(activity, "permission_required_toast", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, R.string.rationale_permission_location_required_toast, Toast.LENGTH_SHORT).show()
             activity?.finish()
         }
     }
