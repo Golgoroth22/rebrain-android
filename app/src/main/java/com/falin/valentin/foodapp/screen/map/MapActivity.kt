@@ -4,10 +4,8 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -15,6 +13,7 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.MapActivityViewModelFactoryModule
 import com.falin.valentin.foodapp.models.domain.Pickup
+import com.falin.valentin.foodapp.models.ui.PickupInfoUi
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.dialog.RationaleDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
@@ -33,7 +32,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_map.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class MapActivity : BaseActivity(), OnMapReadyCallback {
@@ -111,25 +109,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun onMarkerClick(marker: Marker): Boolean {
-        val pickup = viewModel.getPickup(marker)
-        if (pickup != null) {
-            getDeviceLocation()
-            activity_map_pickup_title_text.text = pickup.name
-            activity_map_work_time_text.text = pickup.workingHours
-            activity_map_pickup_root_layout.visibility = View.VISIBLE
-            val fromLocation = Geocoder(this, Locale.getDefault()).getFromLocation(
-                marker.position.latitude,
-                marker.position.longitude,
-                1
-            )
-            if (fromLocation != null && fromLocation.size > 0) {
-                activity_map_direction_text.text = fromLocation[0].getAddressLine(0)
-                activity_map_direction_text.append(
-                    if (fromLocation[0].postalCode != null) ", ${fromLocation[0].postalCode}" else ""
-                )
-            }
-            activity_map_pickup_distance_text.text = viewModel.getDistance(lastKnownLocation, marker.position)
-        }
+        viewModel.markerClicked(marker, lastKnownLocation)
         return false
     }
 
@@ -150,6 +130,20 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
                     activity_map_root_layout, response.error.localizedMessage,
                     Snackbar.LENGTH_LONG
                 ).show()
+            }
+        })
+        viewModel.pickupInfoLiveData.observe(this, Observer { pickupInfoUi ->
+            activity_map_pickup_root_layout.isVisible = true
+            activity_map_pickup_title_text.text = pickupInfoUi.name
+            activity_map_work_time_text.text = pickupInfoUi.workingHours
+            activity_map_address_text.text = pickupInfoUi.address
+            if (pickupInfoUi.distance != PickupInfoUi.LOCATION_ERROR_CODE) {
+                activity_map_pickup_distance_text.isVisible = true
+                "${pickupInfoUi.distance}м".also { distance ->
+                    activity_map_pickup_distance_text.text = distance
+                }
+            } else {
+                activity_map_pickup_distance_text.isVisible = false
             }
         })
     }
@@ -200,7 +194,6 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
             ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         if (permissionResult == PackageManager.PERMISSION_GRANTED) {
             map.isMyLocationEnabled = true
-//            viewModel.getPickups()
             getDeviceLocation()
         } else {
             requestPermission(

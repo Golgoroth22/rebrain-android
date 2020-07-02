@@ -21,8 +21,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activity_map_pickup_root_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/activity_map_pickup_title_text"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/activity_map_direction_image"
+            android:id="@+id/activity_map_address_image"
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginStart="18dp"
@@ -61,7 +61,7 @@
             app:layout_constraintTop_toBottomOf="@+id/activity_map_pickup_title_text" />
 
         <TextView
-            android:id="@+id/activity_map_direction_text"
+            android:id="@+id/activity_map_address_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -71,10 +71,10 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/Text.Regular.12.Grey"
-            app:layout_constraintBottom_toBottomOf="@+id/activity_map_direction_image"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_map_address_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/activity_map_direction_image"
-            app:layout_constraintTop_toTopOf="@+id/activity_map_direction_image" />
+            app:layout_constraintStart_toEndOf="@+id/activity_map_address_image"
+            app:layout_constraintTop_toTopOf="@+id/activity_map_address_image" />
 
         <ImageView
             android:id="@+id/activity_map_work_time_image"
@@ -85,7 +85,7 @@
             android:layout_marginTop="6dp"
             android:src="@drawable/ic_work_time_13"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_map_direction_text" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_map_address_text" />
 
         <TextView
             android:id="@+id/activity_map_work_time_text"
