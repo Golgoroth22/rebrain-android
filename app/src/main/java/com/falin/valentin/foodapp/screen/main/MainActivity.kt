@@ -3,6 +3,7 @@ package com.falin.valentin.foodapp.screen.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.BaseFragment
@@ -64,6 +65,11 @@ class MainActivity : BaseActivity() {
         initToolbar()
     }
 
+    override fun onResume() {
+        super.onResume()
+        changeTitle()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
@@ -87,6 +93,12 @@ class MainActivity : BaseActivity() {
     private fun initToolbar() {
         custom_toolbar.title = getString(R.string.app_name)
         setSupportActionBar(custom_toolbar)
+    }
+
+    private fun changeTitle() {
+        Handler().postDelayed({
+            custom_toolbar.title = "New title text"
+        }, 1000)
     }
 
     private fun setBottomBarVisibility(isVisible: Boolean) {
