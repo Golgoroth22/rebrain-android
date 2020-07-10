@@ -95,11 +95,9 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(custom_toolbar)
     }
 
-    private fun changeTitle() {
-        Handler().postDelayed({
-            custom_toolbar.title = "New title text"
-        }, 1000)
-    }
+    private fun changeTitle() = Handler().postDelayed({
+        custom_toolbar.title = "New title text"
+    }, 1000)
 
     private fun setBottomBarVisibility(isVisible: Boolean) {
         if (isVisible) {
