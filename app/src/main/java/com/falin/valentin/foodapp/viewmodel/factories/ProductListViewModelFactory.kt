@@ -1,11 +1,11 @@
-package com.falin.valentin.foodapp.viewmodel
+package com.falin.valentin.foodapp.viewmodel.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.falin.valentin.foodapp.repository.FirebaseCloudStorageRepository
 import com.falin.valentin.foodapp.repository.ProductsDisplayModeRepository
 import com.falin.valentin.foodapp.repository.ProductsRepository
-import okhttp3.OkHttpClient
+import com.falin.valentin.foodapp.viewmodel.ProductListViewModel
 import javax.inject.Inject
 
 /**

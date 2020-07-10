@@ -40,6 +40,8 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$androidx"
     implementation "com.google.android.material:material:$androidx"
     implementation "androidx.core:core-ktx:$androidx_ktx"
+    implementation "com.google.android.gms:play-services-maps:$maps"
+    implementation "com.google.android.libraries.places:places:$maps_places"
 
     /* Dagger 2 */
     implementation "com.google.dagger:dagger:$dagger2"
@@ -64,6 +66,7 @@ dependencies {
     /* Lifecycle */
     implementation "android.arch.lifecycle:extensions:$lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_livedata"
     kapt "android.arch.lifecycle:compiler:$lifecycle"
 
     /* Moshi */

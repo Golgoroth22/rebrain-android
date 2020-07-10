@@ -1,6 +1,6 @@
 package com.falin.valentin.foodapp.repository
 
-import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.models.domain.Product
 import com.falin.valentin.foodapp.interactor.FavoriteProductsStorage
 import com.falin.valentin.foodapp.interactor.Storage
 import com.falin.valentin.foodapp.interactor.StorageJob

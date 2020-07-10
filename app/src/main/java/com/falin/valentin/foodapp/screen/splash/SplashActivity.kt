@@ -10,7 +10,7 @@ import com.falin.valentin.foodapp.screen.intro.IntroActivity
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.IntroViewModel
-import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.IntroViewModelFactory
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext

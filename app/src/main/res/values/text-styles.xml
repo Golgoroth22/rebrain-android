@@ -29,6 +29,10 @@
         <item name="android:textSize">28sp</item>
     </style>
 
+    <style name="Text.Bold.18">
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="Text.Bold.22">
         <item name="android:textSize">22sp</item>
     </style>
@@ -75,6 +79,10 @@
 
     <style name="Text.Bold.42.White">
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Text.Bold.18.Black">
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="Text.Bold.22.Black">

@@ -114,6 +114,15 @@ interface AppComponent {
     ): AccountFragmentComponent
 
     /**
+     * This method can be called for init [MapActivityComponent] dagger subcomponent.
+     *
+     * @return [MapActivityComponent]
+     */
+    fun initMapActivityComponent(
+        mapActivityViewModelFactoryModule: MapActivityViewModelFactoryModule
+    ): MapActivityComponent
+
+    /**
      * This method can be called for inject in [ProductsRepository]
      *
      */

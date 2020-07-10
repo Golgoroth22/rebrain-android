@@ -1,10 +1,7 @@
 package com.falin.valentin.foodapp.di.module
 
 import com.falin.valentin.foodapp.di.scope.PerApplication
-import com.falin.valentin.foodapp.network.retrofit.service.LoginService
-import com.falin.valentin.foodapp.network.retrofit.service.ProductsService
-import com.falin.valentin.foodapp.network.retrofit.service.UserAvatarService
-import com.falin.valentin.foodapp.network.retrofit.service.UserService
+import com.falin.valentin.foodapp.network.retrofit.service.*
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -57,5 +54,16 @@ class RetrofitApiModule {
     @PerApplication
     fun provideUserService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
+    }
+
+    /**
+     * This method can be called for get [PickupsService].
+     *
+     * @return [PickupsService]
+     */
+    @Provides
+    @PerApplication
+    fun providePickupsService(retrofit: Retrofit): PickupsService {
+        return retrofit.create(PickupsService::class.java)
     }
 }

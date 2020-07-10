@@ -1,7 +1,8 @@
-package com.falin.valentin.foodapp.viewmodel
+package com.falin.valentin.foodapp.viewmodel.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
 
 /**
  * [ViewModelProvider.Factory] subclass for creation of [MainActivityViewModel] class.

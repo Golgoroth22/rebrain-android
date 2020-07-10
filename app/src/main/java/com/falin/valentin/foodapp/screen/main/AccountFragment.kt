@@ -18,14 +18,15 @@ import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.RebrainApp
 import com.falin.valentin.foodapp.di.module.UserDataStorageModule
 import com.falin.valentin.foodapp.screen.BaseFragment
+import com.falin.valentin.foodapp.screen.map.MapActivity
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
+import com.falin.valentin.foodapp.utils.launchActivity
 import com.falin.valentin.foodapp.viewmodel.AccountFragmentViewModel
-import com.falin.valentin.foodapp.viewmodel.AccountFragmentViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.AccountFragmentViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account.view.*
-import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
 /**
@@ -84,7 +85,10 @@ class AccountFragment : BaseFragment() {
         when (requestCode) {
             CAMERA_PERMISSION_REQUEST -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), CAMERA_REQUEST_CODE)
+                    startActivityForResult(
+                        Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+                        CAMERA_REQUEST_CODE
+                    )
                 } else {
                     Snackbar.make(
                         fragment_account_rootLayout,
@@ -113,7 +117,7 @@ class AccountFragment : BaseFragment() {
         }
 
         rootView.fragment_account_pickupPointsButton.setOnClickListener {
-            toast("In progress")
+            requireActivity().launchActivity<MapActivity>()
         }
     }
 

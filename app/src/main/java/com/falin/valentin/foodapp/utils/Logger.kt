@@ -46,7 +46,7 @@ class Logger(lifecycle: Lifecycle, private val owner: Owner) : LifecycleObserver
     }
 
     enum class Owner {
-        MAIN_ACTIVITY, INTRO_ACTIVITY, SPLASH_ACTIVITY,
+        MAIN_ACTIVITY, INTRO_ACTIVITY, SPLASH_ACTIVITY, MAP_ACTIVITY,
         ACCOUNT_TAB_FRAGMENT, MAIN_TAB_FRAGMENT, FAVORITE_TAB_FRAGMENT, CAROUSEL_FRAGMENT, AUTH_FRAGMENT, ACCOUNT_FRAGMENT
     }
 }

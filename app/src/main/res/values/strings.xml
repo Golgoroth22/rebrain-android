@@ -12,6 +12,11 @@
     <string name="intro_logo_text">Intro Logo</string>
     <string name="intro_status">intro_status</string>
 
+    <!-- Activity Map -->
+    <string name="activity_map_title">Map</string>
+    <string name="activity_map_toolbar_title">Самовывоз</string>
+    <string name="activity_map_select_pickup_button">ВЫБРАТЬ</string>
+
     <!-- Fragment`s -->
     <!-- Carousel layout -->
     <string name="carousel_image">Carousel Image</string>
@@ -46,4 +51,8 @@
 
     <!-- Fragment Account -->
     <string name="fragment_account_logout_text">ВЫХОД</string>
+
+    <!-- Fragment RationaleDialog -->
+    <string name="rationale_permission_location_dialog">Для отображения пунктов самовывоза требуется доступ к вашему местоположению</string>
+    <string name="rationale_permission_location_required_toast">Доступ к отображению местоположения не разрешен :(</string>
 </resources>

@@ -4,8 +4,7 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.falin.valentin.foodapp.domain.UserUiResponse
-import com.falin.valentin.foodapp.network.Constants
+import com.falin.valentin.foodapp.models.ui.UserUiResponse
 import com.falin.valentin.foodapp.network.retrofit.pojo.login.UserResponse
 import com.falin.valentin.foodapp.repository.AuthorizationRepository
 import timber.log.Timber
@@ -22,7 +21,11 @@ class AuthorizationFragmentViewModel(private val repository: AuthorizationReposi
     fun isUserAuth() = repository.isUserAuthorized()
 
     fun tryToLogin(email: String, pass: String) {
-        mResponseLiveData.postValue(UserUiResponse(isLoading = true))
+        mResponseLiveData.postValue(
+            UserUiResponse(
+                isLoading = true
+            )
+        )
         if (isEmailAndPasswordValid(email, pass)) {
             repository.tryToSendLoginRequest(
                 email,
@@ -30,19 +33,33 @@ class AuthorizationFragmentViewModel(private val repository: AuthorizationReposi
                 { response -> receiveSuccessfulResponse(response) },
                 { throwable -> receiveFailureResponse(throwable) })
         } else {
-            mResponseLiveData.postValue(UserUiResponse(isLoading = false))
+            mResponseLiveData.postValue(
+                UserUiResponse(
+                    isLoading = false
+                )
+            )
         }
     }
 
     private fun receiveSuccessfulResponse(response: UserResponse) {
         repository.setUserAuthorized()
         repository.setUserData(response)
-        mResponseLiveData.postValue(UserUiResponse(response.convert(), isLoading = false))
+        mResponseLiveData.postValue(
+            UserUiResponse(
+                response.convert(),
+                isLoading = false
+            )
+        )
         Timber.i("AuthorizationFragmentViewModel receiveSuccessfulResponse $response")
     }
 
     private fun receiveFailureResponse(t: Throwable) {
-        mResponseLiveData.postValue(UserUiResponse(isLoading = false, error = t))
+        mResponseLiveData.postValue(
+            UserUiResponse(
+                isLoading = false,
+                error = t
+            )
+        )
         Timber.e("AuthorizationFragmentViewModel receiveFailureResponse ${t.message}")
     }
 

@@ -1,8 +1,9 @@
-package com.falin.valentin.foodapp.viewmodel
+package com.falin.valentin.foodapp.viewmodel.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.falin.valentin.foodapp.repository.IntroInfoRepository
+import com.falin.valentin.foodapp.viewmodel.IntroViewModel
 import javax.inject.Inject
 
 /**
@@ -13,6 +14,8 @@ import javax.inject.Inject
 class IntroViewModelFactory @Inject constructor(private val introRepository: IntroInfoRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return IntroViewModel(introRepository) as T
+        return IntroViewModel(
+            introRepository
+        ) as T
     }
 }

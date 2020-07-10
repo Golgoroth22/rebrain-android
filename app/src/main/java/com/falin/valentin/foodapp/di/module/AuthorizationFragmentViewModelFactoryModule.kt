@@ -4,8 +4,8 @@ import com.falin.valentin.foodapp.di.scope.PerScreen
 import com.falin.valentin.foodapp.interactor.AuthorizationStorage
 import com.falin.valentin.foodapp.network.retrofit.service.LoginService
 import com.falin.valentin.foodapp.repository.AuthorizationRepository
-import com.falin.valentin.foodapp.viewmodel.AuthorizationFragmentViewModelFactory
-import com.falin.valentin.foodapp.viewmodel.FavoriteProductListViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.AuthorizationFragmentViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.FavoriteProductListViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -26,6 +26,8 @@ class AuthorizationFragmentViewModelFactoryModule {
         storage: AuthorizationStorage,
         service: LoginService
     ): AuthorizationFragmentViewModelFactory {
-        return AuthorizationFragmentViewModelFactory(AuthorizationRepository(storage, storage, service))
+        return AuthorizationFragmentViewModelFactory(
+            AuthorizationRepository(storage, storage, service)
+        )
     }
 }

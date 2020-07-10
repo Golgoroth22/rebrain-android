@@ -1,13 +1,19 @@
 package com.falin.valentin.foodapp.utils
 
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.falin.valentin.foodapp.screen.dialog.RationaleDialogFragment
 
 /**
  * This [FragmentActivity] extension method can be called for create [ViewModel].
@@ -48,4 +54,52 @@ fun EditText.setOnTextChanged(onTextChanged: (String) -> Unit) {
 
         override fun afterTextChanged(s: Editable?) {}
     })
+}
+
+/**
+ * This [Context] extension method can be called for simple start new activity.
+ *
+ * @param T activity class
+ */
+inline fun <reified T> Context.launchActivity() {
+    startActivity(Intent(this, T::class.java))
+}
+
+/**
+ * Checks if the result contains a [PackageManager.PERMISSION_GRANTED] result for a
+ * permission from a runtime permissions request.
+ *
+ * @see androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
+ */
+fun isPermissionGranted(
+    grantPermissions: Array<String>,
+    grantResults: IntArray,
+    permission: String
+): Boolean {
+    for (i in grantPermissions.indices) {
+        if (permission == grantPermissions[i]) {
+            return grantResults[i] == PackageManager.PERMISSION_GRANTED
+        }
+    }
+    return false
+}
+
+/**
+ * Requests the fine location permission. If a rationale with an additional explanation should
+ * be shown to the user, displays a dialog that triggers the request.
+ */
+fun requestPermission(
+    activity: AppCompatActivity,
+    requestId: Int,
+    permission: String,
+    finishActivity: Boolean
+) {
+    if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+        // Display a dialog with rationale.
+        RationaleDialogFragment.newInstance(requestId, finishActivity)
+            .show(activity.supportFragmentManager, "dialog")
+    } else {
+        // Location permission has not been granted yet, request it.
+        ActivityCompat.requestPermissions(activity, arrayOf(permission), requestId)
+    }
 }

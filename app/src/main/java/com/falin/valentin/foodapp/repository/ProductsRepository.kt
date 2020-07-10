@@ -1,6 +1,6 @@
 package com.falin.valentin.foodapp.repository
 
-import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.models.domain.Product
 import com.falin.valentin.foodapp.interactor.StorageJob
 import com.falin.valentin.foodapp.network.retrofit.pojo.products.ProductsResponse
 import com.falin.valentin.foodapp.network.retrofit.service.ProductsService

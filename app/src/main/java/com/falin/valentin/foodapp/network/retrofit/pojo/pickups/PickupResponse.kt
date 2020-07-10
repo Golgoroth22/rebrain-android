@@ -1,5 +1,8 @@
 package com.falin.valentin.foodapp.network.retrofit.pojo.pickups
 
+import com.falin.valentin.foodapp.models.domain.Location
+import com.falin.valentin.foodapp.models.domain.Pickup
+import com.falin.valentin.foodapp.network.retrofit.pojo.BaseResponse
 import com.squareup.moshi.Json
 
 /**
@@ -15,4 +18,15 @@ data class PickupResponse(
     @Json(name = "location") val location: LatLngResponse,
     @Json(name = "name") val name: String,
     @Json(name = "workingHours") val workingHours: String
-)
+) : BaseResponse<Pickup> {
+
+    override fun convert() = Pickup(
+        id,
+        Location(
+            location.lat,
+            location.lon
+        ),
+        name,
+        workingHours
+    )
+}

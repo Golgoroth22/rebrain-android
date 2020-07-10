@@ -1,6 +1,6 @@
 package com.falin.valentin.foodapp.network.retrofit.pojo.products
 
-import com.falin.valentin.foodapp.domain.Product
+import com.falin.valentin.foodapp.models.domain.Product
 import com.squareup.moshi.Json
 
 /**
@@ -19,5 +19,10 @@ data class ProductResponse(
     @Json(name = "price") val price: Double,
     @Json(name = "isFavorite") val isFavorite: Boolean
 ) {
-    fun convertTo() = Product(id, name, price.toInt(), image)
+    fun convertTo() = Product(
+        id,
+        name,
+        price.toInt(),
+        image
+    )
 }

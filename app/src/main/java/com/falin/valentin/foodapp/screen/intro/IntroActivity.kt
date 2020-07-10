@@ -12,7 +12,7 @@ import com.falin.valentin.foodapp.screen.main.MainActivity
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.utils.injectViewModel
 import com.falin.valentin.foodapp.viewmodel.IntroViewModel
-import com.falin.valentin.foodapp.viewmodel.IntroViewModelFactory
+import com.falin.valentin.foodapp.viewmodel.factories.IntroViewModelFactory
 import kotlinx.android.synthetic.main.activity_intro.*
 import javax.inject.Inject
 

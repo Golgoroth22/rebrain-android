@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.falin.valentin.foodapp">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE" />
+    <uses-permission android:name="android.permission.FINE_LOCATION" />
 
     <application
         android:name=".RebrainApp"
@@ -14,6 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".screen.map.MapActivity"
+            android:label="@string/activity_map_title"
+            android:parentActivityName=".screen.main.MainActivity"/>
         <activity
             android:name=".screen.intro.IntroActivity"
             android:taskAffinity="@string/start_tusk"
@@ -31,11 +42,10 @@
         </activity>
         <activity android:name=".screen.BaseActivity" />
 
-        <service
-            android:name=".service.AppFirebaseMessaging">
+        <service android:name=".service.AppFirebaseMessaging">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>
