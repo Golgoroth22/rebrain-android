@@ -3,7 +3,6 @@ package com.falin.valentin.foodapp.screen.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.BaseFragment
@@ -19,6 +18,7 @@ import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
 import com.falin.valentin.foodapp.viewmodel.factories.MainActivityViewModelFactory
+import kotlin.concurrent.thread
 
 /**
  * [BaseActivity] subclass to work with MainActivity our application and showing it.
@@ -95,9 +95,11 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(custom_toolbar)
     }
 
-    private fun changeTitle() = Handler().postDelayed({
+    private fun changeTitle() = thread {
+        Thread.sleep(1000)
         custom_toolbar.title = "New title text"
-    }, 1000)
+    }
+
 
     private fun setBottomBarVisibility(isVisible: Boolean) {
         if (isVisible) {
