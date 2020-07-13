@@ -18,6 +18,7 @@ import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
 import com.falin.valentin.foodapp.viewmodel.factories.MainActivityViewModelFactory
+import kotlin.concurrent.thread
 
 /**
  * [BaseActivity] subclass to work with MainActivity our application and showing it.
@@ -64,6 +65,11 @@ class MainActivity : BaseActivity() {
         initToolbar()
     }
 
+    override fun onResume() {
+        super.onResume()
+        changeTitle()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
@@ -88,6 +94,12 @@ class MainActivity : BaseActivity() {
         custom_toolbar.title = getString(R.string.app_name)
         setSupportActionBar(custom_toolbar)
     }
+
+    private fun changeTitle() = thread {
+        Thread.sleep(1000)
+        custom_toolbar.title = "New title text"
+    }
+
 
     private fun setBottomBarVisibility(isVisible: Boolean) {
         if (isVisible) {
