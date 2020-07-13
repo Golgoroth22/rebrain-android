@@ -3,6 +3,7 @@ package com.falin.valentin.foodapp.screen.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.BaseFragment
@@ -29,6 +30,11 @@ class MainActivity : BaseActivity() {
         get() = Logger.Owner.MAIN_ACTIVITY
 
     lateinit var activityViewModel: MainActivityViewModel
+
+    private val handler = Handler(Handler.Callback {
+        custom_toolbar.title = "New title text"
+        return@Callback false
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,8 +102,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun changeTitle() = thread {
-        Thread.sleep(1000)
-        custom_toolbar.title = "New title text"
+        handler.sendEmptyMessage(1)
     }
 
 
