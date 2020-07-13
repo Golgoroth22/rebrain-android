@@ -102,6 +102,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun changeTitle() = thread {
+        Thread.sleep(1000)
         handler.sendEmptyMessage(1)
     }
 
