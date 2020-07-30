@@ -26,6 +26,8 @@ buildscript {
         okhttp = versions.okhttp
         retrofit2 = versions.retrofit2
         retrofit2_moshi_conv = versions.retrofit2_moshi_conv
+        rxjava2 = versions.rxjava2
+        rxandroid = versions.rxandroid
         timber = versions.timber
         test_runner = versions.test_runner
         test_espresso_core = versions.test_espresso_core

@@ -69,6 +69,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_livedata"
     kapt "android.arch.lifecycle:compiler:$lifecycle"
 
+    /* RxJava2 */
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava2"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
+
     /* Moshi */
     implementation "com.squareup.moshi:moshi:$moshi"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi"
