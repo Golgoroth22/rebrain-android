@@ -19,6 +19,10 @@ import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
 import com.falin.valentin.foodapp.viewmodel.factories.MainActivityViewModelFactory
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
 /**
@@ -30,11 +34,6 @@ class MainActivity : BaseActivity() {
         get() = Logger.Owner.MAIN_ACTIVITY
 
     lateinit var activityViewModel: MainActivityViewModel
-
-    private val handler = Handler(Handler.Callback {
-        custom_toolbar.title = "New title text"
-        return@Callback false
-    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,10 +100,13 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(custom_toolbar)
     }
 
-    private fun changeTitle() = thread {
-        handler.postDelayed({
-            handler.sendEmptyMessage(1)
-        }, 1000)
+    private fun changeTitle() {
+        Observable
+            .timer(2, TimeUnit.SECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                custom_toolbar.title = "New title text"
+            }
     }
 
 
