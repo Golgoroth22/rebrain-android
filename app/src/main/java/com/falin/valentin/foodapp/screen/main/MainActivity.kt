@@ -21,6 +21,7 @@ import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
 import com.falin.valentin.foodapp.viewmodel.factories.MainActivityViewModelFactory
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.subjects.PublishSubject
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
@@ -34,6 +35,7 @@ class MainActivity : BaseActivity() {
         get() = Logger.Owner.MAIN_ACTIVITY
 
     lateinit var activityViewModel: MainActivityViewModel
+    private val source = PublishSubject.create<Unit>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +70,9 @@ class MainActivity : BaseActivity() {
             }
         })
         initToolbar()
+        source.subscribe {
+            custom_toolbar.title = "New title text"
+        }
     }
 
     override fun onResume() {
@@ -101,12 +106,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun changeTitle() {
-        Observable
-            .timer(2, TimeUnit.SECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                custom_toolbar.title = "New title text"
-            }
+        source.onNext(Unit)
     }
 
 
