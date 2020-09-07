@@ -3,28 +3,25 @@ package com.falin.valentin.foodapp.screen.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.R
 import com.falin.valentin.foodapp.screen.BaseActivity
 import com.falin.valentin.foodapp.screen.BaseFragment
 import com.falin.valentin.foodapp.screen.custom_view.MainTabType
 import com.falin.valentin.foodapp.screen.custom_view.OnClickCustomListener
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_toolbar.*
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import androidx.lifecycle.ViewModelProviders
 import com.falin.valentin.foodapp.screen.dialog.ExitDialogFragment
 import com.falin.valentin.foodapp.utils.Logger
 import com.falin.valentin.foodapp.viewmodel.MainActivityViewModel
 import com.falin.valentin.foodapp.viewmodel.factories.MainActivityViewModelFactory
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.PublishSubject
-import java.util.*
-import java.util.concurrent.TimeUnit
-import kotlin.concurrent.thread
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
+import timber.log.Timber
 
 /**
  * [BaseActivity] subclass to work with MainActivity our application and showing it.
@@ -35,7 +32,10 @@ class MainActivity : BaseActivity() {
         get() = Logger.Owner.MAIN_ACTIVITY
 
     lateinit var activityViewModel: MainActivityViewModel
-    private val source = PublishSubject.create<Unit>()
+    private val titleSubject = PublishSubject.create<Unit>()
+    private val counterSubject = PublishSubject.create<Int>()
+    private lateinit var doSubject: Observable<Boolean>
+    private var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,9 +70,19 @@ class MainActivity : BaseActivity() {
             }
         })
         initToolbar()
-        source.subscribe {
-            custom_toolbar.title = "New title text"
+        titleSubject.subscribe {
+            if (count >= 5) {
+                custom_toolbar.title = "New title text"
+            }
         }
+        counterSubject.subscribe {
+            count += it
+            Timber.i("MainActivity counterSubject $count")
+        }
+        doSubject = Observable.combineLatest(
+            titleSubject,
+            counterSubject,
+            BiFunction { _, counter -> counter > 5 })
     }
 
     override fun onResume() {
@@ -106,7 +116,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun changeTitle() {
-        source.onNext(Unit)
+        counterSubject.onNext(1)
+        titleSubject.onNext(Unit)
     }
 
 
